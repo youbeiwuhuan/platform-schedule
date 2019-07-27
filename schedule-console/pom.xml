@@ -11,5 +11,11 @@
 
     <artifactId>schedule-console</artifactId>
 
+    <dependencies>
+
+
+
+    </dependencies>
+
 
 </project>
