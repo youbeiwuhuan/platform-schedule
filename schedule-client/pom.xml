@@ -22,6 +22,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.courage</groupId>
+            <artifactId>platformrpc-remoting</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
 
 
