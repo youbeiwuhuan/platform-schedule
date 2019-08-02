@@ -15,6 +15,7 @@
         <module>schedule-console</module>
         <module>schedule-server</module>
         <module>schedule-rpc</module>
+        <module>schedule-core</module>
     </modules>
 
 </project>
