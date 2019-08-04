@@ -1,7 +1,6 @@
 package com.courage.platform.schedule.console.core.route;
 
 import com.courage.platform.schedule.console.core.route.strategy.*;
-import com.xxl.job.admin.core.route.strategy.*;
 import com.courage.platform.schedule.console.core.util.I18nUtil;
 
 /**

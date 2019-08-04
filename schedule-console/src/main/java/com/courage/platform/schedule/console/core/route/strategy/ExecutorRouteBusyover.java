@@ -3,9 +3,9 @@ package com.courage.platform.schedule.console.core.route.strategy;
 import com.courage.platform.schedule.console.core.conf.XxlJobScheduler;
 import com.courage.platform.schedule.console.core.route.ExecutorRouter;
 import com.courage.platform.schedule.console.core.util.I18nUtil;
-import com.xxl.job.core.biz.ExecutorBiz;
-import com.xxl.job.core.biz.model.ReturnT;
-import com.xxl.job.core.biz.model.TriggerParam;
+import com.courage.platform.schedule.core.biz.ExecutorBiz;
+import com.courage.platform.schedule.core.biz.model.ReturnT;
+import com.courage.platform.schedule.core.biz.model.TriggerParam;
 
 import java.util.List;
 

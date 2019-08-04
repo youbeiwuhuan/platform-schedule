@@ -3,7 +3,7 @@ package com.courage.platform.schedule.console.controller;
 import com.courage.platform.schedule.console.controller.annotation.PermissionLimit;
 import com.courage.platform.schedule.console.service.LoginService;
 import com.courage.platform.schedule.console.service.XxlJobService;
-import com.xxl.job.core.biz.model.ReturnT;
+import com.courage.platform.schedule.core.biz.model.ReturnT;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

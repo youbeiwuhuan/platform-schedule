@@ -192,11 +192,11 @@
 <input type="hidden" name="glueRemark" value="GLUE代码初始化" >
 <textarea name="glueSource" style="display:none;" ></textarea>
 <textarea class="glueSource_java" style="display:none;" >
-package com.xxl.job.service.handler;
+package com.courage.platform.schedule.service.handler;
 
-import com.xxl.job.core.log.XxlJobLogger;
-import com.xxl.job.core.biz.model.ReturnT;
-import com.xxl.job.core.handler.IJobHandler;
+import com.courage.platform.schedule.core.log.XxlJobLogger;
+import com.courage.platform.schedule.core.biz.model.ReturnT;
+import com.courage.platform.schedule.core.handler.IJobHandler;
 
 public class DemoGlueJobHandler extends IJobHandler {
 

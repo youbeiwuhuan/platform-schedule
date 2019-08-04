@@ -2,7 +2,7 @@ package com.courage.platform.schedule.console.service;
 
 
 import com.courage.platform.schedule.console.core.model.XxlJobInfo;
-import com.xxl.job.core.biz.model.ReturnT;
+import com.courage.platform.schedule.core.biz.model.ReturnT;
 
 import java.util.Date;
 import java.util.Map;

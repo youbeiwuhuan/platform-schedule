@@ -6,7 +6,7 @@ import com.courage.platform.schedule.console.core.model.XxlJobInfo;
 import com.courage.platform.schedule.console.core.model.XxlJobLog;
 import com.courage.platform.schedule.console.core.trigger.TriggerTypeEnum;
 import com.courage.platform.schedule.console.core.util.I18nUtil;
-import com.xxl.job.core.biz.model.ReturnT;
+import com.courage.platform.schedule.core.biz.model.ReturnT;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mail.javamail.MimeMessageHelper;

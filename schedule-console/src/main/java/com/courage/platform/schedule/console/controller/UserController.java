@@ -7,7 +7,7 @@ import com.courage.platform.schedule.console.core.util.I18nUtil;
 import com.courage.platform.schedule.console.dao.XxlJobGroupDao;
 import com.courage.platform.schedule.console.dao.XxlJobUserDao;
 import com.courage.platform.schedule.console.service.LoginService;
-import com.xxl.job.core.biz.model.ReturnT;
+import com.courage.platform.schedule.core.biz.model.ReturnT;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.DigestUtils;

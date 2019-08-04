@@ -2,7 +2,7 @@ package com.courage.platform.schedule.console.controller;
 
 import com.courage.platform.schedule.console.controller.annotation.PermissionLimit;
 import com.courage.platform.schedule.console.core.conf.XxlJobScheduler;
-import com.xxl.job.core.biz.AdminBiz;
+import com.courage.platform.schedule.core.biz.AdminBiz;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

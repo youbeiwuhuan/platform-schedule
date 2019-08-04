@@ -1,8 +1,8 @@
 package com.courage.platform.schedule.console.core.route.strategy;
 
 import com.courage.platform.schedule.console.core.route.ExecutorRouter;
-import com.xxl.job.core.biz.model.ReturnT;
-import com.xxl.job.core.biz.model.TriggerParam;
+import com.courage.platform.schedule.core.biz.model.ReturnT;
+import com.courage.platform.schedule.core.biz.model.TriggerParam;
 
 import java.util.List;
 import java.util.Random;

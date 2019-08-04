@@ -3,7 +3,7 @@ package com.courage.platform.schedule.console.core.thread;
 import com.courage.platform.schedule.console.core.model.XxlJobRegistry;
 import com.courage.platform.schedule.console.core.conf.XxlJobAdminConfig;
 import com.courage.platform.schedule.console.core.model.XxlJobGroup;
-import com.xxl.job.core.enums.RegistryConfig;
+import com.courage.platform.schedule.core.enums.RegistryConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

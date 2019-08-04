@@ -2,7 +2,7 @@ package com.courage.platform.schedule.console.controller.resolver;
 
 import com.courage.platform.schedule.console.core.exception.XxlJobException;
 import com.courage.platform.schedule.console.core.util.JacksonUtil;
-import com.xxl.job.core.biz.model.ReturnT;
+import com.courage.platform.schedule.core.biz.model.ReturnT;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

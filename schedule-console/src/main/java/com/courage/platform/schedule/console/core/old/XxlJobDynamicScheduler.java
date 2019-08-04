@@ -1,15 +1,15 @@
-package com.courage.platform.schedule.console.core.old;//package com.xxl.job.admin.core.schedule;
+package com.courage.platform.schedule.console.core.old;//package com.courage.platform.schedule.admin.core.schedule;
 //
-//import com.xxl.job.admin.core.conf.XxlJobAdminConfig;
-//import com.xxl.job.admin.core.jobbean.RemoteHttpJobBean;
-//import com.xxl.job.admin.core.model.XxlJobInfo;
-//import com.xxl.job.admin.core.thread.JobFailMonitorHelper;
-//import com.xxl.job.admin.core.thread.JobRegistryMonitorHelper;
-//import com.xxl.job.admin.core.thread.JobTriggerPoolHelper;
-//import com.xxl.job.admin.core.util.I18nUtil;
-//import com.xxl.job.core.biz.AdminBiz;
-//import com.xxl.job.core.biz.ExecutorBiz;
-//import com.xxl.job.core.enums.ExecutorBlockStrategyEnum;
+//import com.courage.platform.schedule.admin.core.conf.XxlJobAdminConfig;
+//import com.courage.platform.schedule.admin.core.jobbean.RemoteHttpJobBean;
+//import com.courage.platform.schedule.admin.core.model.XxlJobInfo;
+//import com.courage.platform.schedule.admin.core.thread.JobFailMonitorHelper;
+//import com.courage.platform.schedule.admin.core.thread.JobRegistryMonitorHelper;
+//import com.courage.platform.schedule.admin.core.thread.JobTriggerPoolHelper;
+//import com.courage.platform.schedule.admin.core.util.I18nUtil;
+//import com.courage.platform.schedule.core.biz.AdminBiz;
+//import com.courage.platform.schedule.core.biz.ExecutorBiz;
+//import com.courage.platform.schedule.core.enums.ExecutorBlockStrategyEnum;
 //import com.xxl.rpc.remoting.invoker.XxlRpcInvokerFactory;
 //import com.xxl.rpc.remoting.invoker.call.CallType;
 //import com.xxl.rpc.remoting.invoker.reference.XxlRpcReferenceBean;

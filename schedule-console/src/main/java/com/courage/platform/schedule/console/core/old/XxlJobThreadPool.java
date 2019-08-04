@@ -1,4 +1,4 @@
-package com.courage.platform.schedule.console.core.old;//package com.xxl.job.admin.core.quartz;
+package com.courage.platform.schedule.console.core.old;//package com.courage.platform.schedule.admin.core.quartz;
 //
 //import org.quartz.SchedulerConfigException;
 //import org.quartz.spi.ThreadPool;

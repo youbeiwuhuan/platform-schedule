@@ -5,7 +5,7 @@ import com.courage.platform.schedule.console.core.util.CookieUtil;
 import com.courage.platform.schedule.console.core.util.I18nUtil;
 import com.courage.platform.schedule.console.core.util.JacksonUtil;
 import com.courage.platform.schedule.console.dao.XxlJobUserDao;
-import com.xxl.job.core.biz.model.ReturnT;
+import com.courage.platform.schedule.core.biz.model.ReturnT;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.DigestUtils;
 
