@@ -1,12 +1,12 @@
-package com.courage.platform.schedule.console.core.old;//package com.courage.platform.schedule.admin.core.schedule;
+package com.courage.platform.schedule.console.core.old;//package com.courage.platform.schedule.console.core.schedule;
 //
-//import com.courage.platform.schedule.admin.core.conf.XxlJobAdminConfig;
-//import com.courage.platform.schedule.admin.core.jobbean.RemoteHttpJobBean;
-//import com.courage.platform.schedule.admin.core.model.XxlJobInfo;
-//import com.courage.platform.schedule.admin.core.thread.JobFailMonitorHelper;
-//import com.courage.platform.schedule.admin.core.thread.JobRegistryMonitorHelper;
-//import com.courage.platform.schedule.admin.core.thread.JobTriggerPoolHelper;
-//import com.courage.platform.schedule.admin.core.util.I18nUtil;
+//import com.courage.platform.schedule.console.core.conf.XxlJobAdminConfig;
+//import com.courage.platform.schedule.console.core.jobbean.RemoteHttpJobBean;
+//import com.courage.platform.schedule.console.core.model.XxlJobInfo;
+//import com.courage.platform.schedule.console.core.thread.JobFailMonitorHelper;
+//import com.courage.platform.schedule.console.core.thread.JobRegistryMonitorHelper;
+//import com.courage.platform.schedule.console.core.thread.JobTriggerPoolHelper;
+//import com.courage.platform.schedule.console.core.util.I18nUtil;
 //import com.courage.platform.schedule.core.biz.AdminBiz;
 //import com.courage.platform.schedule.core.biz.ExecutorBiz;
 //import com.courage.platform.schedule.core.enums.ExecutorBlockStrategyEnum;

@@ -1,7 +1,7 @@
-package com.courage.platform.schedule.console.core.old;//package com.courage.platform.schedule.admin.core.jobbean;
+package com.courage.platform.schedule.console.core.old;//package com.courage.platform.schedule.console.core.jobbean;
 //
-//import com.courage.platform.schedule.admin.core.thread.JobTriggerPoolHelper;
-//import com.courage.platform.schedule.admin.core.trigger.TriggerTypeEnum;
+//import com.courage.platform.schedule.console.core.thread.JobTriggerPoolHelper;
+//import com.courage.platform.schedule.console.core.trigger.TriggerTypeEnum;
 //import org.quartz.JobExecutionContext;
 //import org.quartz.JobExecutionException;
 //import org.quartz.JobKey;

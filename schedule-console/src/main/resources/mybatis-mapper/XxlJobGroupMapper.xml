@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.courage.platform.schedule.admin.dao.XxlJobGroupDao">
+<mapper namespace="com.courage.platform.schedule.console.dao.XxlJobGroupDao">
 	
 	<resultMap id="XxlJobGroup" type="com.courage.platform.schedule.console.core.model.XxlJobGroup" >
 		<result column="id" property="id" />
@@ -34,12 +34,12 @@
 		ORDER BY t.order ASC
 	</select>
 
-	<insert id="save" parameterType="com.courage.platform.schedule.admin.core.model.XxlJobGroup" useGeneratedKeys="true" keyProperty="id" >
+	<insert id="save" parameterType="com.courage.platform.schedule.console.core.model.XxlJobGroup" useGeneratedKeys="true" keyProperty="id" >
 		INSERT INTO xxl_job_group ( `app_name`, `title`, `order`, `address_type`, `address_list`)
 		values ( #{appName}, #{title}, #{order}, #{addressType}, #{addressList});
 	</insert>
 
-	<update id="update" parameterType="com.courage.platform.schedule.admin.core.model.XxlJobGroup" >
+	<update id="update" parameterType="com.courage.platform.schedule.console.core.model.XxlJobGroup" >
 		UPDATE xxl_job_group
 		SET `app_name` = #{appName},
 			`title` = #{title},
