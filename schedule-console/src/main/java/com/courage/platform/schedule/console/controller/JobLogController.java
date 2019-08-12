@@ -1,18 +1,16 @@
 package com.courage.platform.schedule.console.controller;
 
-import com.courage.platform.schedule.console.core.conf.XxlJobScheduler;
-import com.courage.platform.schedule.console.core.exception.XxlJobException;
-import com.courage.platform.schedule.console.core.model.XxlJobGroup;
-import com.courage.platform.schedule.console.core.model.XxlJobInfo;
-import com.courage.platform.schedule.console.core.model.XxlJobLog;
-import com.courage.platform.schedule.console.core.util.I18nUtil;
-import com.courage.platform.schedule.console.dao.XxlJobGroupDao;
-import com.courage.platform.schedule.console.dao.XxlJobInfoDao;
-import com.courage.platform.schedule.console.dao.XxlJobLogDao;
-import com.courage.platform.schedule.core.biz.ExecutorBiz;
-import com.courage.platform.schedule.core.biz.model.LogResult;
-import com.courage.platform.schedule.core.biz.model.ReturnT;
-import com.courage.platform.schedule.core.util.DateUtil;
+import com.hshc.schedule.console.core.model.XxlJobGroup;
+import com.hshc.schedule.console.core.model.XxlJobInfo;
+import com.hshc.schedule.console.core.model.XxlJobLog;
+import com.hshc.schedule.console.core.util.I18nUtil;
+import com.hshc.schedule.console.dao.XxlJobGroupDao;
+import com.hshc.schedule.console.dao.XxlJobInfoDao;
+import com.hshc.schedule.console.dao.XxlJobLogDao;
+import com.hshc.schedule.core.biz.model.ReturnT;
+import com.hshc.schedule.core.glue.GlueTypeEnum;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -22,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -45,30 +43,17 @@ public class JobLogController {
 	public XxlJobLogDao xxlJobLogDao;
 
 	@RequestMapping
-	public String index(HttpServletRequest request, Model model, @RequestParam(required = false, defaultValue = "0") Integer jobId) {
+	public String index(Model model, @RequestParam(required = false, defaultValue = "0") Integer jobId) {
 
 		// 执行器列表
-		List<XxlJobGroup> jobGroupList_all =  xxlJobGroupDao.findAll();
-
-		// filter group
-		List<XxlJobGroup> jobGroupList = JobInfoController.filterJobGroupByRole(request, jobGroupList_all);
-		if (jobGroupList==null || jobGroupList.size()==0) {
-			throw new XxlJobException(I18nUtil.getString("jobgroup_empty"));
-		}
-
+		List<XxlJobGroup> jobGroupList =  xxlJobGroupDao.findAll();
 		model.addAttribute("JobGroupList", jobGroupList);
+		model.addAttribute("GlueTypeEnum", GlueTypeEnum.values());
 
 		// 任务
 		if (jobId > 0) {
 			XxlJobInfo jobInfo = xxlJobInfoDao.loadById(jobId);
-			if (jobInfo == null) {
-				throw new RuntimeException(I18nUtil.getString("jobinfo_field_id") + I18nUtil.getString("system_unvalid"));
-			}
-
 			model.addAttribute("jobInfo", jobInfo);
-
-			// valid permission
-			JobInfoController.validPermission(request, jobInfo.getJobGroup());
 		}
 
 		return "joblog/joblog.index";
@@ -83,22 +68,20 @@ public class JobLogController {
 	
 	@RequestMapping("/pageList")
 	@ResponseBody
-	public Map<String, Object> pageList(HttpServletRequest request,
-										@RequestParam(required = false, defaultValue = "0") int start,
-										@RequestParam(required = false, defaultValue = "10") int length,
-										int jobGroup, int jobId, int logStatus, String filterTime) {
-
-		// valid permission
-		JobInfoController.validPermission(request, jobGroup);	// 仅管理员支持查询全部；普通用户仅支持查询有权限的 jobGroup
+	public Map<String, Object> pageList(@RequestParam(required = false, defaultValue = "0") int start,  
+			@RequestParam(required = false, defaultValue = "10") int length,
+			int jobGroup, int jobId, int logStatus, String filterTime) {
 		
 		// parse param
 		Date triggerTimeStart = null;
 		Date triggerTimeEnd = null;
-		if (filterTime!=null && filterTime.trim().length()>0) {
+		if (StringUtils.isNotBlank(filterTime)) {
 			String[] temp = filterTime.split(" - ");
 			if (temp!=null && temp.length == 2) {
-				triggerTimeStart = DateUtil.parseDateTime(temp[0]);
-				triggerTimeEnd = DateUtil.parseDateTime(temp[1]);
+				try {
+					triggerTimeStart = DateUtils.parseDate(temp[0], new String[]{"yyyy-MM-dd HH:mm:ss"});
+					triggerTimeEnd = DateUtils.parseDate(temp[1], new String[]{"yyyy-MM-dd HH:mm:ss"});
+				} catch (ParseException e) {	}
 			}
 		}
 		
@@ -132,62 +115,6 @@ public class JobLogController {
 		return "joblog/joblog.detail";
 	}
 
-	@RequestMapping("/logDetailCat")
-	@ResponseBody
-	public ReturnT<LogResult> logDetailCat(String executorAddress, long triggerTime, long logId, int fromLineNum){
-		try {
-			ExecutorBiz executorBiz = XxlJobScheduler.getExecutorBiz(executorAddress);
-			ReturnT<LogResult> logResult = executorBiz.log(triggerTime, logId, fromLineNum);
-
-			// is end
-            if (logResult.getContent()!=null && logResult.getContent().getFromLineNum() > logResult.getContent().getToLineNum()) {
-                XxlJobLog jobLog = xxlJobLogDao.load(logId);
-                if (jobLog.getHandleCode() > 0) {
-                    logResult.getContent().setEnd(true);
-                }
-            }
-
-			return logResult;
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			return new ReturnT<LogResult>(ReturnT.FAIL_CODE, e.getMessage());
-		}
-	}
-
-	@RequestMapping("/logKill")
-	@ResponseBody
-	public ReturnT<String> logKill(int id){
-		// base check
-		XxlJobLog log = xxlJobLogDao.load(id);
-		XxlJobInfo jobInfo = xxlJobInfoDao.loadById(log.getJobId());
-		if (jobInfo==null) {
-			return new ReturnT<String>(500, I18nUtil.getString("jobinfo_glue_jobid_unvalid"));
-		}
-		if (ReturnT.SUCCESS_CODE != log.getTriggerCode()) {
-			return new ReturnT<String>(500, I18nUtil.getString("joblog_kill_log_limit"));
-		}
-
-		// request of kill
-		ReturnT<String> runResult = null;
-		try {
-			ExecutorBiz executorBiz = XxlJobScheduler.getExecutorBiz(log.getExecutorAddress());
-			runResult = executorBiz.kill(jobInfo.getId());
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			runResult = new ReturnT<String>(500, e.getMessage());
-		}
-
-		if (ReturnT.SUCCESS_CODE == runResult.getCode()) {
-			log.setHandleCode(ReturnT.FAIL_CODE);
-			log.setHandleMsg( I18nUtil.getString("joblog_kill_log_byman")+":" + (runResult.getMsg()!=null?runResult.getMsg():""));
-			log.setHandleTime(new Date());
-			xxlJobLogDao.updateHandleInfo(log);
-			return new ReturnT<String>(runResult.getMsg());
-		} else {
-			return new ReturnT<String>(500, runResult.getMsg());
-		}
-	}
-
 	@RequestMapping("/clearLog")
 	@ResponseBody
 	public ReturnT<String> clearLog(int jobGroup, int jobId, int type){
@@ -195,13 +122,13 @@ public class JobLogController {
 		Date clearBeforeTime = null;
 		int clearBeforeNum = 0;
 		if (type == 1) {
-			clearBeforeTime = DateUtil.addMonths(new Date(), -1);	// 清理一个月之前日志数据
+			clearBeforeTime = DateUtils.addMonths(new Date(), -1);	// 清理一个月之前日志数据
 		} else if (type == 2) {
-			clearBeforeTime = DateUtil.addMonths(new Date(), -3);	// 清理三个月之前日志数据
+			clearBeforeTime = DateUtils.addMonths(new Date(), -3);	// 清理三个月之前日志数据
 		} else if (type == 3) {
-			clearBeforeTime = DateUtil.addMonths(new Date(), -6);	// 清理六个月之前日志数据
+			clearBeforeTime = DateUtils.addMonths(new Date(), -6);	// 清理六个月之前日志数据
 		} else if (type == 4) {
-			clearBeforeTime = DateUtil.addYears(new Date(), -1);	// 清理一年之前日志数据
+			clearBeforeTime = DateUtils.addYears(new Date(), -1);	// 清理一年之前日志数据
 		} else if (type == 5) {
 			clearBeforeNum = 1000;		// 清理一千条以前日志数据
 		} else if (type == 6) {

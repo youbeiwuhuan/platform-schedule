@@ -1,9 +1,7 @@
 package com.courage.platform.schedule.console.core.thread;
 
-import com.courage.platform.schedule.console.core.model.XxlJobRegistry;
-import com.courage.platform.schedule.console.core.conf.XxlJobAdminConfig;
-import com.courage.platform.schedule.console.core.model.XxlJobGroup;
-import com.courage.platform.schedule.core.enums.RegistryConfig;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,15 +16,19 @@ import java.util.concurrent.TimeUnit;
  * @author xuxueli 2016-10-02 19:10:24
  */
 public class JobRegistryMonitorHelper {
+
 	private static Logger logger = LoggerFactory.getLogger(JobRegistryMonitorHelper.class);
 
 	private static JobRegistryMonitorHelper instance = new JobRegistryMonitorHelper();
+
 	public static JobRegistryMonitorHelper getInstance(){
 		return instance;
 	}
 
 	private Thread registryThread;
+
 	private volatile boolean toStop = false;
+
 	public void start(){
 		registryThread = new Thread(new Runnable() {
 			@Override
@@ -34,18 +36,15 @@ public class JobRegistryMonitorHelper {
 				while (!toStop) {
 					try {
 						// auto registry group
-						List<XxlJobGroup> groupList = XxlJobAdminConfig.getAdminConfig().getXxlJobGroupDao().findByAddressType(0);
-						if (groupList!=null && !groupList.isEmpty()) {
+						List<XxlJobGroup> groupList = XxlJobDynamicScheduler.xxlJobGroupDao.findByAddressType(0);
+						if (CollectionUtils.isNotEmpty(groupList)) {
 
 							// remove dead address (admin/executor)
-							List<Integer> ids = XxlJobAdminConfig.getAdminConfig().getXxlJobRegistryDao().findDead(RegistryConfig.DEAD_TIMEOUT);
-							if (ids!=null && ids.size()>0) {
-								XxlJobAdminConfig.getAdminConfig().getXxlJobRegistryDao().removeDead(ids);
-							}
+							XxlJobDynamicScheduler.xxlJobRegistryDao.removeDead(RegistryConfig.DEAD_TIMEOUT);
 
 							// fresh online address (admin/executor)
 							HashMap<String, List<String>> appAddressMap = new HashMap<String, List<String>>();
-							List<XxlJobRegistry> list = XxlJobAdminConfig.getAdminConfig().getXxlJobRegistryDao().findAll(RegistryConfig.DEAD_TIMEOUT);
+							List<XxlJobRegistry> list = XxlJobDynamicScheduler.xxlJobRegistryDao.findAll(RegistryConfig.DEAD_TIMEOUT);
 							if (list != null) {
 								for (XxlJobRegistry item: list) {
 									if (RegistryConfig.RegistType.EXECUTOR.name().equals(item.getRegistryGroup())) {
@@ -67,36 +66,26 @@ public class JobRegistryMonitorHelper {
 							for (XxlJobGroup group: groupList) {
 								List<String> registryList = appAddressMap.get(group.getAppName());
 								String addressListStr = null;
-								if (registryList!=null && !registryList.isEmpty()) {
+								if (CollectionUtils.isNotEmpty(registryList)) {
 									Collections.sort(registryList);
-									addressListStr = "";
-									for (String item:registryList) {
-										addressListStr += item + ",";
-									}
-									addressListStr = addressListStr.substring(0, addressListStr.length()-1);
+									addressListStr = StringUtils.join(registryList, ",");
 								}
 								group.setAddressList(addressListStr);
-								XxlJobAdminConfig.getAdminConfig().getXxlJobGroupDao().update(group);
+								XxlJobDynamicScheduler.xxlJobGroupDao.update(group);
 							}
 						}
 					} catch (Exception e) {
-						if (!toStop) {
-							logger.error(">>>>>>>>>>> xxl-job, job registry monitor thread error:{}", e);
-						}
+						logger.error("job registry instance error:{}", e);
 					}
 					try {
 						TimeUnit.SECONDS.sleep(RegistryConfig.BEAT_TIMEOUT);
 					} catch (InterruptedException e) {
-						if (!toStop) {
-							logger.error(">>>>>>>>>>> xxl-job, job registry monitor thread error:{}", e);
-						}
+						logger.error("job registry instance error:{}", e);
 					}
 				}
-				logger.info(">>>>>>>>>>> xxl-job, job registry monitor thread stop");
 			}
 		});
 		registryThread.setDaemon(true);
-		registryThread.setName("xxl-job, admin JobRegistryMonitorHelper");
 		registryThread.start();
 	}
 

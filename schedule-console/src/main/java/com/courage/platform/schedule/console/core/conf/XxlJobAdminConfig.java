@@ -1,25 +1,16 @@
 package com.courage.platform.schedule.console.core.conf;
 
-import com.courage.platform.schedule.console.dao.XxlJobGroupDao;
-import com.courage.platform.schedule.console.dao.XxlJobInfoDao;
-import com.courage.platform.schedule.console.dao.XxlJobLogDao;
-import com.courage.platform.schedule.console.dao.XxlJobRegistryDao;
-import com.courage.platform.schedule.core.biz.AdminBiz;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
-import javax.sql.DataSource;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * xxl-job config
  *
  * @author xuxueli 2017-04-28
  */
-@Component
-public class XxlJobAdminConfig implements InitializingBean{
+@Configuration
+public class XxlJobAdminConfig implements InitializingBean {
     private static XxlJobAdminConfig adminConfig = null;
     public static XxlJobAdminConfig getAdminConfig() {
         return adminConfig;
@@ -30,72 +21,68 @@ public class XxlJobAdminConfig implements InitializingBean{
         adminConfig = this;
     }
 
-    // conf
+    @Value("${xxl.job.mail.host}")
+    private String mailHost;
+
+    @Value("${xxl.job.mail.port}")
+    private String mailPort;
+
+    @Value("${xxl.job.mail.username}")
+    private String mailUsername;
+
+    @Value("${xxl.job.mail.password}")
+    private String mailPassword;
+
+    @Value("${xxl.job.mail.sendNick}")
+    private String mailSendNick;
+
     @Value("${xxl.job.i18n}")
     private String i18n;
 
-    @Value("${xxl.job.accessToken}")
-    private String accessToken;
+    @Value("${xxl.job.login.username}")
+    private String loginUsername;
 
-    @Value("${spring.mail.username}")
-    private String emailUserName;
+    @Value("${xxl.job.login.password}")
+    private String loginPassword;
 
-    // dao, service
+    public String getLoginUsername() {
+        return loginUsername;
+    }
 
-    @Resource
-    private XxlJobLogDao xxlJobLogDao;
-    @Resource
-    private XxlJobInfoDao xxlJobInfoDao;
-    @Resource
-    private XxlJobRegistryDao xxlJobRegistryDao;
-    @Resource
-    private XxlJobGroupDao xxlJobGroupDao;
-    @Resource
-    private AdminBiz adminBiz;
-    @Resource
-    private JavaMailSender mailSender;
-    @Resource
-    private DataSource dataSource;
+    public void setLoginUsername(String loginUsername) {
+        this.loginUsername = loginUsername;
+    }
 
+    public String getLoginPassword() {
+        return loginPassword;
+    }
+
+    public void setLoginPassword(String loginPassword) {
+        this.loginPassword = loginPassword;
+    }
+
+    public String getMailHost() {
+        return mailHost;
+    }
+
+    public String getMailPort() {
+        return mailPort;
+    }
+
+    public String getMailUsername() {
+        return mailUsername;
+    }
+
+    public String getMailPassword() {
+        return mailPassword;
+    }
+
+    public String getMailSendNick() {
+        return mailSendNick;
+    }
 
     public String getI18n() {
         return i18n;
-    }
-
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    public String getEmailUserName() {
-        return emailUserName;
-    }
-
-    public XxlJobLogDao getXxlJobLogDao() {
-        return xxlJobLogDao;
-    }
-
-    public XxlJobInfoDao getXxlJobInfoDao() {
-        return xxlJobInfoDao;
-    }
-
-    public XxlJobRegistryDao getXxlJobRegistryDao() {
-        return xxlJobRegistryDao;
-    }
-
-    public XxlJobGroupDao getXxlJobGroupDao() {
-        return xxlJobGroupDao;
-    }
-
-    public AdminBiz getAdminBiz() {
-        return adminBiz;
-    }
-
-    public JavaMailSender getMailSender() {
-        return mailSender;
-    }
-
-    public DataSource getDataSource() {
-        return dataSource;
     }
 
 }

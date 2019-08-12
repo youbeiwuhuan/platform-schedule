@@ -8,18 +8,19 @@ import java.util.Date;
  */
 public class XxlJobLog {
 	
-	private long id;
+	private int id;
 	
 	// job info
 	private int jobGroup;
 	private int jobId;
 
+	// glueType
+	private String glueType;
+
 	// execute info
 	private String executorAddress;
 	private String executorHandler;
 	private String executorParam;
-	private String executorShardingParam;
-	private int executorFailRetryCount;
 	
 	// trigger info
 	private Date triggerTime;
@@ -31,14 +32,11 @@ public class XxlJobLog {
 	private int handleCode;
 	private String handleMsg;
 
-	// alarm info
-	private int alarmStatus;
-
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -56,6 +54,14 @@ public class XxlJobLog {
 
 	public void setJobId(int jobId) {
 		this.jobId = jobId;
+	}
+
+	public String getGlueType() {
+		return glueType;
+	}
+
+	public void setGlueType(String glueType) {
+		this.glueType = glueType;
 	}
 
 	public String getExecutorAddress() {
@@ -82,22 +88,6 @@ public class XxlJobLog {
 		this.executorParam = executorParam;
 	}
 
-	public String getExecutorShardingParam() {
-		return executorShardingParam;
-	}
-
-	public void setExecutorShardingParam(String executorShardingParam) {
-		this.executorShardingParam = executorShardingParam;
-	}
-
-	public int getExecutorFailRetryCount() {
-		return executorFailRetryCount;
-	}
-
-	public void setExecutorFailRetryCount(int executorFailRetryCount) {
-		this.executorFailRetryCount = executorFailRetryCount;
-	}
-
 	public Date getTriggerTime() {
 		return triggerTime;
 	}
@@ -119,6 +109,10 @@ public class XxlJobLog {
 	}
 
 	public void setTriggerMsg(String triggerMsg) {
+		// plugin
+		if (triggerMsg!=null && triggerMsg.length()>2000) {
+			triggerMsg = triggerMsg.substring(0, 2000);
+		}
 		this.triggerMsg = triggerMsg;
 	}
 
@@ -143,15 +137,10 @@ public class XxlJobLog {
 	}
 
 	public void setHandleMsg(String handleMsg) {
+		// plugin
+		if (handleMsg!=null && handleMsg.length()>2000) {
+			handleMsg = handleMsg.substring(0, 2000);
+		}
 		this.handleMsg = handleMsg;
 	}
-
-	public int getAlarmStatus() {
-		return alarmStatus;
-	}
-
-	public void setAlarmStatus(int alarmStatus) {
-		this.alarmStatus = alarmStatus;
-	}
-
 }

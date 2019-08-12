@@ -8,8 +8,6 @@ import com.courage.platform.schedule.core.log.XxlJobLogger;
 import com.courage.platform.schedule.core.util.ScriptUtil;
 import com.courage.platform.schedule.core.util.ShardingUtil;
 
-import java.io.File;
-
 /**
  * Created by xuxueli on 17/4/27.
  */
@@ -25,20 +23,6 @@ public class ScriptJobHandler extends IJobHandler {
         this.glueUpdatetime = glueUpdatetime;
         this.gluesource = gluesource;
         this.glueType = glueType;
-
-        // clean old script file
-        File glueSrcPath = new File(XxlJobFileAppender.getGlueSrcPath());
-        if (glueSrcPath.exists()) {
-            File[] glueSrcFileList = glueSrcPath.listFiles();
-            if (glueSrcFileList!=null && glueSrcFileList.length>0) {
-                for (File glueSrcFileItem : glueSrcFileList) {
-                    if (glueSrcFileItem.getName().startsWith(String.valueOf(jobId)+"_")) {
-                        glueSrcFileItem.delete();
-                    }
-                }
-            }
-        }
-
     }
 
     public long getGlueUpdatetime() {
@@ -57,15 +41,12 @@ public class ScriptJobHandler extends IJobHandler {
 
         // make script file
         String scriptFileName = XxlJobFileAppender.getGlueSrcPath()
-                .concat(File.separator)
+                .concat("/")
                 .concat(String.valueOf(jobId))
                 .concat("_")
                 .concat(String.valueOf(glueUpdatetime))
                 .concat(glueType.getSuffix());
-        File scriptFile = new File(scriptFileName);
-        if (!scriptFile.exists()) {
-            ScriptUtil.markScriptFile(scriptFileName, gluesource);
-        }
+        ScriptUtil.markScriptFile(scriptFileName, gluesource);
 
         // log file
         String logFileName = XxlJobFileAppender.contextHolder.get();
@@ -80,13 +61,8 @@ public class ScriptJobHandler extends IJobHandler {
         // invoke
         XxlJobLogger.log("----------- script file:"+ scriptFileName +" -----------");
         int exitValue = ScriptUtil.execToFile(cmd, scriptFileName, logFileName, scriptParams);
-
-        if (exitValue == 0) {
-            return IJobHandler.SUCCESS;
-        } else {
-            return new ReturnT<String>(IJobHandler.FAIL.getCode(), "script exit value("+exitValue+") is failed");
-        }
-
+        ReturnT<String> result = (exitValue==0)?IJobHandler.SUCCESS:new ReturnT<String>(IJobHandler.FAIL.getCode(), "script exit value("+exitValue+") is failed");
+        return result;
     }
 
 }

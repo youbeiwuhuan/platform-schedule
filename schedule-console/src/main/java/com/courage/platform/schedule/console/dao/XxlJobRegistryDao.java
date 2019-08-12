@@ -1,7 +1,6 @@
 package com.courage.platform.schedule.console.dao;
 
-import com.courage.platform.schedule.console.core.model.XxlJobRegistry;
-import org.apache.ibatis.annotations.Mapper;
+import com.hshc.schedule.console.core.model.XxlJobRegistry;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -9,12 +8,9 @@ import java.util.List;
 /**
  * Created by xuxueli on 16/9/30.
  */
-@Mapper
 public interface XxlJobRegistryDao {
 
-    public List<Integer> findDead(@Param("timeout") int timeout);
-
-    public int removeDead(@Param("ids") List<Integer> ids);
+    public int removeDead(@Param("timeout") int timeout);
 
     public List<XxlJobRegistry> findAll(@Param("timeout") int timeout);
 

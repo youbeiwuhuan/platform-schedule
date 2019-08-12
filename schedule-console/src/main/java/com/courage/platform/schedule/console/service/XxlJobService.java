@@ -1,14 +1,14 @@
 package com.courage.platform.schedule.console.service;
 
 
-import com.courage.platform.schedule.console.core.model.XxlJobInfo;
-import com.courage.platform.schedule.core.biz.model.ReturnT;
+import com.hshc.schedule.console.core.model.XxlJobInfo;
+import com.hshc.schedule.core.biz.model.ReturnT;
 
 import java.util.Date;
 import java.util.Map;
 
 /**
- * core job action for xxl-job
+ * schedule job action for xxl-job
  * 
  * @author xuxueli 2016-5-28 15:30:33
  */
@@ -22,10 +22,10 @@ public interface XxlJobService {
 	 * @param jobGroup
 	 * @param jobDesc
 	 * @param executorHandler
-	 * @param author
+	 * @param filterTime
 	 * @return
 	 */
-	public Map<String, Object> pageList(int start, int length, int jobGroup, int triggerStatus, String jobDesc, String executorHandler, String author);
+	public Map<String, Object> pageList(int start, int length, int jobGroup, String jobDesc, String executorHandler, String filterTime);
 
 	/**
 	 * add job
@@ -45,27 +45,35 @@ public interface XxlJobService {
 
 	/**
 	 * remove job
-	 * 	 *
+	 *
 	 * @param id
 	 * @return
 	 */
 	public ReturnT<String> remove(int id);
 
 	/**
-	 * start job
+	 * pause job
 	 *
 	 * @param id
 	 * @return
 	 */
-	public ReturnT<String> start(int id);
+	public ReturnT<String> pause(int id);
 
 	/**
-	 * stop job
+	 * resume job
 	 *
 	 * @param id
 	 * @return
 	 */
-	public ReturnT<String> stop(int id);
+	public ReturnT<String> resume(int id);
+
+	/**
+	 * trigger job
+	 *
+	 * @param id
+	 * @return
+	 */
+	public ReturnT<String> triggerJob(int id);
 
 	/**
 	 * dashboard info

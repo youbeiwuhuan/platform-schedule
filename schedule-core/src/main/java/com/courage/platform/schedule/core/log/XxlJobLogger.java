@@ -1,13 +1,12 @@
 package com.courage.platform.schedule.core.log;
 
-import com.courage.platform.schedule.core.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.helpers.FormattingTuple;
-import org.slf4j.helpers.MessageFormatter;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -15,6 +14,7 @@ import java.util.Date;
  */
 public class XxlJobLogger {
     private static Logger logger = LoggerFactory.getLogger("xxl-job logger");
+    private static SimpleDateFormat xxlJobLoggerFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");   // TODO，concurrent issue
 
     /**
      * append log
@@ -30,7 +30,7 @@ public class XxlJobLogger {
         StackTraceElement callInfo = stackTraceElements[1];*/
 
         StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append(DateUtil.formatDateTime(new Date())).append(" ")
+        stringBuffer.append(xxlJobLoggerFormat.format(new Date())).append(" ")
             .append("["+ callInfo.getClassName() + "#" + callInfo.getMethodName() +"]").append("-")
             .append("["+ callInfo.getLineNumber() +"]").append("-")
             .append("["+ Thread.currentThread().getName() +"]").append(" ")
@@ -49,18 +49,15 @@ public class XxlJobLogger {
     /**
      * append log with pattern
      *
-     * @param appendLogPattern  like "aaa {} bbb {} ccc"
+     * @param appendLogPattern  like "aaa {0} bbb {1} ccc"
      * @param appendLogArguments    like "111, true"
      */
     public static void log(String appendLogPattern, Object ... appendLogArguments) {
 
-    	FormattingTuple ft = MessageFormatter.arrayFormat(appendLogPattern, appendLogArguments);
-        String appendLog = ft.getMessage();
-
-        /*appendLog = appendLogPattern;
+        String appendLog = appendLogPattern;
         if (appendLogArguments!=null && appendLogArguments.length>0) {
             appendLog = MessageFormat.format(appendLogPattern, appendLogArguments);
-        }*/
+        }
 
         StackTraceElement callInfo = new Throwable().getStackTrace()[1];
         logDetail(callInfo, appendLog);

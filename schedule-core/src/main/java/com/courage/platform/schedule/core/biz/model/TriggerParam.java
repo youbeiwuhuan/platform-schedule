@@ -13,9 +13,8 @@ public class TriggerParam implements Serializable{
     private String executorHandler;
     private String executorParams;
     private String executorBlockStrategy;
-    private int executorTimeout;
 
-    private long logId;
+    private int logId;
     private long logDateTim;
 
     private String glueType;
@@ -25,6 +24,7 @@ public class TriggerParam implements Serializable{
     private int broadcastIndex;
     private int broadcastTotal;
 
+    private ReturnT returnT;
 
     public int getJobId() {
         return jobId;
@@ -58,19 +58,11 @@ public class TriggerParam implements Serializable{
         this.executorBlockStrategy = executorBlockStrategy;
     }
 
-    public int getExecutorTimeout() {
-        return executorTimeout;
-    }
-
-    public void setExecutorTimeout(int executorTimeout) {
-        this.executorTimeout = executorTimeout;
-    }
-
-    public long getLogId() {
+    public int getLogId() {
         return logId;
     }
 
-    public void setLogId(long logId) {
+    public void setLogId(int logId) {
         this.logId = logId;
     }
 
@@ -122,6 +114,17 @@ public class TriggerParam implements Serializable{
         this.broadcastTotal = broadcastTotal;
     }
 
+    public ReturnT getReturnT() {
+        return returnT;
+    }
+
+    public void setReturnT(ReturnT returnT) {
+        this.returnT = returnT;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
     @Override
     public String toString() {
@@ -130,7 +133,6 @@ public class TriggerParam implements Serializable{
                 ", executorHandler='" + executorHandler + '\'' +
                 ", executorParams='" + executorParams + '\'' +
                 ", executorBlockStrategy='" + executorBlockStrategy + '\'' +
-                ", executorTimeout=" + executorTimeout +
                 ", logId=" + logId +
                 ", logDateTim=" + logDateTim +
                 ", glueType='" + glueType + '\'' +
@@ -138,7 +140,9 @@ public class TriggerParam implements Serializable{
                 ", glueUpdatetime=" + glueUpdatetime +
                 ", broadcastIndex=" + broadcastIndex +
                 ", broadcastTotal=" + broadcastTotal +
+                ", returnT=" + returnT +
                 '}';
     }
+
 
 }

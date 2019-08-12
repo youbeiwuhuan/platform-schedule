@@ -1,19 +1,18 @@
 package com.courage.platform.schedule.console.controller;
 
-import com.courage.platform.schedule.console.core.model.XxlJobInfo;
-import com.courage.platform.schedule.console.core.model.XxlJobLogGlue;
-import com.courage.platform.schedule.console.core.util.I18nUtil;
-import com.courage.platform.schedule.console.dao.XxlJobInfoDao;
-import com.courage.platform.schedule.console.dao.XxlJobLogGlueDao;
-import com.courage.platform.schedule.core.biz.model.ReturnT;
-import com.courage.platform.schedule.core.glue.GlueTypeEnum;
+import com.hshc.schedule.console.core.model.XxlJobInfo;
+import com.hshc.schedule.console.core.model.XxlJobLogGlue;
+import com.hshc.schedule.console.core.util.I18nUtil;
+import com.hshc.schedule.console.dao.XxlJobInfoDao;
+import com.hshc.schedule.console.dao.XxlJobLogGlueDao;
+import com.hshc.schedule.core.biz.model.ReturnT;
+import com.hshc.schedule.core.glue.GlueTypeEnum;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
@@ -31,7 +30,7 @@ public class JobCodeController {
 	private XxlJobLogGlueDao xxlJobLogGlueDao;
 
 	@RequestMapping
-	public String index(HttpServletRequest request, Model model, int jobId) {
+	public String index(Model model, int jobId) {
 		XxlJobInfo jobInfo = xxlJobInfoDao.loadById(jobId);
 		List<XxlJobLogGlue> jobLogGlues = xxlJobLogGlueDao.findByJobId(jobId);
 
@@ -41,9 +40,6 @@ public class JobCodeController {
 		if (GlueTypeEnum.BEAN == GlueTypeEnum.match(jobInfo.getGlueType())) {
 			throw new RuntimeException(I18nUtil.getString("jobinfo_glue_gluetype_unvalid"));
 		}
-
-		// valid permission
-		JobInfoController.validPermission(request, jobInfo.getJobGroup());
 
 		// Glue类型-字典
 		model.addAttribute("GlueTypeEnum", GlueTypeEnum.values());

@@ -1,7 +1,6 @@
 package com.courage.platform.schedule.console.dao;
 
-import com.courage.platform.schedule.console.core.model.XxlJobLogGlue;
-import org.apache.ibatis.annotations.Mapper;
+import com.hshc.schedule.console.core.model.XxlJobLogGlue;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -10,7 +9,6 @@ import java.util.List;
  * job log for glue
  * @author xuxueli 2016-5-19 18:04:56
  */
-@Mapper
 public interface XxlJobLogGlueDao {
 	
 	public int save(XxlJobLogGlue xxlJobLogGlue);
