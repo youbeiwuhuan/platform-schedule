@@ -1,6 +1,6 @@
 package com.courage.platform.schedule.console.dao;
 
-import com.hshc.schedule.console.core.model.XxlJobRegistry;
+import com.courage.platform.schedule.console.core.model.XxlJobRegistry;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

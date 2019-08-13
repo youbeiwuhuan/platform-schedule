@@ -1,19 +1,6 @@
 package com.courage.platform.schedule.console.core.route.strategy;
 
 import com.alibaba.fastjson.JSON;
-import com.hshc.platform.registryclient.common.domain.ServiceGroupEnum;
-import com.hshc.platform.registrycommon.domain.RegistryInstance;
-import com.hshc.platform.remoting.netty.protocol.PlatformRemotingCommand;
-import com.hshc.platform.remoting.netty.protocol.PlatformRemotingSysResponseCode;
-import com.hshc.schedule.console.core.enums.ExecutorFailStrategyEnum;
-import com.hshc.schedule.console.core.model.XxlJobGroup;
-import com.hshc.schedule.console.core.model.XxlJobInfo;
-import com.hshc.schedule.console.core.model.XxlJobLog;
-import com.hshc.schedule.console.core.route.ExecutorRouter;
-import com.hshc.schedule.core.biz.model.ReturnT;
-import com.hshc.schedule.core.biz.model.TriggerParam;
-import com.hshc.schedule.rpc.protocol.CommandEnum;
-import com.hshc.schedule.rpc.protocol.TriggerScheduleCommand;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 

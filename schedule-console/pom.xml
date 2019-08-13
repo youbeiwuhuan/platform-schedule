@@ -103,6 +103,12 @@
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
 
+        <dependency>
+            <artifactId>schedule-rpc</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <groupId>com.courage</groupId>
+        </dependency>
+
         <!--阿里数据库连接池 -->
         <dependency>
             <groupId>com.alibaba</groupId>
