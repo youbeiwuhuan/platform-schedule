@@ -6,11 +6,14 @@ import com.courage.platform.schedule.console.core.model.XxlJobInfo;
 import com.courage.platform.schedule.console.core.model.XxlJobLog;
 import com.courage.platform.schedule.console.core.rpc.RegistryController;
 import com.courage.platform.schedule.console.core.schedule.XxlJobDynamicScheduler;
+import com.courage.platform.schedule.console.core.thread.JobFailMonitorHelper;
+import com.courage.platform.schedule.console.core.trigger.XxlJobTrigger;
 import com.courage.platform.schedule.console.core.util.I18nUtil;
 import com.courage.platform.schedule.core.biz.model.ReturnT;
 import com.courage.platform.schedule.core.biz.model.TriggerParam;
 import com.courage.platform.schedule.core.enums.ExecutorBlockStrategyEnum;
 import com.courage.platform.schedule.rpc.ScheduleRpcClient;
+import com.courage.platform.schedule.rpc.protocol.TriggerScheduleCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -179,16 +182,6 @@ public abstract class ExecutorRouter {
         jobLog.setTriggerCode(triggerResult.getCode());
         jobLog.setTriggerMsg(triggerMsg.toString());
         XxlJobDynamicScheduler.xxlJobLogDao.updateTriggerInfo(jobLog);
-        //如果是http，则返回执行结果，更新mysql库
-        if (ServiceGroupEnum.HTTPRPC.equals(triggerResult.getServiceGroupEnum())) {
-            jobLog.setHandleCode(triggerResult.getCode());
-            jobLog.setHandleTime(new Date());
-            jobLog.setHandleMsg(triggerResult.getMsg());
-
-            //http的触发结果
-            jobLog.setTriggerMsg("触发成功");
-            XxlJobDynamicScheduler.xxlJobLogDao.updateHandleInfo(jobLog);
-        }
         // 6、monitor trigger
         JobFailMonitorHelper.monitor(jobLog.getId());
         logger.info(">>>>>>>>>>> hshc-schedule trigger end, jobLogId:{}", jobLog.getId());

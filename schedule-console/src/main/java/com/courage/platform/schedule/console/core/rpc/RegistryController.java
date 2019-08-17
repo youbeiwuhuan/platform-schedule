@@ -1,13 +1,7 @@
 package com.courage.platform.schedule.console.core.rpc;
 
-import com.hshc.platform.registryclient.PlatformRegistryClient;
-import com.hshc.platform.registryclient.common.domain.ServiceGroupEnum;
-import com.hshc.platform.registrycommon.domain.RegistryInstance;
-import com.hshc.schedule.core.rpc.netcom.NetComClientProxy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 /**
  * Created by 王鑫 on 2018/10/24.
@@ -27,7 +21,6 @@ public class RegistryController {
     public static RegistryController getSingleInstance() {
         return instance;
     }
-
 
     /**
      * 获取appName应用提供的注册信息

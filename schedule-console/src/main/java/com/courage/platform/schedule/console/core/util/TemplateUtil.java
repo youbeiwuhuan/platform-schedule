@@ -11,6 +11,7 @@ import java.io.IOException;
  * Created by 王鑫 on 2019/2/26.
  */
 public class TemplateUtil {
+
     private static Logger logger = LoggerFactory.getLogger(TemplateUtil.class);
 
     public static String getFailEmailTemplate() {
@@ -30,4 +31,5 @@ public class TemplateUtil {
         }
         return result;
     }
+
 }

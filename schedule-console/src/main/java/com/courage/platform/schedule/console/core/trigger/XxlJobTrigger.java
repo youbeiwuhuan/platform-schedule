@@ -1,5 +1,6 @@
 package com.courage.platform.schedule.console.core.trigger;
 
+import com.alibaba.fastjson.JSON;
 import com.courage.platform.schedule.console.core.model.XxlJobGroup;
 import com.courage.platform.schedule.console.core.model.XxlJobInfo;
 import com.courage.platform.schedule.console.core.route.ExecutorRouteStrategyEnum;
@@ -15,6 +16,7 @@ import org.slf4j.LoggerFactory;
  * Created by xuxueli on 17/7/13.
  */
 public class XxlJobTrigger {
+
     private static Logger logger = LoggerFactory.getLogger(XxlJobTrigger.class);
 
     /**
@@ -38,6 +40,7 @@ public class XxlJobTrigger {
             logger.error(">>>>>>>>>>>> trigger fail，jobId：" + jobId + ",jobInfo：" + JSON.toJSONString(jobInfo) + ",jobGroup:" + JSON.toJSONString(jobInfo.getJobGroup()), e);
             return;
         }
+
     }
 
     /**
@@ -48,7 +51,7 @@ public class XxlJobTrigger {
      * @return ReturnT.content: final address
      */
     public static ReturnT<String> runExecutor(TriggerParam triggerParam, String address) {
-        logger.info("triggerParam:" + JSONUtil.toString(triggerParam));
+        logger.info("triggerParam:" + JSON.toJSONString(triggerParam));
         ReturnT<String> runResult = null;
         try {
             ExecutorBiz executorBiz = XxlJobDynamicScheduler.getExecutorBiz(address);

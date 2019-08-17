@@ -1,18 +1,24 @@
 package com.courage.platform.schedule.console.core.route.strategy;
 
 import com.alibaba.fastjson.JSON;
+import com.courage.platform.schedule.console.core.model.XxlJobGroup;
+import com.courage.platform.schedule.console.core.model.XxlJobInfo;
+import com.courage.platform.schedule.console.core.route.ExecutorRouter;
+import com.courage.platform.schedule.core.biz.model.ReturnT;
+import com.courage.platform.schedule.core.biz.model.TriggerParam;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.List;
 import java.util.Objects;
-
-import static com.hshc.schedule.core.util.ExceptionUtil.splitString;
 
 /**
  * Created by 王鑫 on 2018/11/5.
  */
 public class ExecutorBroadcast extends ExecutorRouter {
+
+    private static Logger logger = LoggerFactory.getLogger(ExecutorBroadcast.class);
 
     @Override
     public void routeRun(XxlJobInfo jobInfo, XxlJobGroup group) {
@@ -54,10 +60,7 @@ public class ExecutorBroadcast extends ExecutorRouter {
                         //更新触发信息
                         afterExec(jobLog, triggerResult, triggerMsg, hasRetry);
                     } catch (Exception e) {
-                        logger.error("触发广播任务调度失败，具体信息：jobInfo：" + JSON.toJSONString(jobInfo) + ",jobLog：" + JSON.toJSONString(jobLog)
-                                + ",triggerMsg：" + JSON.toJSONString(triggerMsg) + ",triggerParam："
-                                + JSON.toJSONString(triggerParam) + ",currentAddr："
-                                + currentAddr + ",triggerResult：" + JSON.toJSONString(triggerResult), e);
+                        logger.error("触发广播任务调度失败，具体信息：jobInfo：" + JSON.toJSONString(jobInfo) + ",jobLog：" + JSON.toJSONString(jobLog) + ",triggerMsg：" + JSON.toJSONString(triggerMsg) + ",triggerParam：" + JSON.toJSONString(triggerParam) + ",currentAddr：" + currentAddr + ",triggerResult：" + JSON.toJSONString(triggerResult), e);
                     }
                 });
             } else {

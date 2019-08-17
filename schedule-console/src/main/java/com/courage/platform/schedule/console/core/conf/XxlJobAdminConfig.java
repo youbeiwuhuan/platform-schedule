@@ -11,7 +11,9 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class XxlJobAdminConfig implements InitializingBean {
+
     private static XxlJobAdminConfig adminConfig = null;
+
     public static XxlJobAdminConfig getAdminConfig() {
         return adminConfig;
     }

@@ -29,6 +29,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author xuxueli 2015-12-19 16:13:53
  */
 public final class XxlJobDynamicScheduler implements ApplicationContextAware {
+
     private static final Logger logger = LoggerFactory.getLogger(XxlJobDynamicScheduler.class);
 
     // ---------------------- param ----------------------
@@ -330,42 +331,5 @@ public final class XxlJobDynamicScheduler implements ApplicationContextAware {
         }
         return result;
     }
-
-    /**
-     * finaAllJobList
-     *
-     * @return
-     *//*
-    @Deprecated
-    public static List<Map<String, Object>> finaAllJobList(){
-        List<Map<String, Object>> jobList = new ArrayList<Map<String,Object>>();
-
-        try {
-            if (scheduler.getJobGroupNames()==null || scheduler.getJobGroupNames().size()==0) {
-                return null;
-            }
-            String groupName = scheduler.getJobGroupNames().get(0);
-            Set<JobKey> jobKeys = scheduler.getJobKeys(GroupMatcher.jobGroupEquals(groupName));
-            if (jobKeys!=null && jobKeys.size()>0) {
-                for (JobKey jobKey : jobKeys) {
-                    TriggerKey triggerKey = TriggerKey.triggerKey(jobKey.getName(), Scheduler.DEFAULT_GROUP);
-                    Trigger trigger = scheduler.getTrigger(triggerKey);
-                    JobDetail jobDetail = scheduler.getJobDetail(jobKey);
-                    TriggerState triggerState = scheduler.getTriggerState(triggerKey);
-                    Map<String, Object> jobMap = new HashMap<String, Object>();
-                    jobMap.put("TriggerKey", triggerKey);
-                    jobMap.put("Trigger", trigger);
-                    jobMap.put("JobDetail", jobDetail);
-                    jobMap.put("TriggerState", triggerState);
-                    jobList.add(jobMap);
-                }
-            }
-
-        } catch (SchedulerException e) {
-            logger.error(e.getMessage(), e);
-            return null;
-        }
-        return jobList;
-    }*/
 
 }
