@@ -1,14 +1,14 @@
 package com.courage.platform.schedule.console.core.thread;
 
-import com.hshc.schedule.console.core.model.XxlJobGroup;
-import com.hshc.schedule.console.core.model.XxlJobInfo;
-import com.hshc.schedule.console.core.model.XxlJobLog;
-import com.hshc.schedule.console.core.schedule.XxlJobDynamicScheduler;
-import com.hshc.schedule.console.core.util.I18nUtil;
-import com.hshc.schedule.console.core.util.MailUtil;
-import com.hshc.schedule.console.core.util.TemplateUtil;
-import com.hshc.schedule.core.biz.model.ReturnT;
-import com.hshc.schedule.core.handler.IJobHandler;
+import com.courage.platform.schedule.console.core.model.XxlJobGroup;
+import com.courage.platform.schedule.console.core.model.XxlJobInfo;
+import com.courage.platform.schedule.console.core.model.XxlJobLog;
+import com.courage.platform.schedule.console.core.schedule.XxlJobDynamicScheduler;
+import com.courage.platform.schedule.console.core.util.I18nUtil;
+import com.courage.platform.schedule.console.core.util.MailUtil;
+import com.courage.platform.schedule.console.core.util.TemplateUtil;
+import com.courage.platform.schedule.core.biz.model.ReturnT;
+import com.courage.platform.schedule.core.handler.IJobHandler;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -168,7 +168,6 @@ public class JobFailMonitorHelper {
                 MailUtil.sendMail(email, title, content);
             }
         }
-
         // TODO, custom alarm strategy, such as sms
 
     }

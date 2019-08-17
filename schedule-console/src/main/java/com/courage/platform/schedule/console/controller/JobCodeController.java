@@ -1,12 +1,12 @@
 package com.courage.platform.schedule.console.controller;
 
-import com.hshc.schedule.console.core.model.XxlJobInfo;
-import com.hshc.schedule.console.core.model.XxlJobLogGlue;
-import com.hshc.schedule.console.core.util.I18nUtil;
-import com.hshc.schedule.console.dao.XxlJobInfoDao;
-import com.hshc.schedule.console.dao.XxlJobLogGlueDao;
-import com.hshc.schedule.core.biz.model.ReturnT;
-import com.hshc.schedule.core.glue.GlueTypeEnum;
+import com.courage.platform.schedule.console.core.model.XxlJobInfo;
+import com.courage.platform.schedule.console.core.model.XxlJobLogGlue;
+import com.courage.platform.schedule.console.core.util.I18nUtil;
+import com.courage.platform.schedule.console.dao.XxlJobInfoDao;
+import com.courage.platform.schedule.console.dao.XxlJobLogGlueDao;
+import com.courage.platform.schedule.core.biz.model.ReturnT;
+import com.courage.platform.schedule.core.glue.GlueTypeEnum;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +23,10 @@ import java.util.List;
 @Controller
 @RequestMapping("/jobcode")
 public class JobCodeController {
-	
+
 	@Resource
 	private XxlJobInfoDao xxlJobInfoDao;
+
 	@Resource
 	private XxlJobLogGlueDao xxlJobLogGlueDao;
 

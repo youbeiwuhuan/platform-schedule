@@ -1,6 +1,6 @@
 package com.courage.platform.schedule.console.core.util;
 
-import com.hshc.schedule.console.core.conf.XxlJobAdminConfig;
+import com.courage.platform.schedule.console.core.conf.XxlJobAdminConfig;
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
@@ -29,11 +29,9 @@ public class MailUtil {
 		try {
 			// Create the email message
 			HtmlEmail email = new HtmlEmail();
-
 			//email.setDebug(true);		// 将会打印一些log
 			//email.setTLS(true);		// 是否TLS校验，，某些邮箱需要TLS安全校验，同理有SSL校验
 			//email.setSSL(true);
-
 			email.setHostName(XxlJobAdminConfig.getAdminConfig().getMailHost());
 			email.setSmtpPort(Integer.valueOf(XxlJobAdminConfig.getAdminConfig().getMailPort()));
 			//email.setSslSmtpPort(port);
@@ -44,14 +42,11 @@ public class MailUtil {
 			email.addTo(toAddress);
 			email.setSubject(mailSubject);
 			email.setMsg(mailBody);
-
 			//email.attach(attachment);	// add the attachment
-
 			email.send();				// send the email
 			return true;
 		} catch (EmailException e) {
 			logger.error(e.getMessage(), e);
-
 		}
 		return false;
 	}

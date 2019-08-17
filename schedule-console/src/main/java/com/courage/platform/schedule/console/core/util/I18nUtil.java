@@ -1,7 +1,7 @@
 package com.courage.platform.schedule.console.core.util;
 
-import com.hshc.schedule.console.core.conf.XxlJobAdminConfig;
-import com.hshc.schedule.core.util.JacksonUtil;
+import com.courage.platform.schedule.console.core.conf.XxlJobAdminConfig;
+import com.courage.platform.schedule.core.util.JacksonUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,7 +74,6 @@ public class I18nUtil {
                 map.put(key, prop.getProperty(key));
             }
         }
-
         String json = JacksonUtil.writeValueAsString(map);
         return json;
     }

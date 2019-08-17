@@ -1,14 +1,14 @@
 package com.courage.platform.schedule.console.controller;
 
-import com.hshc.schedule.console.core.model.XxlJobGroup;
-import com.hshc.schedule.console.core.model.XxlJobInfo;
-import com.hshc.schedule.console.core.model.XxlJobLog;
-import com.hshc.schedule.console.core.util.I18nUtil;
-import com.hshc.schedule.console.dao.XxlJobGroupDao;
-import com.hshc.schedule.console.dao.XxlJobInfoDao;
-import com.hshc.schedule.console.dao.XxlJobLogDao;
-import com.hshc.schedule.core.biz.model.ReturnT;
-import com.hshc.schedule.core.glue.GlueTypeEnum;
+import com.courage.platform.schedule.console.core.model.XxlJobGroup;
+import com.courage.platform.schedule.console.core.model.XxlJobInfo;
+import com.courage.platform.schedule.console.core.model.XxlJobLog;
+import com.courage.platform.schedule.console.core.util.I18nUtil;
+import com.courage.platform.schedule.console.dao.XxlJobGroupDao;
+import com.courage.platform.schedule.console.dao.XxlJobInfoDao;
+import com.courage.platform.schedule.console.dao.XxlJobLogDao;
+import com.courage.platform.schedule.core.biz.model.ReturnT;
+import com.courage.platform.schedule.core.glue.GlueTypeEnum;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;

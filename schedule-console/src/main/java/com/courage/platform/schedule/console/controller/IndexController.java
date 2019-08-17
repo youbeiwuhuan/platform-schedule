@@ -1,7 +1,7 @@
 package com.courage.platform.schedule.console.controller;
 
-import com.hshc.schedule.console.service.XxlJobService;
-import com.hshc.schedule.core.biz.model.ReturnT;
+import com.courage.platform.schedule.console.service.XxlJobService;
+import com.courage.platform.schedule.core.biz.model.ReturnT;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

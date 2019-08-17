@@ -1,10 +1,10 @@
 package com.courage.platform.schedule.console.controller;
 
-import com.hshc.schedule.console.core.model.XxlJobGroup;
-import com.hshc.schedule.console.core.util.I18nUtil;
-import com.hshc.schedule.console.dao.XxlJobGroupDao;
-import com.hshc.schedule.console.dao.XxlJobInfoDao;
-import com.hshc.schedule.core.biz.model.ReturnT;
+import com.courage.platform.schedule.console.core.model.XxlJobGroup;
+import com.courage.platform.schedule.console.core.util.I18nUtil;
+import com.courage.platform.schedule.console.dao.XxlJobGroupDao;
+import com.courage.platform.schedule.console.dao.XxlJobInfoDao;
+import com.courage.platform.schedule.core.biz.model.ReturnT;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +24,7 @@ public class JobGroupController {
 
 	@Resource
 	public XxlJobInfoDao xxlJobInfoDao;
+
 	@Resource
 	public XxlJobGroupDao xxlJobGroupDao;
 

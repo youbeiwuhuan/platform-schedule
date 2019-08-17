@@ -1,14 +1,14 @@
 package com.courage.platform.schedule.console.controller;
 
-import com.hshc.schedule.console.core.enums.ExecutorFailStrategyEnum;
-import com.hshc.schedule.console.core.model.XxlJobGroup;
-import com.hshc.schedule.console.core.model.XxlJobInfo;
-import com.hshc.schedule.console.core.route.ExecutorRouteStrategyEnum;
-import com.hshc.schedule.console.dao.XxlJobGroupDao;
-import com.hshc.schedule.console.service.XxlJobService;
-import com.hshc.schedule.core.biz.model.ReturnT;
-import com.hshc.schedule.core.enums.ExecutorBlockStrategyEnum;
-import com.hshc.schedule.core.glue.GlueTypeEnum;
+import com.courage.platform.schedule.console.core.enums.ExecutorFailStrategyEnum;
+import com.courage.platform.schedule.console.core.model.XxlJobGroup;
+import com.courage.platform.schedule.console.core.model.XxlJobInfo;
+import com.courage.platform.schedule.console.core.route.ExecutorRouteStrategyEnum;
+import com.courage.platform.schedule.console.dao.XxlJobGroupDao;
+import com.courage.platform.schedule.console.service.XxlJobService;
+import com.courage.platform.schedule.core.biz.model.ReturnT;
+import com.courage.platform.schedule.core.enums.ExecutorBlockStrategyEnum;
+import com.courage.platform.schedule.core.glue.GlueTypeEnum;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +29,7 @@ public class JobInfoController {
 
 	@Resource
 	private XxlJobGroupDao xxlJobGroupDao;
+
 	@Resource
 	private XxlJobService xxlJobService;
 	
