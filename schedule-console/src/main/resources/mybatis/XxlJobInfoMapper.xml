@@ -168,7 +168,7 @@
 		WHERE t.job_group = #{jobGroup}
 	</select>
 
-    <select id="existJob" parameterType="om.courage.platform.schedule.console.core.model.XxlJobInfo" resultMap="XxlJobInfo">
+    <select id="existJob" parameterType="com.courage.platform.schedule.console.core.model.XxlJobInfo" resultMap="XxlJobInfo">
         SELECT <include refid="Base_Column_List" />
         FROM HSHC_SCHEDULE_QRTZ_TRIGGER_INFO AS t
         WHERE t.executor_handler = #{executorHandler} AND t.job_group = #{jobGroup}

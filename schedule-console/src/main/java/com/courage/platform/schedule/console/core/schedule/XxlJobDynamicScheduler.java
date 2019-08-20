@@ -43,8 +43,11 @@ public final class XxlJobDynamicScheduler implements ApplicationContextAware {
 
     // dao
     public static XxlJobLogDao xxlJobLogDao;
+
     public static XxlJobInfoDao xxlJobInfoDao;
+
     public static XxlJobRegistryDao xxlJobRegistryDao;
+
     public static XxlJobGroupDao xxlJobGroupDao;
 
     // ---------------------- applicationContext ----------------------
@@ -85,7 +88,6 @@ public final class XxlJobDynamicScheduler implements ApplicationContextAware {
         if (address == null || address.trim().length() == 0) {
             return null;
         }
-
         // load-cache
         address = address.trim();
         ExecutorBiz executorBiz = executorBizRepository.get(address);
