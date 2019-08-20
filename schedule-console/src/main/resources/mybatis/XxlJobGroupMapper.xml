@@ -34,12 +34,12 @@
 		ORDER BY t.order ASC
 	</select>
 
-	<insert id="save" parameterType="com.hshc.schedule.com.courage.platform.schedule.com.courage.platform.schedule.console.core.model.XxlJobGroup" useGeneratedKeys="true" keyProperty="id" >
+	<insert id="save" parameterType="com.courage.platform.schedule.console.core.model.XxlJobGroup" useGeneratedKeys="true" keyProperty="id" >
 		INSERT INTO HSHC_SCHEDULE_QRTZ_TRIGGER_GROUP ( `app_name`, `title`, `order`, `address_type`, `address_list`)
 		values ( #{appName}, #{title}, #{order}, #{addressType}, #{addressList});
 	</insert>
 
-	<update id="update" parameterType="com.hshc.schedule.com.courage.platform.schedule.com.courage.platform.schedule.console.core.model.XxlJobGroup" >
+	<update id="update" parameterType="com.courage.platform.schedule.console.core.model.XxlJobGroup" >
 		UPDATE HSHC_SCHEDULE_QRTZ_TRIGGER_GROUP
 		SET `app_name` = #{appName},
 			`title` = #{title},
@@ -49,7 +49,7 @@
 		WHERE id = #{id}
 	</update>
 
-    <select id="existGroup" parameterType="com.hshc.schedule.com.courage.platform.schedule.com.courage.platform.schedule.console.core.model.XxlJobGroup" resultMap="XxlJobGroup">
+    <select id="existGroup" parameterType="com.courage.platform.schedule.console.core.model.XxlJobGroup" resultMap="XxlJobGroup">
         SELECT <include refid="Base_Column_List" />
         FROM HSHC_SCHEDULE_QRTZ_TRIGGER_GROUP AS t
         WHERE t.app_name = #{appName}

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hshc.schedule.com.courage.platform.schedule.console.dao.XxlJobInfoDao">
+<mapper namespace="com.courage.platform.schedule.console.dao.XxlJobInfoDao">
 	
-	<resultMap id="XxlJobInfo" type="com.hshc.schedule.com.courage.platform.schedule.console.core.model.XxlJobInfo" >
+	<resultMap id="XxlJobInfo" type="com.courage.platform.schedule.console.core.model.XxlJobInfo" >
 		<result column="id" property="id" />
 	
 		<result column="job_group" property="jobGroup" />
@@ -85,7 +85,7 @@
 		</trim>
 	</select>
 
-	<insert id="save" parameterType="com.hshc.schedule.com.courage.platform.schedule.console.core.model.XxlJobInfo" useGeneratedKeys="true" keyProperty="id" >
+	<insert id="save" parameterType="com.courage.platform.schedule.console.core.model.XxlJobInfo" useGeneratedKeys="true" keyProperty="id" >
 		INSERT INTO HSHC_SCHEDULE_QRTZ_TRIGGER_INFO (
 			job_group,
 			job_cron,
@@ -135,7 +135,7 @@
 		WHERE t.id = #{id}
 	</select>
 
-	<update id="update" parameterType="com.hshc.schedule.com.courage.platform.schedule.console.core.model.XxlJobInfo" >
+	<update id="update" parameterType="com.courage.platform.schedule.console.core.model.XxlJobInfo" >
 		UPDATE HSHC_SCHEDULE_QRTZ_TRIGGER_INFO
 		SET
 			job_cron = #{jobCron},
@@ -168,7 +168,7 @@
 		WHERE t.job_group = #{jobGroup}
 	</select>
 
-    <select id="existJob" parameterType="com.hshc.schedule.com.courage.platform.schedule.console.core.model.XxlJobInfo" resultMap="XxlJobInfo">
+    <select id="existJob" parameterType="om.courage.platform.schedule.console.core.model.XxlJobInfo" resultMap="XxlJobInfo">
         SELECT <include refid="Base_Column_List" />
         FROM HSHC_SCHEDULE_QRTZ_TRIGGER_INFO AS t
         WHERE t.executor_handler = #{executorHandler} AND t.job_group = #{jobGroup}
