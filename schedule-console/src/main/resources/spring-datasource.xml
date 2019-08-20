@@ -48,7 +48,9 @@
 		<property name="configLocation" value="classpath:quartz.properties"/>
 	</bean>
 
-	<bean id="xxlJobDynamicScheduler" class="com.hshc.schedule.console.core.schedule.XxlJobDynamicScheduler" init-method="init" destroy-method="destroy" >
+	<bean id="xxlJobDynamicScheduler" class="com.courage.platform.schedule.console.core.schedule.XxlJobDynamicScheduler"
+		  init-method="init"
+		  destroy-method="destroy" >
 		<!-- (轻易不要变更“调度器名称”, 任务创建时会绑定该“调度器名称”) -->
 		<property name="scheduler" ref="quartzScheduler"/>
 	</bean>
