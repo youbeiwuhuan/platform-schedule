@@ -4,7 +4,6 @@ import com.courage.platform.schedule.console.core.enums.ExecutorFailStrategyEnum
 import com.courage.platform.schedule.console.core.model.XxlJobGroup;
 import com.courage.platform.schedule.console.core.model.XxlJobInfo;
 import com.courage.platform.schedule.console.core.model.XxlJobLog;
-import com.courage.platform.schedule.console.core.rpc.RegistryController;
 import com.courage.platform.schedule.console.core.schedule.XxlJobDynamicScheduler;
 import com.courage.platform.schedule.console.core.thread.JobFailMonitorHelper;
 import com.courage.platform.schedule.console.core.trigger.XxlJobTrigger;
@@ -12,6 +11,7 @@ import com.courage.platform.schedule.console.core.util.I18nUtil;
 import com.courage.platform.schedule.core.biz.model.ReturnT;
 import com.courage.platform.schedule.core.biz.model.TriggerParam;
 import com.courage.platform.schedule.core.enums.ExecutorBlockStrategyEnum;
+import com.courage.platform.schedule.core.util.IpUtil;
 import com.courage.platform.schedule.rpc.ScheduleRpcClient;
 import com.courage.platform.schedule.rpc.protocol.TriggerScheduleCommand;
 import org.slf4j.Logger;
@@ -27,8 +27,6 @@ import java.util.Date;
 public abstract class ExecutorRouter {
 
     protected static Logger logger = LoggerFactory.getLogger(ExecutorRouter.class);
-
-    private final static RegistryController registryController = RegistryController.getSingleInstance();
 
     protected final static ScheduleRpcClient scheduleRpcClient = ScheduleRpcClient.getSingleInstance();
 
@@ -118,16 +116,6 @@ public abstract class ExecutorRouter {
         triggerParam.setBroadcastIndex(0);
         triggerParam.setBroadcastTotal(1);
         return triggerParam;
-    }
-
-    /**
-     * 获取注册中心地址
-     *
-     * @param group
-     * @return
-     */
-    protected List<RegistryInstance> getAddress(XxlJobGroup group) {
-        return registryController.getInstanceListByAppName(group.getAppName(), ServiceGroupEnum.TASKRPC);
     }
 
     /**

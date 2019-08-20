@@ -1,18 +1,28 @@
 package com.courage.platform.schedule.console.core.route.strategy;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.nacos.api.naming.pojo.Instance;
+import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingCommand;
+import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingSysResponseCode;
 import com.courage.platform.schedule.console.core.enums.ExecutorFailStrategyEnum;
 import com.courage.platform.schedule.console.core.model.XxlJobGroup;
 import com.courage.platform.schedule.console.core.model.XxlJobInfo;
 import com.courage.platform.schedule.console.core.model.XxlJobLog;
+import com.courage.platform.schedule.console.core.regcenter.RegistryController;
 import com.courage.platform.schedule.console.core.route.ExecutorRouter;
+import com.courage.platform.schedule.console.core.util.I18nUtil;
 import com.courage.platform.schedule.core.biz.model.ReturnT;
 import com.courage.platform.schedule.core.biz.model.TriggerParam;
+import com.courage.platform.schedule.rpc.protocol.CommandEnum;
+import com.courage.platform.schedule.rpc.protocol.TriggerScheduleCommand;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.courage.platform.schedule.core.util.ExceptionUtil.getStackTrace;
+import static com.courage.platform.schedule.core.util.ExceptionUtil.splitString;
 
 /**
  * Created by 王鑫 on 2018/11/5.
@@ -34,7 +44,7 @@ public class ExecutorRouteFirst extends ExecutorRouter {
             //获取触发参数
             triggerParam = getTriggerParam(jobInfo, jobLog);
             //获取地址实例
-            List<RegistryInstance> addressList = getAddress(group);
+            List<Instance> addressList = RegistryController.getInstanceList(group.getAppName());
             //执行任务
             ReturnT<String> triggerResult = execute(group, addressList, triggerMsg, triggerParam);
             // 失败重试
@@ -52,18 +62,17 @@ public class ExecutorRouteFirst extends ExecutorRouter {
         }
     }
 
-    private ReturnT<String> execute(XxlJobGroup group, List<RegistryInstance> addressList, StringBuffer triggerMsg, TriggerParam triggerParam) {
+    private ReturnT<String> execute(XxlJobGroup group, List<Instance> addressList, StringBuffer triggerMsg, TriggerParam triggerParam) {
         //流程变量定义
         ReturnT<String> triggerResult = new ReturnT<String>(null);
         List<String> addrList = null;
         try {
             if (CollectionUtils.isNotEmpty(addressList)) {
                 //tcp
-                triggerResult.setServiceGroupEnum(ServiceGroupEnum.TASKRPC);
                 //获取请求tcp的cmd对象
                 TriggerScheduleCommand command = getTcpCmd(triggerParam);
                 addrList = new ArrayList<String>();
-                for (RegistryInstance registryInstance : addressList) {
+                for (Instance registryInstance : addressList) {
                     try {
                         if (StringUtils.isNotEmpty(registryInstance.getIp()) && registryInstance.getPort() > 0) {
                             String currentAddr = registryInstance.getIp() + ":" + registryInstance.getPort();
@@ -94,19 +103,6 @@ public class ExecutorRouteFirst extends ExecutorRouter {
                 triggerResult.setCode(ReturnT.FAIL_CODE);
                 triggerMsg.append("<br>----------------------<br>").append("TASKRPC" + I18nUtil.getString("jobconf_trigger_address_empty"));
             }
-
-            //执行旧远程服务
-            if (triggerResult == null || triggerResult.getCode() == ReturnT.FAIL_CODE) {
-                List<String> oldAddr = group.getRegistryList();
-                if (CollectionUtils.isNotEmpty(oldAddr)) {
-                    //将之前的结果放进去
-                    triggerParam.setReturnT(triggerResult);
-                    //执行
-                    triggerResult = exec(oldAddr.get(0), triggerParam);
-                } else {
-                    triggerMsg.append("<br>----------------------<br>").append("HTTPRPC" + I18nUtil.getString("jobconf_trigger_address_empty"));
-                }
-            }
         } catch (Exception e) {
             String errorMsg = "Rpc exe error: serverAddress:" + addressList.toString() + "," + e.getMessage();
             logger.error(errorMsg, e);
@@ -121,4 +117,5 @@ public class ExecutorRouteFirst extends ExecutorRouter {
         }
         return triggerResult;
     }
+
 }

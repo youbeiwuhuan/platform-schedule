@@ -1,17 +1,28 @@
 package com.courage.platform.schedule.console.core.route.strategy;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.nacos.api.naming.pojo.Instance;
+import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingCommand;
+import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingSysResponseCode;
+import com.courage.platform.schedule.console.core.enums.ExecutorFailStrategyEnum;
 import com.courage.platform.schedule.console.core.model.XxlJobGroup;
 import com.courage.platform.schedule.console.core.model.XxlJobInfo;
+import com.courage.platform.schedule.console.core.model.XxlJobLog;
+import com.courage.platform.schedule.console.core.regcenter.RegistryController;
 import com.courage.platform.schedule.console.core.route.ExecutorRouter;
 import com.courage.platform.schedule.core.biz.model.ReturnT;
 import com.courage.platform.schedule.core.biz.model.TriggerParam;
+import com.courage.platform.schedule.rpc.protocol.CommandEnum;
+import com.courage.platform.schedule.rpc.protocol.TriggerScheduleCommand;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.Objects;
+
+import static com.courage.platform.schedule.core.util.ExceptionUtil.splitString;
 
 /**
  * Created by 王鑫 on 2018/11/5.
@@ -24,7 +35,7 @@ public class ExecutorBroadcast extends ExecutorRouter {
     public void routeRun(XxlJobInfo jobInfo, XxlJobGroup group) {
         try {
             //获取地址实例
-            List<RegistryInstance> addressList = getAddress(group);
+            List<Instance> addressList = RegistryController.getInstanceList(group.getAppName());
             if (CollectionUtils.isNotEmpty(addressList)) {
                 addressList.forEach(registryInstance -> {
                     XxlJobLog jobLog = null;
@@ -77,8 +88,6 @@ public class ExecutorBroadcast extends ExecutorRouter {
         //设置调用地址
         triggerResult.setContent(address);
         try {
-            //tcp
-            triggerResult.setServiceGroupEnum(ServiceGroupEnum.TASKRPC);
             //获取请求tcp的cmd对象
             TriggerScheduleCommand command = getTcpCmd(triggerParam);
             PlatformRemotingCommand response = scheduleRpcClient.send(address, CommandEnum.TRIGGER_SCHEDULE_TASK_CMD, command);
@@ -102,4 +111,5 @@ public class ExecutorBroadcast extends ExecutorRouter {
         }
         return triggerResult;
     }
+
 }

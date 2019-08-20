@@ -4,6 +4,10 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!-- RocketMq -->
+    <!-- 数据源 -->
     <import resource="spring-datasource.xml"/>
+
+    <!-- 注册中心配置  -->
+    <import resource="spring-regcenter.xml" />
+
 </beans>

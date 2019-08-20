@@ -1,5 +1,9 @@
 package com.courage.platform.schedule.console.core.thread;
 
+import com.courage.platform.schedule.console.core.model.XxlJobGroup;
+import com.courage.platform.schedule.console.core.model.XxlJobRegistry;
+import com.courage.platform.schedule.console.core.schedule.XxlJobDynamicScheduler;
+import com.courage.platform.schedule.core.enums.RegistryConfig;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -53,7 +57,6 @@ public class JobRegistryMonitorHelper {
 										if (registryList == null) {
 											registryList = new ArrayList<String>();
 										}
-
 										if (!registryList.contains(item.getRegistryValue())) {
 											registryList.add(item.getRegistryValue());
 										}
@@ -61,7 +64,6 @@ public class JobRegistryMonitorHelper {
 									}
 								}
 							}
-
 							// fresh group address
 							for (XxlJobGroup group: groupList) {
 								List<String> registryList = appAddressMap.get(group.getAppName());
