@@ -26,7 +26,7 @@
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
-		<property name="basePackage" value="com.hshc.schedule.console.dao" />
+		<property name="basePackage" value="com.courage.platform.schedule.console.dao" />
 	</bean>
     
 	<!-- ********************************* part 2 :for tx ********************************* -->
