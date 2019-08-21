@@ -21,6 +21,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(cookieInterceptor).addPathPatterns("/**");
+        registry.addInterceptor(new PermissionInterceptor()).addPathPatterns("/**");
         super.addInterceptors(registry);
     }
 

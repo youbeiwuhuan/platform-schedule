@@ -35,7 +35,6 @@ public class JobInfoController {
 	
 	@RequestMapping
 	public String index(Model model, @RequestParam(required = false, defaultValue = "-1") int jobGroup) {
-
 		// 枚举-字典
 		model.addAttribute("ExecutorRouteStrategyEnum", ExecutorRouteStrategyEnum.values());	// 路由策略-列表
 		model.addAttribute("GlueTypeEnum", GlueTypeEnum.values());								// Glue类型-字典
@@ -55,7 +54,6 @@ public class JobInfoController {
 	public Map<String, Object> pageList(@RequestParam(required = false, defaultValue = "0") int start,  
 			@RequestParam(required = false, defaultValue = "10") int length,
 			int jobGroup, String jobDesc, String executorHandler, String filterTime) {
-		
 		return xxlJobService.pageList(start, length, jobGroup, jobDesc, executorHandler, filterTime);
 	}
 	

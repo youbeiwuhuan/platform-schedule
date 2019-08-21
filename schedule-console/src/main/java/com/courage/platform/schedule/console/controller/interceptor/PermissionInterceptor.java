@@ -4,6 +4,7 @@ import com.courage.platform.schedule.console.controller.annotation.PermessionLim
 import com.courage.platform.schedule.console.core.conf.XxlJobAdminConfig;
 import com.courage.platform.schedule.console.core.util.CookieUtil;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -61,10 +62,8 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
         return true;
     }
 
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
         if (!(handler instanceof HandlerMethod)) {
             return super.preHandle(request, response, handler);
         }
@@ -78,7 +77,6 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
                 return false;
             }
         }
-
         return super.preHandle(request, response, handler);
     }
 
