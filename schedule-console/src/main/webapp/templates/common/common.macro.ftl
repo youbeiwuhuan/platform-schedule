@@ -232,7 +232,7 @@
 <footer class="main-footer">
     Powered by <b>HSHC-SCHEDULE</b> ${I18n.admin_version}
     <div class="pull-right hidden-xs">
-        <strong>花生好车架构部 </strong><!-- All rights reserved. -->
+        <strong>架构部 </strong><!-- All rights reserved. -->
     </div>
 </footer>
 </#macro>
