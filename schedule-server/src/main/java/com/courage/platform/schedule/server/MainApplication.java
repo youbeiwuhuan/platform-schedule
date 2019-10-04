@@ -6,8 +6,11 @@ package com.courage.platform.schedule.server;
  */
 public class MainApplication {
 
-    public static void main(String[] args) {
-        System.out.println("mainApplication");
+    public static void main(String[] args) throws InterruptedException {
+        while (true) {
+            System.out.println("mainApplication");
+            Thread.sleep(10000);
+        }
     }
 
 }
