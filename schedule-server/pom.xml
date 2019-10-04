@@ -57,10 +57,7 @@
     </dependencies>
 
     <build>
-        <finalName>hshcregistryserver</finalName>
-        <filters> <!-- 指定使用的 filter -->
-            <filter>src/main/filters/${env}.properties</filter>
-        </filters>
+        <finalName>scheduleserver</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
