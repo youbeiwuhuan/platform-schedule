@@ -2,34 +2,15 @@
 <configuration>
 
 	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
-		<!--<Encoding>UTF-8</Encoding> -->
-		<layout class="ch.qos.logback.classic.PatternLayout">
-			<pattern>%date [%thread] %-5level %logger{50}:%L - %msg%n</pattern>
-		</layout>
+		<encoder>
+			<pattern>%d{yyy-MM-dd HH:mm:ss.SSS} %p %t %logger{36}:%L - %msg%n</pattern>
+			<charset class="java.nio.charset.Charset">UTF-8</charset>
+		</encoder>
 	</appender>
 
-	<springProfile name="dev">
-		<root level="info">
-			<appender-ref ref="stdout" />
-		</root>
-	</springProfile>
-
-	<springProfile name="test">
-		<root level="info">
-			<appender-ref ref="stdout" />
-		</root>
-	</springProfile>
-
-	<springProfile name="release">
-		<root level="info">
-			<appender-ref ref="stdout" />
-		</root>
-	</springProfile>
-
-	<springProfile name="master">
-		<root level="info">
-			<appender-ref ref="stdout" />
-		</root>
-	</springProfile>
+	<root level="info">
+		<!-- 生产环境采用文件日志 -->
+		<appender-ref ref="stdout"/>
+	</root>
 
 </configuration>
