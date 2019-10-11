@@ -12,8 +12,6 @@
 
     <modules>
         <module>schedule-client</module>
-        <!-- 控制台 -->
-        <module>schedule-console</module>
         <module>schedule-server</module>
         <module>schedule-rpc</module>
         <module>schedule-core</module>
