@@ -11,7 +11,7 @@ public class MainApplication {
 
     private final static Logger logger = LoggerFactory.getLogger(MainApplication.class);
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         long start = System.currentTimeMillis();
         logger.info("开始启动任务调度服务");
 
