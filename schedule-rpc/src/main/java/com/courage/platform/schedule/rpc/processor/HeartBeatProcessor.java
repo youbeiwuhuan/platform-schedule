@@ -8,9 +8,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * 心跳处理器
  * Created by 王鑫 on 2018/11/1.
  */
 public class HeartBeatProcessor implements PlatformNettyRequestProcessor {
+
     private static final Logger logger = LoggerFactory.getLogger(HeartBeatProcessor.class);
 
     @Override
