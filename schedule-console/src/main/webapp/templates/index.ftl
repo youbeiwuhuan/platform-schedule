@@ -5,7 +5,7 @@
 	<@netCommon.commonStyle />
     <!-- daterangepicker -->
     <link rel="stylesheet" href="${request.contextPath}/static/adminlte/plugins/daterangepicker/daterangepicker.css">
-    <title>统一监控系统</title>
+    <title>任务调度系统</title>
 </head>
 <body class="hold-transition skin-purple sidebar-mini <#if cookieMap?exists && "off" == cookieMap["xxljob_adminlte_settings"].value >sidebar-collapse</#if> ">
 <div class="wrapper">
