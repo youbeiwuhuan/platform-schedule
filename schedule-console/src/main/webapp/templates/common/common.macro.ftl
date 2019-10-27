@@ -76,7 +76,7 @@
 <header class="main-header">
     <a href="${request.contextPath}/" class="skin-purple logo">
         <span class="logo-mini"><b>UMP</b></span>
-        <span class="logo-lg"><b>统一监控系统</b></span>
+        <span class="logo-lg"><b>任务调度</b></span>
     </a>
     <nav class="skin-purple navbar navbar-static-top" role="navigation">
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"><span class="sr-only">切换导航</span></a>
