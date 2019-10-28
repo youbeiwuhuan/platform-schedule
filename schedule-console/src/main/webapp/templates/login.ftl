@@ -9,7 +9,7 @@
 <body class="hold-transition login-page">
 	<div class="login-box">
 		<div class="login-logo">
-			<a><b>UMP</b></a>
+			<a><b>SCHEDULE</b></a>
 		</div>
 		<form id="loginForm" method="post" >
 			<div class="login-box-body">
