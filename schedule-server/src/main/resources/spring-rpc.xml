@@ -3,7 +3,9 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans.xsd">
-    
-    <import resource="spring-rpc.xml"/>
+
+
+    <bean id="scheduleRpcServer" class="com.courage.platform.schedule.rpc.ScheduleRpcServer" init-method="start" destroy-method="shutdown">
+    </bean>
 
 </beans>
