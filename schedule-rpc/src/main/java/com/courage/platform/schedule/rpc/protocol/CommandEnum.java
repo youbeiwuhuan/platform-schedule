@@ -11,6 +11,8 @@ public class CommandEnum {
     //反馈任务执行结果
     public static final int CALLBACK_SCHEDULE_RESULT_CMD = 10001;
 
+    //callbackScheduleResult
+
     //查询任务调用日志
     public static final int QUERY_SCHEDULE_LOG_CMD = 10002;
 
