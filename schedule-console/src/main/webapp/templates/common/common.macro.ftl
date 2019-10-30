@@ -75,7 +75,7 @@
 <#macro commonHeader>
 <header class="main-header">
     <a href="${request.contextPath}/" class="skin-purple logo">
-        <span class="logo-mini"><b>UMP</b></span>
+        <span class="logo-mini"><b>SCHEDULE</b></span>
         <span class="logo-lg"><b>任务调度</b></span>
     </a>
     <nav class="skin-purple navbar navbar-static-top" role="navigation">
