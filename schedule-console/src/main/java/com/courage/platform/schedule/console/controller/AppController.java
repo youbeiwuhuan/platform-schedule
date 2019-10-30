@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
+/*
+   应用管理
+ */
 @Controller
-public class ExampleController {
+public class AppController {
 
-    private final static Logger logger = LoggerFactory.getLogger(ExampleController.class);
+    private final static Logger logger = LoggerFactory.getLogger(AppController.class);
 
     @RequestMapping("/")
     public String index() {
