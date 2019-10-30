@@ -9,9 +9,9 @@ import org.slf4j.LoggerFactory;
 /*
     触发调度处理器
  */
-public class TriggerJobProcessor implements PlatformNettyRequestProcessor {
+public class TriggerProcessor implements PlatformNettyRequestProcessor {
 
-    private final static Logger logger = LoggerFactory.getLogger(TriggerJobProcessor.class);
+    private final static Logger logger = LoggerFactory.getLogger(TriggerProcessor.class);
 
     @Override
     public PlatformRemotingCommand processRequest(ChannelHandlerContext channelHandlerContext, PlatformRemotingCommand platformRemotingCommand) throws Exception {
