@@ -7,13 +7,13 @@ package com.courage.platform.schedule.rpc.protocol;
 public abstract class BaseCommand {
 
     //任务Id
-    private Integer jobId;
+    private Long jobId;
 
-    public Integer getJobId() {
+    public Long getJobId() {
         return jobId;
     }
 
-    public void setJobId(Integer jobId) {
+    public void setJobId(Long jobId) {
         this.jobId = jobId;
     }
 
