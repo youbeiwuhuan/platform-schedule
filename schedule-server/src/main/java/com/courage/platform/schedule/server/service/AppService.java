@@ -14,10 +14,10 @@ import javax.annotation.PostConstruct;
 public class AppService {
 
     private final static Logger logger = LoggerFactory.getLogger(AppService.class);
-    
+
     @PostConstruct
     public void post() {
-        logger.info("加载应用信息");
+        logger.info("加载app应用信息");
     }
 
 }
