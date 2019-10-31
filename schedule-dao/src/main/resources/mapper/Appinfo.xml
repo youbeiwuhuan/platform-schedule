@@ -24,7 +24,7 @@
 		t.update_time
 	</sql>
 
-    <select id="findSmsAppinfoByAppId" parameterType="java.lang.String" resultMap="SmsAppinfo">
+    <select id="findSmsAppinfoByAppId" parameterType="java.lang.String" resultMap="appinfo">
         SELECT <include refid="Base_Column_List" />
         FROM t_platform_appinfo AS t
         WHERE t.app_id = #{appId}
@@ -37,7 +37,7 @@
         ORDER BY t.id ASC
     </select>
 
-    <insert id="insertAppInfo" parameterType="com.hshc.sms.dao.domain.SmsAppinfo" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertAppInfo" parameterType="com.courage.platform.schedule.dao.domain.Appinfo" useGeneratedKeys="true" keyProperty="id">
         insert into t_platform_appinfo(
         <if test="appId != null and appId != ''">app_id,</if>
         <if test="appKey != null and appKey != ''">app_key,</if>
@@ -57,7 +57,7 @@
         )
     </insert>
 
-    <update id="updateAppInfo" parameterType="com.hshc.sms.dao.domain.SmsAppinfo">
+    <update id="updateAppInfo" parameterType="com.courage.platform.schedule.dao.domain.Appinfo">
         update t_platform_appinfo
         <set>
             <if test=" appId != ''">app_id = #{appId},</if>
