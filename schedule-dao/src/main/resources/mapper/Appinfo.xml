@@ -31,7 +31,7 @@
         ORDER BY t.id ASC
     </select>
 
-    <select id="findAll"  resultMap="SmsAppinfo">
+    <select id="findAll"  resultMap="appinfo">
         SELECT <include refid="Base_Column_List" />
         FROM t_platform_appinfo AS t
         ORDER BY t.id ASC
