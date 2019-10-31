@@ -16,6 +16,7 @@
         <module>schedule-rpc</module>
         <module>schedule-console</module>
         <module>schedule-core</module>
+        <module>schedule-dao</module>
     </modules>
 
     <properties>
