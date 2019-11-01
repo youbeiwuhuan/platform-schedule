@@ -16,6 +16,7 @@ public class CommandEnum {
     //查询任务调用日志
     public static final int QUERY_SCHEDULE_LOG_CMD = 10002;
 
-    //心跳命令
+    //心跳命令(也相当于注册信息)
     public static final int SCHEDULE_HEART_BEAT_CMD = 10003;
+
 }
