@@ -5,9 +5,9 @@
 		http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
-        <property name="url" value="jdbc:mysql://localhost:3306/tech_platform?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;tinyInt1isBit=false"/>
-        <property name="username" value="root"/>
-        <property name="password" value="ilxw"/>
+        <property name="url" value="jdbc:mysql://${mysql.datasource.ip}:${mysql.datasource.port}/${mysql.datasource.database}?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;tinyInt1isBit=false"/>
+        <property name="username" value="${mysql.datasource.username}"/>
+        <property name="password" value="${mysql.datasource.password}"/>
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="testWhileIdle" value="true" />
         <property name="timeBetweenEvictionRunsMillis" value="60000"/>
