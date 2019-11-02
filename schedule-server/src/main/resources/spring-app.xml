@@ -5,13 +5,15 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:component-scan base-package="com.courage.platform.schedule" />
+    <context:component-scan base-package="com.courage.platform.schedule"/>
 
     <!-- 加载环境配置 -->
     <bean id="envConfig" class="com.courage.platform.schedule.server.configuration.SpringCustomEnviromentConfig">
+        <property name="applicationFile">
+            <value>classpath:application.properties</value>
+        </property>
         <property name="locations">
             <list>
-                <value>classpath:application.properties</value>
                 <value>classpath:application-dev.properties</value>
                 <value>classpath:application-test.properties</value>
                 <value>classpath:application-prod.properties</value>
