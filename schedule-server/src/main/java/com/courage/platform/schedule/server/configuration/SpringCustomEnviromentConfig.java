@@ -49,6 +49,7 @@ public class SpringCustomEnviromentConfig extends PropertyPlaceholderConfigurer 
                 InputStream is = null;
                 String fileName = location.getFilename();
                 if (fileName.equals("application-" + jvmEnv + ".properties")) {
+                    logger.info("加载环境配置文件:" + fileName);
                     try {
                         is = location.getInputStream();
                         propertiesPersister.load(props, is);
