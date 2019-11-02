@@ -12,6 +12,9 @@
         <property name="locations">
             <list>
                 <value>classpath:application.properties</value>
+                <value>classpath:application-dev.properties</value>
+                <value>classpath:application-test.properties</value>
+                <value>classpath:application-prod.properties</value>
             </list>
         </property>
     </bean>
