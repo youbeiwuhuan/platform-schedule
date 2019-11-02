@@ -20,8 +20,6 @@ public class SpringCustomEnviromentConfig extends PropertyPlaceholderConfigurer 
 
     private static final Logger logger = LoggerFactory.getLogger(SpringCustomEnviromentConfig.class);
 
-    private final static String DEFAULT_APPLICATION_FILE_NAME = "application.properties";
-
     private PropertiesPersister propertiesPersister = new DefaultPropertiesPersister();
 
     private Resource applicationFile;
