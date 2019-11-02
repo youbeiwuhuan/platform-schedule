@@ -3,9 +3,6 @@ package com.courage.platform.schedule.server.configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
-import org.springframework.core.io.Resource;
-import org.springframework.util.DefaultPropertiesPersister;
-import org.springframework.util.PropertiesPersister;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -17,14 +14,6 @@ import java.util.Properties;
 public class SpringCustomEnviromentConfig extends PropertyPlaceholderConfigurer {
 
     private static final Logger logger = LoggerFactory.getLogger(SpringCustomEnviromentConfig.class);
-
-    protected Properties localProperties;
-
-    protected boolean localOverride = false;
-
-    private Resource[] resources;
-
-    private PropertiesPersister propertiesPersister = new DefaultPropertiesPersister();
 
     @Override
     protected void loadProperties(Properties props) throws IOException {
