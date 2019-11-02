@@ -1,2 +1,10 @@
 server:
   port: 8081
+
+mysql:
+  datasource:
+    ip: 127.0.0.1
+    port: 3306
+    database: tech_platform
+    username: root
+    password: ilxw
