@@ -27,7 +27,7 @@ public class ScheduleJobInfoService {
     private ScheduleJobInfoDao scheduleJobInfoDao;
 
     //1分钟加载一次任务信息
-    @Scheduled(initialDelay = 0, fixedRate = 60000)
+    @Scheduled(initialDelay = 60000, fixedRate = 60000)
     @PostConstruct
     public void loadCache() {
         long start = System.currentTimeMillis();
