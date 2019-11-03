@@ -30,9 +30,4 @@
         </property>
     </bean>
 
-    <!-- 调度服务 -->
-    <bean id="scheduleService" class="com.courage.platform.schedule.server.service.ScheduleService" init-method="start"
-          destroy-method="shutdown">
-    </bean>
-
 </beans>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.courage.platform.schedule.dao.ScheduleJobInfoDao" >
+
+    <resultMap id="scheduleJobInfo" type="com.courage.platform.schedule.dao.domain.ScheduleJobInfo" >
+        <result column="id" property="id" />
+        <result column="app_id" property="appId" />
+        <result column="app_name" property="appName"/>
+        <result column="job_name" property="jobName" />
+        <result column="job_type" property="jobType" />
+        <result column="job_description" property="jobDescription" />
+        <result column="job_cron" property="jobCron" />
+        <result column="job_param" property="jobParam" />
+        <result column="broadcastMode" property="broadcastMode" />
+        <result column="alarm_email" property="alarmEmail" />
+        <result column="trigger_next_time" property="triggerNextTime" />
+        <result column="trigger_last_time" property="triggerLastTime" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <sql id="scheduleInfoColumnList">
+        `id`,
+        `app_id`,
+        `app_name`,
+        `job_name`,
+        `job_type`,
+        `job_description`,
+        `job_cron`,
+        `job_param`,
+        `broadcast_mode`,
+        `alarm_email`,
+        `trigger_next_time`,
+        `trigger_last_time`,
+        `create_time`,
+        `update_time`
+	</sql>
+
+    <select id="findAll" resultMap="scheduleJobInfo">
+        SELECT <include refid="scheduleInfoColumnList" />
+        FROM t_schedule_job_info AS t
+        ORDER BY t.id ASC
+    </select>
+
+</mapper>
