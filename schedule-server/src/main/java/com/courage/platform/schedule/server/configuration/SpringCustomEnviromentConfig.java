@@ -1,5 +1,6 @@
 package com.courage.platform.schedule.server.configuration;
 
+import com.courage.platform.schedule.core.util.IpUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +41,7 @@ public class SpringCustomEnviromentConfig extends PropertyPlaceholderConfigurer 
             }
             propertiesPersister.load(props, inputStream);
         }
-        logger.info("应用启动env:" + jvmEnv);
+        logger.info("应用启动env:" + jvmEnv + " 当前ip:" + IpUtil.getIp());
         if (locations != null) {
             logger.info("start loading properties file .........");
             for (Resource location : locations) {
