@@ -40,7 +40,7 @@ public class SpringCustomEnviromentConfig extends PropertyPlaceholderConfigurer 
             }
             propertiesPersister.load(props, inputStream);
         }
-        logger.info("应用启动jvmEnv:" + jvmEnv);
+        logger.info("应用启动env:" + jvmEnv);
         if (locations != null) {
             logger.info("start loading properties file .........");
             for (Resource location : locations) {
