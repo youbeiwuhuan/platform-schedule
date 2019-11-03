@@ -11,14 +11,17 @@
                    static-field="com.courage.platform.schedule.rpc.protocol.CommandEnum.TRIGGER_SCHEDULE_TASK_CMD"/>
 
     <!-- 触发调度处理器  -->
-    <bean id="triggerScheduleProcessor" class="com.courage.platform.schedule.server.rpc.processor.TriggerScheduleProcessor">
+    <bean id="triggerScheduleProcessor"
+          class="com.courage.platform.schedule.server.rpc.processor.TriggerScheduleProcessor">
     </bean>
 
     <!-- 回调结果处理器  -->
-    <bean id="callbackResultProcessor" class="com.courage.platform.schedule.server.rpc.processor.CallbackScheduleResultProcessor"></bean>
+    <bean id="callbackResultProcessor"
+          class="com.courage.platform.schedule.server.rpc.processor.CallbackScheduleResultProcessor"></bean>
 
     <!-- 调度rpc server -->
-    <bean id="scheduleRpcServer" class="com.courage.platform.schedule.rpc.ScheduleRpcServer" init-method="start" destroy-method="shutdown">
+    <bean id="scheduleRpcServer" class="com.courage.platform.schedule.rpc.ScheduleRpcServer" init-method="start"
+          destroy-method="shutdown">
         <property name="processorTable">
             <map>
                 <entry key-ref="callBackCmd" value-ref="callbackResultProcessor"/>
@@ -28,7 +31,8 @@
     </bean>
 
     <!-- 调度服务 -->
-    <bean id="scheduleService" class="com.courage.platform.schedule.server.service.ScheduleService" >
+    <bean id="scheduleService" class="com.courage.platform.schedule.server.service.ScheduleService" init-method="start"
+          destroy-method="shutdown">
     </bean>
 
 </beans>
