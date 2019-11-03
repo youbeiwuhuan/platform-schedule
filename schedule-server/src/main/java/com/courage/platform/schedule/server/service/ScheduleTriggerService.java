@@ -1,6 +1,5 @@
 package com.courage.platform.schedule.server.service;
 
-import com.courage.platform.schedule.dao.ScheduleJobInfoDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,7 @@ public class ScheduleTriggerService {
     private final static Logger logger = LoggerFactory.getLogger(ScheduleTriggerService.class);
 
     @Autowired
-    private ScheduleJobInfoDao scheduleJobInfoDao;
+    private ScheduleJobInfoService scheduleJobInfoService;
 
     public void start() {
 
