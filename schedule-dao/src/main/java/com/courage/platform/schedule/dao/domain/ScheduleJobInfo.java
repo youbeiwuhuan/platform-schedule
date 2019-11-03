@@ -28,6 +28,14 @@ public class ScheduleJobInfo {
 
     private String alarmEmail;
 
+    private Date createTime;
+
+    private Date updateTime;
+
+    private Date triggerNextTime;
+
+    private Date triggerLastTime;
+
     public Long getId() {
         return id;
     }
@@ -139,15 +147,5 @@ public class ScheduleJobInfo {
     public void setTriggerLastTime(Date triggerLastTime) {
         this.triggerLastTime = triggerLastTime;
     }
-
-    private Date createTime;
-
-    private Date updateTime;
-
-    private Date triggerNextTime;
-
-    private Date triggerLastTime;
-
-
 
 }
