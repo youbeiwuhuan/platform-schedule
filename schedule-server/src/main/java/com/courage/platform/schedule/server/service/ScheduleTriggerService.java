@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
  * Created by zhangyong on 2019/11/3.
  */
 @Service
-public class ScheduleTiggerService {
+public class ScheduleTriggerService {
 
-    private final static Logger logger = LoggerFactory.getLogger(ScheduleTiggerService.class);
+    private final static Logger logger = LoggerFactory.getLogger(ScheduleTriggerService.class);
 
     @Autowired
     private ScheduleJobInfoDao scheduleJobInfoDao;
