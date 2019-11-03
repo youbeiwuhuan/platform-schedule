@@ -13,6 +13,13 @@ public class ScheduleService {
 
     private final static Logger logger = LoggerFactory.getLogger(ScheduleService.class);
 
-    
+
+    public void start() {
+
+    }
+
+    public void shutdown() {
+
+    }
 
 }
