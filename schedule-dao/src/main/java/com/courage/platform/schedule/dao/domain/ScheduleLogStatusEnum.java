@@ -1,6 +1,7 @@
 package com.courage.platform.schedule.dao.domain;
 
 /**
+ * 调度日志状态
  * Created by zhangyong on 2019/11/4.
  */
 public enum ScheduleLogStatusEnum {
