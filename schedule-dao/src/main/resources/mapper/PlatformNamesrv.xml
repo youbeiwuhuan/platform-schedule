@@ -30,4 +30,12 @@
         ORDER BY t.id ASC
     </select>
 
+    <select id="getPlatformNamesrvByNamesrvIp" parameterType="java.lang.String" resultMap="platformNamesrv">
+        SELECT <include refid="namesrvColumnList" />
+        FROM t_platform_namesrv AS t
+        where t.type = 0
+        and
+        namesrv_ip = #{namesrv_ip}
+    </select>
+
 </mapper>

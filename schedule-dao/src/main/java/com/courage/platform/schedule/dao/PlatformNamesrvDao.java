@@ -13,4 +13,6 @@ public interface PlatformNamesrvDao {
 
     List<PlatformNamesrv> findAll();
 
+    PlatformNamesrv getPlatformNamesrvByNamesrvIp(String namesrvIp);
+
 }

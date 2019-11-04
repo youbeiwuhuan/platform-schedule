@@ -1,6 +1,5 @@
 package com.courage.platform.schedule.server.service;
 
-import com.courage.platform.schedule.core.util.IpUtil;
 import com.courage.platform.schedule.dao.domain.ScheduleJobInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,13 +22,18 @@ public class ScheduleTriggerService {
     @Autowired
     private ScheduleJobInfoService scheduleJobInfoService;
 
+    @Autowired
+    private PlatformNamesrvService platformNamesrvService;
+
     @PostConstruct
     public void start() {
+        //检测当前ip是否支持启动
         ConcurrentHashMap<Long, ScheduleJobInfo> jobInfoCache = scheduleJobInfoService.getJobInfoCache();
     }
 
     @PreDestroy
     public void shutdown() {
+        
     }
 
 }
