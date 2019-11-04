@@ -1,13 +1,16 @@
 package com.courage.platform.schedule.server.service;
 
+import com.alibaba.fastjson.JSON;
 import com.courage.platform.schedule.core.cron.CronExpression;
 import com.courage.platform.schedule.core.util.ThreadFactoryImpl;
 import com.courage.platform.schedule.dao.domain.ScheduleJobInfo;
 import com.courage.platform.schedule.server.service.timer.ScheduleHashedWheelTimer;
 import com.courage.platform.schedule.server.service.timer.ScheduleTimeout;
 import com.courage.platform.schedule.server.service.timer.ScheduleTimerTask;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -31,6 +34,9 @@ public class ScheduleJobExecutor {
 
     private ScheduleHashedWheelTimer scheduleHashedWheelTimer;
 
+    @Autowired
+    private ScheduleRpcService scheduleRpcService;
+
     @PostConstruct
     public void start() {
         scheduleHashedWheelTimer = new ScheduleHashedWheelTimer(new ThreadFactory() {
@@ -43,6 +49,10 @@ public class ScheduleJobExecutor {
     }
 
     public void addJob(ScheduleJobInfo scheduleJobInfo) {
+        if (!NumberUtils.INTEGER_ZERO.equals(scheduleJobInfo.getStatus())) {
+            logger.info("当前任务:" + JSON.toJSONString(scheduleJobInfo) + " 已经禁用!");
+            return;
+        }
         Date currentDate = new Date();
         Date nextExecuteDate = null;
         try {
@@ -61,10 +71,9 @@ public class ScheduleJobExecutor {
                     executor.execute(new Runnable() {
                         @Override
                         public void run() {
-                            scheduleJobInfo.setTriggerLastTime(new Date());
-                            //调用rpc 推送对方执行
-                            logger.info("任务执行:" + scheduleJobInfo.getJobName());
-                            //TODO
+                            //调用rpc触发任务
+                            scheduleRpcService.doRpcTrigger(scheduleJobInfo);
+                            //计算下一次调度信息
                             addJob(scheduleJobInfo);
                         }
                     });
