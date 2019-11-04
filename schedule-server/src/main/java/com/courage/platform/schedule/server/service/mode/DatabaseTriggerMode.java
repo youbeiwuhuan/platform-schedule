@@ -5,10 +5,17 @@ import com.courage.platform.schedule.dao.domain.PlatformNamesrv;
 import com.courage.platform.schedule.rpc.config.ScheduleRpcServerConfig;
 import com.courage.platform.schedule.server.service.PlatformNamesrvService;
 import com.courage.platform.schedule.server.service.ScheduleJobInfoService;
+import com.courage.platform.schedule.server.service.timer.ScheduleHashedWheelTimer;
+import com.courage.platform.schedule.server.service.timer.ScheduleTimeout;
+import com.courage.platform.schedule.server.service.timer.ScheduleTimerTask;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 数据库 主从模式
@@ -28,6 +35,23 @@ public class DatabaseTriggerMode implements TriggerMode {
     @Override
     public void start() {
         boolean isCurrentHostMasterRole = isCurrentHostMasterRole();
+        ScheduleHashedWheelTimer scheduleHashedWheelTimer = new ScheduleHashedWheelTimer();
+        scheduleHashedWheelTimer.newTimeout(new ScheduleTimerTask() {
+            @Override
+            public void run(ScheduleTimeout timeout) throws Exception {
+                String date = DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss");
+                System.out.println(date + "doing same thing");
+            }
+        }, 5, TimeUnit.SECONDS);
+        scheduleHashedWheelTimer.start();
+
+        scheduleHashedWheelTimer.newTimeout(new ScheduleTimerTask() {
+            @Override
+            public void run(ScheduleTimeout timeout) throws Exception {
+                String date = DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss");
+                System.out.println(date + "doing other thing");
+            }
+        }, 20, TimeUnit.SECONDS);
     }
 
     @Override
