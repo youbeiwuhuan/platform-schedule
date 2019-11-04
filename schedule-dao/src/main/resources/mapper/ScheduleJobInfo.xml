@@ -12,6 +12,7 @@
         <result column="job_cron" property="jobCron" />
         <result column="job_param" property="jobParam" />
         <result column="broadcastMode" property="broadcastMode" />
+        <result column="status" property="status" />
         <result column="alarm_email" property="alarmEmail" />
         <result column="trigger_next_time" property="triggerNextTime" />
         <result column="trigger_last_time" property="triggerLastTime" />
@@ -29,6 +30,7 @@
         `job_cron`,
         `job_param`,
         `broadcast_mode`,
+        `status`,
         `alarm_email`,
         `trigger_next_time`,
         `trigger_last_time`,

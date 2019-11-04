@@ -26,6 +26,8 @@ public class ScheduleJobInfo {
 
     private Integer broadcastMode;
 
+    private Integer status;
+
     private String alarmEmail;
 
     private Date createTime;
@@ -146,6 +148,14 @@ public class ScheduleJobInfo {
 
     public void setTriggerLastTime(Date triggerLastTime) {
         this.triggerLastTime = triggerLastTime;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
 }
