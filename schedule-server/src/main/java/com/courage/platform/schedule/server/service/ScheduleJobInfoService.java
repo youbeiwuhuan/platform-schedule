@@ -47,4 +47,8 @@ public class ScheduleJobInfoService {
         return JOB_INFO_CACHE.get(id);
     }
 
+    public ConcurrentHashMap<Long, ScheduleJobInfo> getJobInfoCache() {
+        return JOB_INFO_CACHE;
+    }
+
 }

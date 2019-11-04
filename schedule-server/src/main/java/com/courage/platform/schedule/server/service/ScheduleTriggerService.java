@@ -1,5 +1,7 @@
 package com.courage.platform.schedule.server.service;
 
+import com.courage.platform.schedule.core.util.IpUtil;
+import com.courage.platform.schedule.dao.domain.ScheduleJobInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 调度服务
@@ -22,6 +25,7 @@ public class ScheduleTriggerService {
 
     @PostConstruct
     public void start() {
+        ConcurrentHashMap<Long, ScheduleJobInfo> jobInfoCache = scheduleJobInfoService.getJobInfoCache();
     }
 
     @PreDestroy
