@@ -32,9 +32,9 @@ public class ScheduleJobInfo {
 
     private Date updateTime;
 
-    private Date triggerNextTime;
+    private volatile Date triggerNextTime;
 
-    private Date triggerLastTime;
+    private volatile Date triggerLastTime;
 
     public Long getId() {
         return id;
