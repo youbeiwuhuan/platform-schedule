@@ -22,6 +22,8 @@ public class ScheduleRpcService {
 
     private final static Logger logger = LoggerFactory.getLogger(ScheduleRpcService.class);
 
+    private final static int workerId = Math.abs(IpUtil.getIp().hashCode() % 1024);
+
     @Autowired
     private ScheduleJobLogDao scheduleJobLogDao;
 
@@ -29,7 +31,7 @@ public class ScheduleRpcService {
         scheduleJobInfo.setTriggerLastTime(new Date());
         //存储到db
         ScheduleJobLog scheduleJobLog = new ScheduleJobLog();
-        Long id = IdGenerator.getUniqueIdAutoSeq(Math.abs(IpUtil.getIp().hashCode() % 1024));
+        Long id = IdGenerator.getUniqueIdAutoSeq(workerId);
         scheduleJobLog.setId(id);
         scheduleJobLog.setJobId(scheduleJobInfo.getId());
         scheduleJobLog.setAppId(scheduleJobInfo.getAppId());
