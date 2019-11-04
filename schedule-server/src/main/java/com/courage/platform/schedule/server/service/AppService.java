@@ -26,7 +26,6 @@ public class AppService {
     @Scheduled(initialDelay = 60000, fixedRate = 60000)
     public void post() {
         List list = appinfoDao.findAll();
-        logger.info("加载app应用信息");
     }
 
 }
