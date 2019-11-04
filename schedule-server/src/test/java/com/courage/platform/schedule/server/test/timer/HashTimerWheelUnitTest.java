@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 public class HashTimerWheelUnitTest {
 
     public static void main(String[] args) {
-        ScheduleHashedWheelTimer scheduleHashedWheelTimer = new ScheduleHashedWheelTimer(3600, TimeUnit.SECONDS, 1);
+        ScheduleHashedWheelTimer scheduleHashedWheelTimer = new ScheduleHashedWheelTimer(1, TimeUnit.SECONDS, 3600);
         scheduleHashedWheelTimer.newTimeout(new ScheduleTimerTask() {
             @Override
             public void run(ScheduleTimeout timeout) throws Exception {
