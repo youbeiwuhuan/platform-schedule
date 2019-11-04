@@ -23,9 +23,6 @@ public class ScheduleTriggerService {
     @Autowired
     private ScheduleJobInfoService scheduleJobInfoService;
 
-    @Autowired
-    private PlatformNamesrvService platformNamesrvService;
-
     @Value("${task_trigger_mode:0}")
     private Integer taskTriggerMode;
 
@@ -37,7 +34,6 @@ public class ScheduleTriggerService {
 
     @PreDestroy
     public void shutdown() {
-
     }
 
 }
