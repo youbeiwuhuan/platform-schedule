@@ -1,7 +1,6 @@
 package com.courage.platform.schedule.server.service;
 
 import com.courage.platform.schedule.core.util.IdGenerator;
-import com.courage.platform.schedule.core.util.IpUtil;
 import com.courage.platform.schedule.dao.ScheduleJobLogDao;
 import com.courage.platform.schedule.dao.domain.ScheduleJobInfo;
 import com.courage.platform.schedule.dao.domain.ScheduleJobLog;
@@ -28,7 +27,7 @@ public class ScheduleRpcService {
         scheduleJobInfo.setTriggerLastTime(new Date());
         //存储到db
         ScheduleJobLog scheduleJobLog = new ScheduleJobLog();
-        Long id = IdGenerator.getUniqueIdAutoSeq(IpUtil.getIp().hashCode());
+        Long id = IdGenerator.getUniqueIdAutoSeq(1000);
         scheduleJobLog.setId(id);
         scheduleJobLog.setJobId(scheduleJobInfo.getId());
         scheduleJobLog.setAppId(scheduleJobInfo.getAppId());
