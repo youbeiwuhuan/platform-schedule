@@ -28,7 +28,6 @@ public class DatabaseTriggerMode implements TriggerMode {
     @Override
     public void start() {
         boolean isCurrentHostMasterRole = isCurrentHostMasterRole();
-
     }
 
     @Override

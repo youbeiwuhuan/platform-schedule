@@ -5,7 +5,6 @@ package com.courage.platform.schedule.server.service.timer;
  */
 public interface ScheduleTimerTask {
 
-
     void run(ScheduleTimeout timeout) throws Exception;
 
 }
