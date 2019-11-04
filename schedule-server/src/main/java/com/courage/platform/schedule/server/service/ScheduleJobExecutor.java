@@ -85,6 +85,11 @@ public class ScheduleJobExecutor {
     @PreDestroy
     public void shutdown() {
         try {
+            scheduleHashedWheelTimer.stop();
+        } catch (Exception e) {
+            //
+        }
+        try {
             executor.shutdown();
         } catch (Exception e) {
             logger.error("shutdown error:", e);
