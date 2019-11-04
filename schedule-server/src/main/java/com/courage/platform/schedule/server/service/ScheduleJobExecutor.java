@@ -71,8 +71,12 @@ public class ScheduleJobExecutor {
                     executor.execute(new Runnable() {
                         @Override
                         public void run() {
-                            //调用rpc触发任务
-                            scheduleRpcService.doRpcTrigger(scheduleJobInfo);
+                            try {
+                                //调用rpc触发任务
+                                scheduleRpcService.doRpcTrigger(scheduleJobInfo);
+                            } catch (Throwable e) {
+                                logger.error("doRpcTrigger error:", e);
+                            }
                             //计算下一次调度信息
                             addJob(scheduleJobInfo);
                         }
