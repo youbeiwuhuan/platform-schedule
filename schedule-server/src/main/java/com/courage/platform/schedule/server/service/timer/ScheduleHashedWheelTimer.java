@@ -439,7 +439,6 @@ public class ScheduleHashedWheelTimer implements ScheduleTimer {
         private final ScheduleTimerTask task;
         private final long deadline;
 
-        @SuppressWarnings({"unused", "FieldMayBeFinal", "RedundantFieldInitialization"})
         private volatile int state = ST_INIT;
 
         // remainingRounds will be calculated and set by Worker.transferScheduleTimeoutsToBuckets() before the
@@ -664,4 +663,5 @@ public class ScheduleHashedWheelTimer implements ScheduleTimer {
             return head;
         }
     }
+
 }
