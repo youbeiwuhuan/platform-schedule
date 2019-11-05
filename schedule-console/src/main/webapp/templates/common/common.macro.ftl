@@ -111,14 +111,14 @@
             <li class="nav-click <#if pageName == "applist">active</#if>"><a href="${request.contextPath}/applist"><i
                     class="fa fa-circle-o text-green"></i><span>应用管理</span></a></li>
 
-            <li class="nav-click <#if pageName == "custombiz">active</#if>"><a
-                    href="${request.contextPath}/custombiz"><i
+            <li class="nav-click <#if pageName == "jobinfo">active</#if>"><a
+                    href="${request.contextPath}/jobinfo"><i
                     class="fa fa-circle-o text-aqua"></i><span>任务管理</span></a></li>
 
-            <li class="nav-click <#if pageName == "customjvm">active</#if>"><a href="${request.contextPath}/joblog"><i
+            <li class="nav-click <#if pageName == "joblog">active</#if>"><a href="${request.contextPath}/joblog"><i
                     class="fa fa-circle-o text-yellow"></i><span>调度日志</span></a></li>
 
-            <li class="nav-click <#if pageName == "urlalive">active</#if>"><a href="${request.contextPath}/urlalive"><i
+            <li class="nav-click <#if pageName == "cluster">active</#if>"><a href="${request.contextPath}/cluster"><i
                     class="fa fa-circle-o text-light-blue"></i><span>集群管理</span></a>
             </li>
 
