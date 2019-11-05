@@ -110,16 +110,18 @@
             <li class="header">${I18n.system_nav}</li>
             <li class="nav-click <#if pageName == "applist">active</#if>"><a href="${request.contextPath}/applist"><i
                     class="fa fa-circle-o text-green"></i><span>应用管理</span></a></li>
-            <!--
+
             <li class="nav-click <#if pageName == "custombiz">active</#if>"><a
                     href="${request.contextPath}/custombiz"><i
-                    class="fa fa-circle-o text-aqua"></i><span>自定义监控</span></a></li>
+                    class="fa fa-circle-o text-aqua"></i><span>任务管理</span></a></li>
 
-            <li class="nav-click <#if pageName == "customjvm">active</#if>"><a href="${request.contextPath}/customjvm"><i
-                    class="fa fa-circle-o text-yellow"></i><span>jvm信息</span></a></li>
+            <li class="nav-click <#if pageName == "customjvm">active</#if>"><a href="${request.contextPath}/joblog"><i
+                    class="fa fa-circle-o text-yellow"></i><span>调度日志</span></a></li>
+
             <li class="nav-click <#if pageName == "urlalive">active</#if>"><a href="${request.contextPath}/urlalive"><i
-                    class="fa fa-circle-o text-light-blue"></i><span>url存货监控</span></a></li>
-            -->
+                    class="fa fa-circle-o text-light-blue"></i><span>集群管理</span></a>
+            </li>
+
         </ul>
     </section>
     <!-- /.sidebar -->
