@@ -26,8 +26,8 @@ public class ScheduleJobInfoService {
     @Autowired
     private ScheduleJobInfoDao scheduleJobInfoDao;
 
-    //1分钟加载一次任务信息
-    @Scheduled(initialDelay = 60000, fixedRate = 60000)
+    //每30s加载一次任务信息
+    @Scheduled(initialDelay = 60000, fixedRate = 30000)
     @PostConstruct
     public void loadCache() {
         long start = System.currentTimeMillis();
@@ -49,6 +49,13 @@ public class ScheduleJobInfoService {
 
     public ConcurrentHashMap<Long, ScheduleJobInfo> getJobInfoCache() {
         return JOB_INFO_CACHE;
+    }
+
+    /*
+       强制加载
+     */
+    public ScheduleJobInfo forceLoadJobById(Long id) {
+        return null;
     }
 
 }

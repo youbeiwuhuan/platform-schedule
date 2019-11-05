@@ -7,9 +7,11 @@ import com.courage.platform.schedule.rpc.config.ScheduleRpcServerConfig;
 import com.courage.platform.schedule.server.service.PlatformNamesrvService;
 import com.courage.platform.schedule.server.service.ScheduleJobExecutor;
 import com.courage.platform.schedule.server.service.ScheduleJobInfoService;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
@@ -34,21 +36,30 @@ public class DatabaseTriggerMode implements TriggerMode {
     private ScheduleJobExecutor scheduleJobExecutor;
 
     @Override
+    @Scheduled(initialDelay = 60000, fixedRate = 30000)
     public void start() {
         //检测当前是否有执行权限
         boolean isCurrentHostMasterRole = isCurrentHostMasterRole();
-        if (!isCurrentHostMasterRole) {
-            return;
-        }
-        Map<Long, ScheduleJobInfo> jobInfoMap = scheduleJobInfoService.getJobInfoCache();
-        Iterator<Map.Entry<Long, ScheduleJobInfo>> entries = jobInfoMap.entrySet().iterator();
-        while (entries.hasNext()) {
-            Map.Entry<Long, ScheduleJobInfo> entry = entries.next();
-            ScheduleJobInfo scheduleJobInfo = entry.getValue();
-            scheduleJobExecutor.addJob(scheduleJobInfo.getId());
+        if (isCurrentHostMasterRole) {
+            Map<Long, ScheduleJobInfo> jobInfoMap = scheduleJobInfoService.getJobInfoCache();
+            Iterator<Map.Entry<Long, ScheduleJobInfo>> entries = jobInfoMap.entrySet().iterator();
+            while (entries.hasNext()) {
+                Map.Entry<Long, ScheduleJobInfo> entry = entries.next();
+                ScheduleJobInfo scheduleJobInfo = entry.getValue();
+                //有效
+                if (NumberUtils.INTEGER_ZERO.equals(scheduleJobInfo.getStatus())) {
+                    scheduleJobExecutor.addJob(scheduleJobInfo.getId());
+                }
+                //失效
+                else {
+                    scheduleJobExecutor.removeJobById(scheduleJobInfo.getId());
+                }
+            }
+        } else {
+            logger.info("删除内存中正在运行中的任务");
+            scheduleJobExecutor.removeJobs();
         }
     }
-
 
     private boolean isCurrentHostMasterRole() {
         String currentHost = IpUtil.getIpPort(ScheduleRpcServerConfig.TASK_PRC_LISTEN_PORT);
