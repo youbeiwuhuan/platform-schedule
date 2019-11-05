@@ -63,47 +63,49 @@ public class ScheduleJobExecutor {
 
     //该方法的前置条件是本地内存有标记
     public boolean executeJob(Long jobId) {
-        ScheduleJobInfo scheduleJobInfo = scheduleJobInfoService.getById(jobId);
-        if (scheduleJobInfo == null || !NumberUtils.INTEGER_ZERO.equals(scheduleJobInfo.getStatus())) {
-            logger.info("当前任务:" + JSON.toJSONString(scheduleJobInfo) + " 已经禁用!");
-            return false;
-        }
-        Date currentDate = new Date();
-        Date nextExecuteDate = null;
-        try {
-            CronExpression cronExpression = new CronExpression(scheduleJobInfo.getJobCron());
-            nextExecuteDate = cronExpression.getNextValidTimeAfter(currentDate);
-        } catch (Exception e) {
-            logger.error("parse scheduleJobInfo error:", e);
-            logger.info("当前任务:" + JSON.toJSONString(scheduleJobInfo) + " cron表达式不合法!");
-            return false;
-        }
-        if (nextExecuteDate != null) {
-            long delay = nextExecuteDate.getTime() - currentDate.getTime();
-            scheduleJobInfo.setTriggerNextTime(nextExecuteDate);
-            scheduleHashedWheelTimer.newTimeout(new ScheduleTimerTask() {
-                @Override
-                public void run(ScheduleTimeout timeout) throws Exception {
-                    executor.execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                //调用rpc触发任务
-                                scheduleRpcService.doRpcTrigger(scheduleJobInfo);
-                            } catch (Throwable e) {
-                                logger.error("doRpcTrigger error:", e);
+        if (currentRunningJob.containsKey(jobId)) {
+            ScheduleJobInfo scheduleJobInfo = scheduleJobInfoService.getById(jobId);
+            if (scheduleJobInfo == null || !NumberUtils.INTEGER_ZERO.equals(scheduleJobInfo.getStatus())) {
+                logger.info("当前任务:" + JSON.toJSONString(scheduleJobInfo) + " 已经禁用!");
+                return false;
+            }
+            Date currentDate = new Date();
+            Date nextExecuteDate = null;
+            try {
+                CronExpression cronExpression = new CronExpression(scheduleJobInfo.getJobCron());
+                nextExecuteDate = cronExpression.getNextValidTimeAfter(currentDate);
+            } catch (Exception e) {
+                logger.error("parse scheduleJobInfo error:", e);
+                logger.info("当前任务:" + JSON.toJSONString(scheduleJobInfo) + " cron表达式不合法!");
+                return false;
+            }
+            if (nextExecuteDate != null) {
+                long delay = nextExecuteDate.getTime() - currentDate.getTime();
+                scheduleJobInfo.setTriggerNextTime(nextExecuteDate);
+                scheduleHashedWheelTimer.newTimeout(new ScheduleTimerTask() {
+                    @Override
+                    public void run(ScheduleTimeout timeout) throws Exception {
+                        executor.execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    //调用rpc触发任务
+                                    scheduleRpcService.doRpcTrigger(scheduleJobInfo);
+                                } catch (Throwable e) {
+                                    logger.error("doRpcTrigger error:", e);
+                                }
+                                //计算下一次调度信息
+                                executeJob(jobId);
                             }
-                            //计算下一次调度信息
-                            executeJob(jobId);
-                        }
-                    });
-                }
-            }, delay, TimeUnit.MILLISECONDS);
+                        });
+                    }
+                }, delay, TimeUnit.MILLISECONDS);
+            }
         }
         return true;
     }
 
-    public void removeJobs() {
+    public synchronized void removeJobs() {
         currentRunningJob.clear();
     }
 
