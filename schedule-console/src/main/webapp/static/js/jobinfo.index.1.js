@@ -52,7 +52,7 @@ $(function () {
                     if (0 == data) {
                         return 'bean模式';
                     }
-                    if( 1 == data){
+                    if (1 == data) {
                         return 'shell模式';
                     }
                     return '';
@@ -83,10 +83,11 @@ $(function () {
                 "data": 'operate',
                 "visible": true,
                 "render": function (data, type, row) {
-                    var btn = '<button class="btn btn-warning btn-xs" type="button" onclick="toAddJobPage()">添加</button> ';
-                    var msgBtn = '<button class="btn btn-success btn-xs" type="button" onclick="alertMsg()">消息</button> ';
-                    var tipBtn = '<button class="btn btn-primary btn-xs" type="button" onclick="alertTip()">tip</button> ';
-                    return btn + msgBtn + tipBtn;
+                    var executeOncebtn = '<button class="btn btn-default btn-xs" type="button" onclick="toupdateJobPage()">执行</button> ';
+                    var btn = '<button class="btn btn-warning btn-xs" type="button" onclick="toupdateJobPage()">编辑</button> ';
+                    var msgBtn = '<button class="btn btn-success btn-xs" type="button" onclick="alertMsg()">启动</button> ';
+                    var tipBtn = '<button class="btn btn-primary btn-xs" type="button" onclick="alertTip()">删除</button> ';
+                    return executeOncebtn + btn + msgBtn + tipBtn;
                 }
             }
         ],
