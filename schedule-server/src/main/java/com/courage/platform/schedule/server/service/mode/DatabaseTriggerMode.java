@@ -1,5 +1,6 @@
 package com.courage.platform.schedule.server.service.mode;
 
+import com.alibaba.fastjson.JSON;
 import com.courage.platform.schedule.core.util.IpUtil;
 import com.courage.platform.schedule.dao.domain.PlatformNamesrv;
 import com.courage.platform.schedule.dao.domain.ScheduleJobInfo;
@@ -52,6 +53,7 @@ public class DatabaseTriggerMode implements TriggerMode {
                 }
                 //失效
                 else {
+                    logger.info("任务:" + JSON.toJSONString(scheduleJobInfo) + " 已失效，从内存中删除");
                     scheduleJobExecutor.removeJobById(scheduleJobInfo.getId());
                 }
             }
