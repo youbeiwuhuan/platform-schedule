@@ -37,6 +37,9 @@ public class ScheduleJobExecutor {
     @Autowired
     private ScheduleRpcService scheduleRpcService;
 
+    @Autowired
+    private ScheduleJobInfoService scheduleJobInfoService;
+
     @PostConstruct
     public void start() {
         scheduleHashedWheelTimer = new ScheduleHashedWheelTimer(new ThreadFactory() {
@@ -48,7 +51,8 @@ public class ScheduleJobExecutor {
         scheduleHashedWheelTimer.start();
     }
 
-    public void addJob(ScheduleJobInfo scheduleJobInfo) {
+    public void addJob(Long jobId) {
+        ScheduleJobInfo scheduleJobInfo = scheduleJobInfoService.getById(jobId);
         if (!NumberUtils.INTEGER_ZERO.equals(scheduleJobInfo.getStatus())) {
             logger.info("当前任务:" + JSON.toJSONString(scheduleJobInfo) + " 已经禁用!");
             return;
@@ -78,7 +82,7 @@ public class ScheduleJobExecutor {
                                 logger.error("doRpcTrigger error:", e);
                             }
                             //计算下一次调度信息
-                            addJob(scheduleJobInfo);
+                            addJob(jobId);
                         }
                     });
                 }

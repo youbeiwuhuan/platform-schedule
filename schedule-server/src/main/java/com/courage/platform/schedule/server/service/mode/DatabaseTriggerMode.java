@@ -40,13 +40,12 @@ public class DatabaseTriggerMode implements TriggerMode {
         if (!isCurrentHostMasterRole) {
             return;
         }
-
         Map<Long, ScheduleJobInfo> jobInfoMap = scheduleJobInfoService.getJobInfoCache();
         Iterator<Map.Entry<Long, ScheduleJobInfo>> entries = jobInfoMap.entrySet().iterator();
         while (entries.hasNext()) {
             Map.Entry<Long, ScheduleJobInfo> entry = entries.next();
             ScheduleJobInfo scheduleJobInfo = entry.getValue();
-            scheduleJobExecutor.addJob(scheduleJobInfo);
+            scheduleJobExecutor.addJob(scheduleJobInfo.getId());
         }
     }
 
