@@ -12,6 +12,7 @@ $(function () {
                 var obj = {};
                 obj.appName = $('#appName').val();
                 obj.jobName = $('#jobName').val();
+                obj.jobHandler = $('#jobHandler').val();
                 obj.start = d.start;
                 obj.length = d.length;
                 return obj;
@@ -46,7 +47,7 @@ $(function () {
             {
                 "data": 'jobType',
                 "visible": true,
-                "width": '12%',
+                "width": '10%',
                 "render": function (data, type, row) {
                     if (0 == data) {
                         return 'bean模式';
@@ -60,7 +61,7 @@ $(function () {
             {
                 "data": 'jobCron',
                 "visible": true,
-                "width": '12%',
+                "width": '11%',
                 "render": function (data, type, row) {
                     return data;
                 }

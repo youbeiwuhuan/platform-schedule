@@ -44,4 +44,11 @@
         ORDER BY t.id ASC
     </select>
 
+    <select id="findPage" parameterType="java.util.HashMap" resultMap="scheduleJobInfo">
+        SELECT <include refid="scheduleInfoColumnList" />
+        FROM t_schedule_job_info AS t
+        ORDER BY t.id ASC
+        limit #{start},#{pageSize}
+    </select>
+
 </mapper>
