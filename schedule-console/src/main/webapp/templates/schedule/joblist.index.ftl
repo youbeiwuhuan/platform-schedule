@@ -25,18 +25,21 @@
             <div class="row">
                 <div class="col-xs-3">
                     <div class="input-group">
-                        <span class="input-group-addon">应用名称</span>
-                        <input type="text" class="form-control" id="appName" autocomplete="off">
+                        <span class="input-group-addon">任务名称</span>
+                        <input type="text" class="form-control" id="jobName" autocomplete="off">
                     </div>
                 </div>
                 <div class="col-xs-3">
                     <div class="input-group">
-                        <span class="input-group-addon">应用编号</span>
-                        <input type="text" class="form-control" id="appId" autocomplete="off">
+                        <span class="input-group-addon">应用名称</span>
+                        <input type="text" class="form-control" id="appName" autocomplete="off">
                     </div>
                 </div>
                 <div class="col-xs-1">
                     <button class="btn btn-block btn-info" id="searchBtn">查询</button>
+                </div>
+                 <div class="col-xs-1">
+                	  <button class="btn btn-block btn-success add" type="button">新增</button>
                 </div>
             </div>
 
@@ -48,10 +51,10 @@
                                 <thead>
                                 <tr>
                                     <th name="id">任务ID</th>
-                                    <th name="appName">任务名称</th>
+                                    <th name="jobName">任务名称</th>
+                                    <th name="appName">应用名</th>
                                     <th name="remark">cron表达式</th>
-                                    <th name="owner">负责人</th>
-                                    <th name="状态">状态</th>
+                                    <th name="status">状态</th>
                                     <th>操作</th>
                                 </tr>
                                 </thead>
