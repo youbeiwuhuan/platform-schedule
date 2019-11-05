@@ -51,13 +51,14 @@ public class ScheduleJobExecutor {
     }
 
     public synchronized void addJob(Long jobId) {
-        if (currentRunningJob.contains(jobId)) {
+        if (currentRunningJob.containsKey(jobId)) {
             return;
         }
         currentRunningJob.put(jobId, JobAvailable.VALID.getId());
+        logger.info(JSON.toJSONString(currentRunningJob));
         boolean result = executeJob(jobId);
         if (!result) {
-            currentRunningJob.remove(jobId);
+            currentRunningJob.put(jobId, JobAvailable.UNVALID.getId());
         }
     }
 
