@@ -55,7 +55,6 @@ public class ScheduleJobExecutor {
             return;
         }
         currentRunningJob.put(jobId, JobAvailable.VALID.getId());
-        logger.info(JSON.toJSONString(currentRunningJob));
         boolean result = executeJob(jobId);
         if (!result) {
             currentRunningJob.put(jobId, JobAvailable.UNVALID.getId());
