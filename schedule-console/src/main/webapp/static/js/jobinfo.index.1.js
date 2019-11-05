@@ -72,7 +72,7 @@ $(function () {
                 "width": '8%',
                 "render": function (data, type, row) {
                     // status
-                    if (1 == data) {
+                    if (0 == data) {
                         return '<small class="label label-success" >RUNNING</small>';
                     } else {
                         return '<small class="label label-default" >STOP</small>';
