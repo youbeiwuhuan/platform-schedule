@@ -63,7 +63,7 @@ public class ScheduleJobExecutor {
 
     //该方法的前置条件是本地内存有标记
     public boolean executeJob(Long jobId) {
-        if (currentRunningJob.containsKey(jobId)) {
+        if (currentRunningJob.containsKey(jobId) && currentRunningJob.get(jobId).equals(JobAvailable.VALID.getId())) {
             ScheduleJobInfo scheduleJobInfo = scheduleJobInfoService.getById(jobId);
             if (scheduleJobInfo == null || !NumberUtils.INTEGER_ZERO.equals(scheduleJobInfo.getStatus())) {
                 logger.info("当前任务:" + JSON.toJSONString(scheduleJobInfo) + " 已经禁用!");
