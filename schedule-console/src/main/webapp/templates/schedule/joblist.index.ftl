@@ -84,7 +84,7 @@
 <script src="${request.contextPath}/static/plugins/layer/layer.js?t=20181226"></script>
 
 <!-- custom -->
-<script src="${request.contextPath}/static/js/jobinfo.index.1.js"></script>
+<script src="${request.contextPath}/static/js/jobinfo.index.1.js?t=20191105"></script>
 
 </body>
 </html>

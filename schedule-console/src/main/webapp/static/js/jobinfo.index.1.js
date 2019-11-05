@@ -56,7 +56,12 @@ $(function () {
                 "visible": true,
                 "width": '10%',
                 "render": function (data, type, row) {
-                    return data;
+                    // status
+                    if (1 == data) {
+                        return '<small class="label label-success" >RUNNING</small>';
+                    } else {
+                        return '<small class="label label-default" >STOP</small>';
+                    }
                 }
             },
             {
