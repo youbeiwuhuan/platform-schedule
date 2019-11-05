@@ -22,7 +22,7 @@ public class ScheduleJobInfoService {
     private ScheduleJobInfoDao scheduleJobInfoDao;
 
     public List<ScheduleJobInfo> getPage(Map<String, Object> param, String start, Integer pageSize) {
-        param.put("start", start);
+        param.put("start", Integer.valueOf(start));
         param.put("pageSize", pageSize);
         return scheduleJobInfoDao.findPage(param);
     }
