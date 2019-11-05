@@ -129,7 +129,7 @@ public class ScheduleJobExecutor {
 
     private enum JobAvailable {
 
-        UNVALID(0, "无效"), VALID(1, "有效");
+        VALID(0, "有效"), UNVALID(1, "无效");
 
         private Integer id;
         private String name;
