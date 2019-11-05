@@ -41,6 +41,7 @@ public class ScheduleController {
         ele.put("appName", "hshcsmsweb");
         ele.put("jobName", "测试1");
         ele.put("jobCron", "*/16 * * * * ?");
+        ele.put("jobType", "0");
         ele.put("status", "0");
         list.add(ele);
 
@@ -49,6 +50,7 @@ public class ScheduleController {
         ele2.put("appName", "hshcsmsapi");
         ele2.put("jobName", "测试2");
         ele2.put("jobCron", "*/22 * * * * ?");
+        ele2.put("jobType", "0");
         ele2.put("status", "0");
         list.add(ele2);
 
@@ -58,6 +60,7 @@ public class ScheduleController {
         ele3.put("jobName", "ceshi3");
         ele3.put("remark", "测试3");
         ele3.put("jobCron", "*/32 * * * * ?");
+        ele3.put("jobType", "1");
         ele3.put("status", "0");
         list.add(ele3);
 

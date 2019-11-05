@@ -25,7 +25,7 @@ $(function () {
                 "data": 'id',
                 "bSortable": false,
                 "visible": true,
-                "width": '8%'
+                "width": '10%'
             },
             {
                 "data": 'jobName',
@@ -44,9 +44,23 @@ $(function () {
                 }
             },
             {
+                "data": 'jobType',
+                "visible": true,
+                "width": '12%',
+                "render": function (data, type, row) {
+                    if (0 == data) {
+                        return 'bean模式';
+                    }
+                    if( 1 == data){
+                        return 'shell模式';
+                    }
+                    return '';
+                }
+            },
+            {
                 "data": 'jobCron',
                 "visible": true,
-                "width": '15%',
+                "width": '12%',
                 "render": function (data, type, row) {
                     return data;
                 }
@@ -54,7 +68,7 @@ $(function () {
             {
                 "data": 'status',
                 "visible": true,
-                "width": '10%',
+                "width": '8%',
                 "render": function (data, type, row) {
                     // status
                     if (1 == data) {
@@ -68,7 +82,7 @@ $(function () {
                 "data": 'operate',
                 "visible": true,
                 "render": function (data, type, row) {
-                    var btn = '<button class="btn btn-warning btn-xs" type="button" onclick="toAddAppPage()">添加</button> ';
+                    var btn = '<button class="btn btn-warning btn-xs" type="button" onclick="toAddJobPage()">添加</button> ';
                     var msgBtn = '<button class="btn btn-success btn-xs" type="button" onclick="alertMsg()">消息</button> ';
                     var tipBtn = '<button class="btn btn-primary btn-xs" type="button" onclick="alertTip()">tip</button> ';
                     return btn + msgBtn + tipBtn;

@@ -53,6 +53,7 @@
                                     <th name="id">任务ID</th>
                                     <th name="jobName">任务名称</th>
                                     <th name="appName">应用名</th>
+                                    <th name="jobType">任务类型</th>
                                     <th name="remark">cron表达式</th>
                                     <th name="status">状态</th>
                                     <th>操作</th>
@@ -84,7 +85,7 @@
 <script src="${request.contextPath}/static/plugins/layer/layer.js?t=20181226"></script>
 
 <!-- custom -->
-<script src="${request.contextPath}/static/js/jobinfo.index.1.js?t=20191105"></script>
+<script src="${request.contextPath}/static/js/jobinfo.index.1.js?t=20191aaa1052652xxx"></script>
 
 </body>
 </html>
