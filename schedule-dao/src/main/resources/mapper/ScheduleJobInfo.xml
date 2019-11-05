@@ -51,4 +51,9 @@
         limit #{start},#{pageSize}
     </select>
 
+    <select id="count"  parameterType="java.util.HashMap" resultType="java.lang.Integer">
+        select count(1) from t_schedule_job_info
+
+    </select>
+
 </mapper>

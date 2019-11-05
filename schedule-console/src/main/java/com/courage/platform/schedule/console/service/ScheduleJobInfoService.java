@@ -27,4 +27,8 @@ public class ScheduleJobInfoService {
         return scheduleJobInfoDao.findPage(param);
     }
 
+    public Integer count(Map<String, Object> param) {
+        return scheduleJobInfoDao.count(param);
+    }
+
 }

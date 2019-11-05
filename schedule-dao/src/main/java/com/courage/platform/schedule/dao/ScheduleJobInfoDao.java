@@ -14,4 +14,6 @@ public interface ScheduleJobInfoDao {
 
     List<ScheduleJobInfo> findPage(Map map);
 
+    Integer count(Map map);
+
 }

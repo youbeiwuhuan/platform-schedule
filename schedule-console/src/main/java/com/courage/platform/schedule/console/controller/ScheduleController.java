@@ -52,9 +52,11 @@ public class ScheduleController {
 
         List<ScheduleJobInfo> list = scheduleJobInfoService.getPage(param, start, Integer.valueOf(length));
 
+        Integer count = scheduleJobInfoService.count(param);
+
         Map<String, Object> maps = new HashMap<String, Object>();
-        maps.put("recordsTotal", 101);        // 总记录数
-        maps.put("recordsFiltered", 101);        // 总记录数
+        maps.put("recordsTotal", count);        // 总记录数
+        maps.put("recordsFiltered", count);        // 总记录数
         maps.put("data", list);                    // 分页列表
         return maps;
     }
