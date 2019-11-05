@@ -22,6 +22,11 @@ public class ScheduleController {
         return "schedule/joblist.index";
     }
 
+    @RequestMapping("/addjobpage")
+    public String addjobpage() {
+        return "schedule/jobadd";
+    }
+
     @RequestMapping("/jobinfo/pageList")
     @ResponseBody
     public Map<String, Object> jobinfoPageList(HttpServletRequest httpServletRequest) {
@@ -32,36 +37,29 @@ public class ScheduleController {
         List<Map> list = new ArrayList<>();
 
         Map<String, Object> ele = new HashMap<>();
-        ele.put("appId", "10001");
+        ele.put("id", "10001");
         ele.put("appName", "hshcsmsweb");
-        ele.put("remark", "短信web");
-        ele.put("createTime", new Date().getTime());
-        ele.put("updateTime", new Date().getTime());
+        ele.put("jobName", "测试1");
+        ele.put("jobCron", "*/16 * * * * ?");
+        ele.put("status", "0");
         list.add(ele);
 
         Map<String, Object> ele2 = new HashMap<>();
-        ele2.put("appId", "10002");
+        ele2.put("id", "10002");
         ele2.put("appName", "hshcsmsapi");
-        ele2.put("remark", "短信api");
-        ele2.put("createTime", new Date().getTime());
-        ele2.put("updateTime", new Date().getTime());
+        ele2.put("jobName", "测试2");
+        ele2.put("jobCron", "*/22 * * * * ?");
+        ele2.put("status", "0");
         list.add(ele2);
 
         Map<String, Object> ele3 = new HashMap<>();
-        ele3.put("appId", "10003");
+        ele3.put("id", "10003");
         ele3.put("appName", "hshcsmsworker");
-        ele3.put("remark", "短信worker");
-        ele3.put("createTime", new Date().getTime());
-        ele3.put("updateTime", new Date().getTime());
+        ele3.put("jobName", "ceshi3");
+        ele3.put("remark", "测试3");
+        ele3.put("jobCron", "*/32 * * * * ?");
+        ele3.put("status", "0");
         list.add(ele3);
-
-        Map<String, Object> ele4 = new HashMap<>();
-        ele4.put("appId", "10004");
-        ele4.put("appName", "hshcmdm");
-        ele4.put("remark", "主数据系统");
-        ele4.put("createTime", new Date().getTime());
-        ele4.put("updateTime", new Date().getTime());
-        list.add(ele4);
 
         Map<String, Object> maps = new HashMap<String, Object>();
         maps.put("recordsTotal", 101);        // 总记录数
