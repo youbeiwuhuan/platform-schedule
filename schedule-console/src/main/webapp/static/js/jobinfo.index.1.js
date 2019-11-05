@@ -25,7 +25,7 @@ $(function () {
                 "data": 'id',
                 "bSortable": false,
                 "visible": true,
-                "width": '10%'
+                "width": '8%'
             },
             {
                 "data": 'jobName',
@@ -46,7 +46,7 @@ $(function () {
             {
                 "data": 'jobCron',
                 "visible": true,
-                "width": '20%',
+                "width": '15%',
                 "render": function (data, type, row) {
                     return data;
                 }
