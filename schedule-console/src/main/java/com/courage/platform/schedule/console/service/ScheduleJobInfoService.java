@@ -35,4 +35,12 @@ public class ScheduleJobInfoService {
         return scheduleJobInfoDao.insert(param);
     }
 
+    public ScheduleJobInfo getById(String id) {
+        return scheduleJobInfoDao.getById(id);
+    }
+
+    public void update(Map map) {
+        scheduleJobInfoDao.update(map);
+    }
+
 }

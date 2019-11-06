@@ -18,4 +18,8 @@ public interface ScheduleJobInfoDao {
 
     Integer insert(Map map);
 
+    ScheduleJobInfo getById(String id);
+
+    void update(Map map);
+
 }

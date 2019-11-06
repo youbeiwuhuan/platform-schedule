@@ -45,9 +45,12 @@ public class ScheduleController {
     }
 
     @RequestMapping("/updatejobpage")
-    public String updatejobpage(Model model) {
+    public String updatejobpage(Model model, HttpServletRequest httpServletRequest) {
+        String jobId = httpServletRequest.getParameter("id");
+        ScheduleJobInfo scheduleJobInfo = scheduleJobInfoService.getById(jobId);
         List<Appinfo> appinfoList = appInfoService.getAll();
         model.addAttribute("appinfoList", appinfoList);
+        model.addAttribute("scheduleJobInfo", scheduleJobInfo);
         return "schedule/jobupdate";
     }
 
@@ -85,11 +88,24 @@ public class ScheduleController {
         logger.info("addJob params:" + params);
         Appinfo appinfo = appInfoService.getByAppId((String) params.get("appId"));
         params.put("appName", appinfo.getAppName());
-        params.put("status" , 0);
+        params.put("status", 0);
         scheduleJobInfoService.insert(params);
         Map map = new HashMap();
         map.put("code", "200");
         return map;
     }
+
+    @RequestMapping("/updateJob")
+    @ResponseBody
+    public Map updateJob(@RequestParam Map<String, Object> params) {
+        logger.info("updateJob params:" + params);
+        Appinfo appinfo = appInfoService.getByAppId((String) params.get("appId"));
+        params.put("appName", appinfo.getAppName());
+        scheduleJobInfoService.update(params);
+        Map map = new HashMap();
+        map.put("code", "200");
+        return map;
+    }
+
 
 }

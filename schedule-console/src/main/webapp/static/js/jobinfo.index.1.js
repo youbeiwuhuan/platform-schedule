@@ -88,14 +88,14 @@ $(function () {
                 }
             },
             {
-                "data": 'operate',
+                "data": 'id',
                 "visible": true,
                 "width": '13%',
                 "render": function (data, type, row) {
-                    var btn = '<button class="btn btn-warning btn-xs" type="button" onclick="toUpdateJobPage()">编辑</button> ';
-                    var executeOncebtn = '<button class="btn btn-info btn-xs" type="button" onclick="toupdateJobPage()">立即执行</button> ';
-                    var msgBtn = '<button class="btn btn-success btn-xs" type="button" onclick="alertMsg()">启动</button> ';
-                    var tipBtn = '<button class="btn btn-danger btn-xs" type="button" onclick="alertTip()">删除</button> ';
+                    var btn = '<button class="btn btn-warning btn-xs" type="button" onclick="toUpdateJobPage('+ data + ')">编辑</button> ';
+                    var executeOncebtn = '<button class="btn bg-purple btn-xs" type="button" onclick="toexecuteAtonce('+ data + ')">立即执行</button> ';
+                    var msgBtn = '<button class="btn btn-success btn-xs" type="button" onclick="valid('+ data + ')">启动</button> ';
+                    var tipBtn = '<button class="btn btn-danger btn-xs" type="button" onclick="deleteJob('+ data + ')">删除</button> ';
                     return btn + executeOncebtn + msgBtn + tipBtn;
                 }
             }
@@ -149,7 +149,7 @@ $(function () {
             maxmin: true,
             shadeClose: false, //点击遮罩关闭层
             area: ['820px', '500px'],
-            content: base_url + '/updatejobpage'
+            content: base_url + '/updatejobpage?id=' + jobId + "&t=" + new Date().getTime()
         });
     };
 

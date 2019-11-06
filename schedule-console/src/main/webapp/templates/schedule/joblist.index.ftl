@@ -36,11 +36,11 @@
                     </div>
                 </div>
                 <div class="col-xs-3">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">任务处理器</span>
-                                        <input type="text" class="form-control" id="jobHandler" autocomplete="off">
-                                    </div>
-                                </div>
+                    <div class="input-group">
+                         <span class="input-group-addon">任务处理器</span>
+                         <input type="text" class="form-control" id="jobHandler" autocomplete="off">
+                    </div>
+                </div>
                 <div class="col-xs-1">
                     <button class="btn btn-block btn-info" id="searchBtn">查询</button>
                 </div>
@@ -92,7 +92,7 @@
 <script src="${request.contextPath}/static/plugins/layer/layer.js?t=20181226"></script>
 
 <!-- custom -->
-<script src="${request.contextPath}/static/js/jobinfo.index.1.js?t=1125a65xafg111x8705265877xx"></script>
+<script src="${request.contextPath}/static/js/jobinfo.index.1.js?t=11ss1xaa11axxxx125a65xafg111x8705265877xx"></script>
 
 </body>
 </html>

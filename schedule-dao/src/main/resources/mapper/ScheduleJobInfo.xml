@@ -111,4 +111,53 @@
       )
     </insert>
 
+    <select id="getById" parameterType="java.lang.String" resultMap="scheduleJobInfo">
+        SELECT <include refid="scheduleInfoColumnList" />
+        FROM t_schedule_job_info AS t where t.id = #{id}
+    </select>
+
+    <update id="update" parameterType="java.util.HashMap">
+        update t_schedule_job_info
+        <set>
+            <if test="appName != null and appName != ''">
+                app_name = #{appName},
+            </if>
+            <if test="jobName != null and jobName != ''">
+                job_name = #{jobName},
+            </if>
+            <if test="jobType != null and jobType != ''">
+                job_type = #{jobType},
+            </if>
+            <if test="jobCron != null and jobCron != ''">
+                job_cron = #{jobCron},
+            </if>
+            <if test="jobHandler != null and jobHandler != ''">
+                job_handler = #{jobHandler},
+            </if>
+            <if test="routeMode != null and routeMode != ''">
+                route_mode = #{routeMode},
+            </if>
+            <if test="author != null and author != ''">
+                author = #{author},
+            </if>
+            <if test="alarmEmail != null and alarmEmail != ''">
+                alarm_email = #{alarmEmail},
+            </if>
+            <if test="jobParam != null and jobParam != ''">
+                job_param = #{jobParam},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+            <if test="triggerNextTime != null and triggerNextTime != ''">
+                trigger_next_time = #{triggerNextTime},
+            </if>
+            <if test="triggerLastTime != null and triggerLastTime != ''">
+                trigger_last_time = #{triggerLastTime},
+            </if>
+            update_time = now()
+        </set>
+        where id = #{id}
+    </update>
+
 </mapper>
