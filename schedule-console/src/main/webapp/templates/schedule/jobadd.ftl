@@ -55,7 +55,7 @@
                         color="red">*</font></label>
                 <div class="col-sm-4"><input type="text" class="form-control" name="author"
                                              placeholder="请输入负责人" maxlength="50"></div>
-                <label for="firstname" class="col-sm-2 control-label">报警邮件<font color="black">*</font></label>
+                <label for="firstname" class="col-sm-2 control-label">报警邮件</label>
                 <div class="col-sm-4"><input type="text" class="form-control" name="alarmEmail"
                                              placeholder="请输入报警邮件" maxlength="100"></div>
             </div>
