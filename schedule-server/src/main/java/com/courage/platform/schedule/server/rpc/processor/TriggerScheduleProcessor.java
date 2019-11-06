@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /*
-    触发调度处理器
+    触发调度处理器(console控制台调用)
  */
 public class TriggerScheduleProcessor implements PlatformNettyRequestProcessor {
 

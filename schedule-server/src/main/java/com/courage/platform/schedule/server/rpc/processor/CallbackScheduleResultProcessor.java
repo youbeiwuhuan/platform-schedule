@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /*
-   回调任务处理结果处理器
+   回调任务处理结果处理器(client发送命令给server)
  */
 public class CallbackScheduleResultProcessor implements PlatformNettyRequestProcessor {
 

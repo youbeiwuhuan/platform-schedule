@@ -42,7 +42,6 @@ public class ScheduleRpcService {
 
         logger.info("开始执行:" + scheduleJobInfo.getJobName() + " param:" + scheduleJobInfo.getJobParam());
         //调用rpc
-
     }
 
 }
