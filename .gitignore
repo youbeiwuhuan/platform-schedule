@@ -19,3 +19,4 @@ yarn.lock
 *.ntvs*
 *.njsproj
 *.sln
+/schedule-dao/src/main/java/com/courage/platform/schedule/dao/domain/ScheduleJobInfo.java

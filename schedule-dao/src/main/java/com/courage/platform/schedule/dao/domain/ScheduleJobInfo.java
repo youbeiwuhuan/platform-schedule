@@ -30,6 +30,8 @@ public class ScheduleJobInfo {
 
     private String author;
 
+    private String jobHandler;
+
     private String alarmEmail;
 
     private Date createTime;
@@ -168,4 +170,11 @@ public class ScheduleJobInfo {
         this.author = author;
     }
 
+    public String getJobHandler() {
+        return jobHandler;
+    }
+
+    public void setJobHandler(String jobHandler) {
+        this.jobHandler = jobHandler;
+    }
 }

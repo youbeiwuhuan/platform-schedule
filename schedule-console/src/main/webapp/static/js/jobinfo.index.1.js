@@ -26,7 +26,7 @@ $(function () {
                 "data": 'id',
                 "bSortable": false,
                 "visible": true,
-                "width": '10%'
+                "width": '6%'
             },
             {
                 "data": 'jobName',
@@ -39,7 +39,7 @@ $(function () {
             {
                 "data": 'appName',
                 "visible": true,
-                "width": '20%',
+                "width": '11%',
                 "render": function (data, type, row) {
                     return data;
                 }
@@ -47,7 +47,7 @@ $(function () {
             {
                 "data": 'jobType',
                 "visible": true,
-                "width": '10%',
+                "width": '7%',
                 "render": function (data, type, row) {
                     if (0 == data) {
                         return 'bean模式';
@@ -56,6 +56,14 @@ $(function () {
                         return 'shell模式';
                     }
                     return '';
+                }
+            },
+            {
+                "data": 'jobHandler',
+                "visible": true,
+                "width": '11%',
+                "render": function (data, type, row) {
+                    return data;
                 }
             },
             {
@@ -69,7 +77,7 @@ $(function () {
             {
                 "data": 'status',
                 "visible": true,
-                "width": '8%',
+                "width": '5%',
                 "render": function (data, type, row) {
                     // status
                     if (0 == data) {
@@ -83,11 +91,11 @@ $(function () {
                 "data": 'operate',
                 "visible": true,
                 "render": function (data, type, row) {
-                    var executeOncebtn = '<button class="btn btn-default btn-xs" type="button" onclick="toupdateJobPage()">执行</button> ';
-                    var btn = '<button class="btn btn-warning btn-xs" type="button" onclick="toupdateJobPage()">编辑</button> ';
+                    var btn = '<button class="btn btn-warning btn-xs" type="button" onclick="toUpdateJobPage()">编辑</button> ';
+                    var executeOncebtn = '<button class="btn btn-info btn-xs" type="button" onclick="toupdateJobPage()">立即执行</button> ';
                     var msgBtn = '<button class="btn btn-success btn-xs" type="button" onclick="alertMsg()">启动</button> ';
-                    var tipBtn = '<button class="btn btn-primary btn-xs" type="button" onclick="alertTip()">删除</button> ';
-                    return executeOncebtn + btn + msgBtn + tipBtn;
+                    var tipBtn = '<button class="btn btn-danger btn-xs" type="button" onclick="alertTip()">删除</button> ';
+                    return btn + executeOncebtn + msgBtn + tipBtn;
                 }
             }
         ],
@@ -122,15 +130,25 @@ $(function () {
         jobListTable.fnDraw();
     });
 
-    //编辑应用页面
     toAddJobPage = function () {
         layer.open({
             type: 2,
             title: '添加任务',
             maxmin: true,
             shadeClose: false, //点击遮罩关闭层
-            area: ['820px', '550px'],
+            area: ['820px', '500px'],
             content: base_url + '/addjobpage'
+        });
+    };
+
+    toUpdateJobPage = function (jobId) {
+        layer.open({
+            type: 2,
+            title: '编辑任务',
+            maxmin: true,
+            shadeClose: false, //点击遮罩关闭层
+            area: ['820px', '500px'],
+            content: base_url + '/updatejobpage'
         });
     };
 

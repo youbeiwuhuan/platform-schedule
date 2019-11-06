@@ -11,6 +11,7 @@
         <result column="job_description" property="jobDescription" />
         <result column="job_cron" property="jobCron" />
         <result column="job_param" property="jobParam" />
+        <result column="job_handler" property="jobHandler" />
         <result column="route_mode" property="routeMode" />
         <result column="status" property="status" />
         <result column="author" property="author" />
@@ -27,6 +28,7 @@
         `app_name`,
         `job_name`,
         `job_type`,
+        `job_handler`,
         `job_description`,
         `job_cron`,
         `job_param`,
@@ -40,21 +42,39 @@
         `update_time`
 	</sql>
 
+    <sql id="queryCondition">
+        <where>
+            1 = 1
+            <if test="jobName != null and jobName != ''">
+               and job_name like '%${jobName}%'
+            </if>
+            <if test="appName != null and appName != ''">
+                and app_name like '%${appName}%'
+            </if>
+            <if test="jobHandler != null and jobHandler != ''">
+                and job_handler like '%${jobHandler}%'
+            </if>
+        </where>
+    </sql>
+
     <select id="findAll" resultMap="scheduleJobInfo">
         SELECT <include refid="scheduleInfoColumnList" />
         FROM t_schedule_job_info AS t
+        <include refid="queryCondition"/>
         ORDER BY t.id ASC
     </select>
 
     <select id="findPage" parameterType="java.util.HashMap" resultMap="scheduleJobInfo">
         SELECT <include refid="scheduleInfoColumnList" />
         FROM t_schedule_job_info AS t
+        <include refid="queryCondition"/>
         ORDER BY t.id desc
         limit #{start},#{pageSize}
     </select>
 
     <select id="count"  parameterType="java.util.HashMap" resultType="java.lang.Integer">
         select count(1) from t_schedule_job_info
+        <include refid="queryCondition"/>
     </select>
 
     <insert id="insert" parameterType="java.util.HashMap">

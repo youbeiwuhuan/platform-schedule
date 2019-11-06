@@ -44,6 +44,13 @@ public class ScheduleController {
         return "schedule/jobadd";
     }
 
+    @RequestMapping("/updatejobpage")
+    public String updatejobpage(Model model) {
+        List<Appinfo> appinfoList = appInfoService.getAll();
+        model.addAttribute("appinfoList", appinfoList);
+        return "schedule/jobupdate";
+    }
+
     @RequestMapping("/jobinfo/pageList")
     @ResponseBody
     public Map<String, Object> jobinfoPageList(HttpServletRequest httpServletRequest) {
