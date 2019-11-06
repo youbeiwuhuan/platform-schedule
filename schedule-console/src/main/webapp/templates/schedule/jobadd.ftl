@@ -28,6 +28,14 @@
                                              maxlength="50"></div>
             </div>
             <div class="form-group">
+                <label for="firstname" class="col-sm-2 control-label">路由模式<font
+                        color="red">*</font></label>
+                <div class="col-sm-4">
+                    <select class="form-control glueType" name="routeMode">
+                        <option value="0">随机</option>
+                        <option value="1">广播</option>
+                    </select>
+                </div>
                 <label for="lastname" class="col-sm-2 control-label">Cron<font color="red">*</font></label>
                 <div class="col-sm-4"><input type="text" class="form-control" name="jobCron"
                                              placeholder="cron表达式..." maxlength="128"></div>

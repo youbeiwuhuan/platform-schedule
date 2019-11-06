@@ -33,7 +33,6 @@ public class AppController {
         String start = httpServletRequest.getParameter("start");
         String length = httpServletRequest.getParameter("length"); //类似请求pageSize
         String appName = httpServletRequest.getParameter("appName");
-        logger.info("start:{} length:{} appName:{}", new Object[]{start, length, appName});
         List<Map> list = new ArrayList<>();
 
         Map<String, Object> ele = new HashMap<>();
