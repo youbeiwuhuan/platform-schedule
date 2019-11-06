@@ -83,7 +83,7 @@ public class ScheduleJobExecutor {
             jobMarker.setJobAvailable(JobAvailable.UNVALID);
         }
 
-        //若内存中无该任务，或者该任务的表达式已经发生变化
+        //若内存中无该任务，或者该任务的表达式已经发生变化 则开始调度
         if (checkExecuted) {
             logger.warn("调度job编号:" + jobId + " jobName:" + scheduleJobInfo.getJobName());
             boolean result = executeJob(jobId);
