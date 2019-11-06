@@ -1,7 +1,7 @@
 <#macro commonStyle>
 
 <#-- favicon -->
-<link rel="icon" href="favicon.ico?t=19098"/>
+<link rel="icon" href="favicon.ico?t=20191107"/>
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
