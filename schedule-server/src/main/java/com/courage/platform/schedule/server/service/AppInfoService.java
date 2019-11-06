@@ -15,15 +15,13 @@ import java.util.List;
  * Created by zhangyong on 2019/10/31.
  */
 @Service
-public class AppService {
+public class AppInfoService {
 
-    private final static Logger logger = LoggerFactory.getLogger(AppService.class);
+    private final static Logger logger = LoggerFactory.getLogger(AppInfoService.class);
 
     @Autowired
     private AppinfoDao appinfoDao;
 
-    @PostConstruct
-    @Scheduled(initialDelay = 60000, fixedRate = 60000)
     public void post() {
         List list = appinfoDao.findAll();
     }
