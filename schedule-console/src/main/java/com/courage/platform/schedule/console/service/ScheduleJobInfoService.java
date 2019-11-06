@@ -43,4 +43,8 @@ public class ScheduleJobInfoService {
         scheduleJobInfoDao.update(map);
     }
 
+    public void delete(Map map) {
+        scheduleJobInfoDao.delete(map);
+    }
+
 }

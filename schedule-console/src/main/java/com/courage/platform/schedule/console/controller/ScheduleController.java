@@ -107,5 +107,14 @@ public class ScheduleController {
         return map;
     }
 
+    @RequestMapping("/deleteJob")
+    @ResponseBody
+    public Map deleteJob(@RequestParam Map<String, Object> params) {
+        logger.info("deleteJob params:" + params);
+        scheduleJobInfoService.delete(params);
+        Map map = new HashMap();
+        map.put("code", "200");
+        return map;
+    }
 
 }

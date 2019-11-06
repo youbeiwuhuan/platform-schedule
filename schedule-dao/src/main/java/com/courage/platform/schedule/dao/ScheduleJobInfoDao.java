@@ -22,4 +22,6 @@ public interface ScheduleJobInfoDao {
 
     void update(Map map);
 
+    void delete(Map map);
+
 }

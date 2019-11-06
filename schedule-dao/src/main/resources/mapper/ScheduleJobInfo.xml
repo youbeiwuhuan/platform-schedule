@@ -160,4 +160,8 @@
         where id = #{id}
     </update>
 
+    <delete id="delete" parameterType="java.util.HashMap">
+        delete  from t_schedule_job_info where id = #{id}
+    </delete>
+
 </mapper>

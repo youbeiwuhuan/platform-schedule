@@ -92,10 +92,10 @@ $(function () {
                 "visible": true,
                 "width": '13%',
                 "render": function (data, type, row) {
-                    var btn = '<button class="btn btn-warning btn-xs" type="button" onclick="toUpdateJobPage('+ data + ')">编辑</button> ';
-                    var executeOncebtn = '<button class="btn bg-purple btn-xs" type="button" onclick="toexecuteAtonce('+ data + ')">立即执行</button> ';
-                    var msgBtn = '<button class="btn btn-success btn-xs" type="button" onclick="valid('+ data + ')">启动</button> ';
-                    var tipBtn = '<button class="btn btn-danger btn-xs" type="button" onclick="deleteJob('+ data + ')">删除</button> ';
+                    var btn = '<button class="btn btn-warning btn-xs" type="button" onclick="toUpdateJobPage(' + data + ')">编辑</button> ';
+                    var executeOncebtn = '<button class="btn bg-purple btn-xs" type="button" onclick="toexecuteAtonce(' + data + ')">立即执行</button> ';
+                    var msgBtn = '<button class="btn btn-success btn-xs" type="button" onclick="valid(' + data + ')">启动</button> ';
+                    var tipBtn = '<button class="btn btn-danger btn-xs" type="button" onclick="deleteJob(' + data + ')">删除</button> ';
                     return btn + executeOncebtn + msgBtn + tipBtn;
                 }
             }
@@ -152,6 +152,34 @@ $(function () {
             content: base_url + '/updatejobpage?id=' + jobId + "&t=" + new Date().getTime()
         });
     };
+
+    deleteJob = function (jobId) {
+        layer.confirm('您确定删除该任务吗?', {btn: ['确定', '取消'], title: "提示"}, function () {
+            $.post(base_url + "/deleteJob", {
+                id: jobId,
+                t: new Date().getTime()
+            }, function (data, status) {
+                if (data.code == "200") {
+                    layer.open({
+                        title: '系统提示',
+                        btn: ['确定'],
+                        content: '删除成功',
+                        icon: '1',
+                        end: function (layero, index) {
+                            window.parent.location.reload();
+                        }
+                    });
+                } else {
+                    layer.open({
+                        title: '系统提示',
+                        btn: ['确定'],
+                        content: '删除失败',
+                        icon: '2'
+                    });
+                }
+            });
+        });
+    }
 
     alertMsg = function () {
         layer.msg('hello');
