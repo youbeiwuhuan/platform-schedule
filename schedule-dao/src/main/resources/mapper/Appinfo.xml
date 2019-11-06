@@ -24,7 +24,7 @@
 		t.update_time
 	</sql>
 
-    <select id="findSmsAppinfoByAppId" parameterType="java.lang.String" resultMap="appinfo">
+    <select id="findAppinfoByAppId" parameterType="java.lang.String" resultMap="appinfo">
         SELECT <include refid="Base_Column_List" />
         FROM t_platform_appinfo AS t
         WHERE t.app_id = #{appId}

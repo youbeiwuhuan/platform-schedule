@@ -16,4 +16,6 @@ public interface ScheduleJobInfoDao {
 
     Integer count(Map map);
 
+    Integer insert(Map map);
+
 }

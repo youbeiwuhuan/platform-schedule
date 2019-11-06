@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -73,8 +74,11 @@ public class ScheduleController {
     //添加请求
     @RequestMapping("/addJob")
     @ResponseBody
-    public Map addJob(HttpServletRequest httpServletRequest) {
-        logger.info("addJob param:" + httpServletRequest.getParameterMap());
+    public Map addJob(@RequestParam Map<String, Object> params) {
+        logger.info("addJob params:" + params);
+        Appinfo appinfo = appInfoService.getByAppId((String) params.get("appId"));
+        params.put("appName", appinfo.getAppName());
+        scheduleJobInfoService.insert(params);
         Map map = new HashMap();
         map.put("code", "200");
         return map;

@@ -24,4 +24,8 @@ public class AppInfoService {
         return appinfoDao.findAll();
     }
 
+    public Appinfo getByAppId(String id) {
+        return appinfoDao.findAppinfoByAppId(id);
+    }
+
 }

@@ -49,13 +49,46 @@
     <select id="findPage" parameterType="java.util.HashMap" resultMap="scheduleJobInfo">
         SELECT <include refid="scheduleInfoColumnList" />
         FROM t_schedule_job_info AS t
-        ORDER BY t.id ASC
+        ORDER BY t.id desc
         limit #{start},#{pageSize}
     </select>
 
     <select id="count"  parameterType="java.util.HashMap" resultType="java.lang.Integer">
         select count(1) from t_schedule_job_info
-
     </select>
+
+    <insert id="insert" parameterType="java.util.HashMap">
+        INSERT INTO `t_schedule_job_info`
+        (
+        `app_id`,
+        `app_name`,
+        `job_name`,
+        `job_type`,
+        `job_cron`,
+        `job_param`,
+        `job_handler`,
+        `route_mode`,
+        `author`,
+        `alarm_email`,
+        `status`,
+        `create_time`,
+        `update_time`)
+        VALUES
+        (
+        #{appId},
+        #{appName},
+        #{jobName},
+        #{jobType},
+        #{jobCron},
+        #{jobParam},
+        #{jobHandler},
+        #{routeMode},
+        #{author},
+        #{alarmEmail},
+        #{status},
+        now(),
+        now()
+      )
+    </insert>
 
 </mapper>

@@ -31,4 +31,8 @@ public class ScheduleJobInfoService {
         return scheduleJobInfoDao.count(param);
     }
 
+    public Integer insert(Map<String, Object> param) {
+        return scheduleJobInfoDao.insert(param);
+    }
+
 }
