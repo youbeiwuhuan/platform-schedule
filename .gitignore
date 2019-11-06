@@ -3,20 +3,3 @@
 bin
 pkg
 *.iml
-
-.DS_Store
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-package-lock.json
-yarn.lock
-
-# Editor directories and files
-.idea
-.vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-/schedule-dao/src/main/java/com/courage/platform/schedule/dao/domain/ScheduleJobInfo.java
