@@ -24,7 +24,7 @@ public class ScheduleJobInfo {
 
     private String jobParam;
 
-    private Integer broadcastMode;
+    private Integer routeMode;
 
     private Integer status;
 
@@ -100,14 +100,6 @@ public class ScheduleJobInfo {
 
     public void setJobParam(String jobParam) {
         this.jobParam = jobParam;
-    }
-
-    public Integer getBroadcastMode() {
-        return broadcastMode;
-    }
-
-    public void setBroadcastMode(Integer broadcastMode) {
-        this.broadcastMode = broadcastMode;
     }
 
     public String getAlarmEmail() {
