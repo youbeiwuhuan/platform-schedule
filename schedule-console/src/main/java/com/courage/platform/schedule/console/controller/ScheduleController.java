@@ -41,13 +41,14 @@ public class ScheduleController {
         String start = httpServletRequest.getParameter("start");
         String length = httpServletRequest.getParameter("length"); //类似请求pageSize
         String appName = httpServletRequest.getParameter("appName");
+        String jobName = httpServletRequest.getParameter("jobName");
         String jobHandler = httpServletRequest.getParameter("jobHandler");
-        logger.info("start:{} length:{} appName:{} jobHandler:{}", new Object[]{start, length, appName, jobHandler});
 
         Map<String, Object> param = new HashMap<>();
         param.put("start", start);
         param.put("length", length);
         param.put("appName", appName);
+        param.put("jobName", jobName);
         param.put("jobHandler", jobHandler);
 
         List<ScheduleJobInfo> list = scheduleJobInfoService.getPage(param, start, Integer.valueOf(length));

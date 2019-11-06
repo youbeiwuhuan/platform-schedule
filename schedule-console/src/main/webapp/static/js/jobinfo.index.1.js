@@ -126,11 +126,11 @@ $(function () {
     toAddJobPage = function () {
         layer.open({
             type: 2,
-            title: '编辑应用',
+            title: '添加任务',
             maxmin: true,
             shadeClose: false, //点击遮罩关闭层
-            area: ['790px', '550px'],
-            content: base_url + '/jobinfo/addjobpage'
+            area: ['820px', '550px'],
+            content: base_url + '/addjobpage'
         });
     };
 

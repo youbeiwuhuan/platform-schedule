@@ -45,7 +45,7 @@
                     <button class="btn btn-block btn-info" id="searchBtn">查询</button>
                 </div>
                  <div class="col-xs-1">
-                	  <button class="btn btn-block btn-success add" type="button">新增</button>
+                	  <button class="btn btn-block btn-success add" type="button" onclick="toAddJobPage()">新增</button>
                 </div>
             </div>
 
@@ -91,7 +91,7 @@
 <script src="${request.contextPath}/static/plugins/layer/layer.js?t=20181226"></script>
 
 <!-- custom -->
-<script src="${request.contextPath}/static/js/jobinfo.index.1.js?t=21871aaaxx05265877xx"></script>
+<script src="${request.contextPath}/static/js/jobinfo.index.1.js?t=2187ssaaa1aaaxx05265877xx"></script>
 
 </body>
 </html>
