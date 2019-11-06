@@ -107,7 +107,7 @@
         errorClass: 'help-block',
         focusInvalid: true,
         rules: {
-            jobId: {
+            appId: {
                 required: true
             },
             jobName: {
@@ -130,7 +130,7 @@
             },
             jobName: {
                 required: '请输入' + "任务名",
-                rangelength: '任务名必须大于4,小于20'
+                rangelength: '任务名长度必须大于4,小于20'
             },
             jobCron: {
                 required: '请输入' + "cron表达式"
