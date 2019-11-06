@@ -51,11 +51,4 @@ public class ScheduleJobInfoService {
         return JOB_INFO_CACHE;
     }
 
-    /*
-       强制加载
-     */
-    public ScheduleJobInfo forceLoadJobById(Long id) {
-        return null;
-    }
-
 }

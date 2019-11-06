@@ -1,6 +1,5 @@
 package com.courage.platform.schedule.server.service.mode;
 
-import com.alibaba.fastjson.JSON;
 import com.courage.platform.schedule.core.util.IpUtil;
 import com.courage.platform.schedule.dao.domain.PlatformNamesrv;
 import com.courage.platform.schedule.dao.domain.ScheduleJobInfo;
@@ -8,7 +7,6 @@ import com.courage.platform.schedule.rpc.config.ScheduleRpcServerConfig;
 import com.courage.platform.schedule.server.service.PlatformNamesrvService;
 import com.courage.platform.schedule.server.service.ScheduleJobExecutor;
 import com.courage.platform.schedule.server.service.ScheduleJobInfoService;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +35,7 @@ public class DatabaseTriggerMode implements TriggerMode {
     private ScheduleJobExecutor scheduleJobExecutor;
 
     @Override
-    @Scheduled(initialDelay = 60000, fixedRate = 30000)
+    @Scheduled(initialDelay = 60000, fixedRate = 10000)
     public void start() {
         //检测当前是否有执行权限
         boolean isCurrentHostMasterRole = isCurrentHostMasterRole();
@@ -47,15 +45,7 @@ public class DatabaseTriggerMode implements TriggerMode {
             while (entries.hasNext()) {
                 Map.Entry<Long, ScheduleJobInfo> entry = entries.next();
                 ScheduleJobInfo scheduleJobInfo = entry.getValue();
-                //有效
-                if (NumberUtils.INTEGER_ZERO.equals(scheduleJobInfo.getStatus())) {
-                    scheduleJobExecutor.addJob(scheduleJobInfo.getId());
-                }
-                //失效
-                else {
-                    logger.info("任务:" + JSON.toJSONString(scheduleJobInfo) + " 已失效，从内存中删除");
-                    scheduleJobExecutor.removeJobById(scheduleJobInfo.getId());
-                }
+                scheduleJobExecutor.scheduleJob(scheduleJobInfo.getId());
             }
         } else {
             logger.info("删除内存中正在运行中的任务");

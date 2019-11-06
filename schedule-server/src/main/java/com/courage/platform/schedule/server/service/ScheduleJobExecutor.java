@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.concurrent.*;
 
 /**
@@ -29,7 +31,8 @@ public class ScheduleJobExecutor {
 
     private ThreadPoolExecutor executor = new ThreadPoolExecutor(32, 64, 1000 * 60, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(), new ThreadFactoryImpl("JobExecuteThread_"));
 
-    private ConcurrentHashMap<Long, Integer> currentRunningJob = new ConcurrentHashMap<>(2048);
+    //当前注册的任务
+    private ConcurrentHashMap<Long, JobMarker> currentRunningJobs = new ConcurrentHashMap<>(4096);
 
     private ScheduleHashedWheelTimer scheduleHashedWheelTimer;
 
@@ -50,20 +53,51 @@ public class ScheduleJobExecutor {
         scheduleHashedWheelTimer.start();
     }
 
-    public synchronized void addJob(Long jobId) {
-        if (currentRunningJob.containsKey(jobId)) {
+    public synchronized void scheduleJob(Long jobId) {
+        ScheduleJobInfo scheduleJobInfo = scheduleJobInfoService.getById(jobId);
+        if (scheduleJobInfo == null) {
+            logger.error("当前任务编号:" + jobId + "无法查询到");
+            removeJobById(jobId);
             return;
         }
-        currentRunningJob.put(jobId, JobAvailable.VALID.getId());
-        boolean result = executeJob(jobId);
-        if (!result) {
-            currentRunningJob.put(jobId, JobAvailable.UNVALID.getId());
+        boolean checkExecuted = false;
+        JobMarker jobMarker = currentRunningJobs.get(jobId);
+        if (jobMarker == null) {
+            jobMarker = new JobMarker(scheduleJobInfo.getId(), scheduleJobInfo.getJobCron());
+            currentRunningJobs.put(jobId, jobMarker);
+            checkExecuted = true;
+        } else {
+            if (!jobMarker.getJobCron().equals(scheduleJobInfo.getJobCron())) {
+                logger.warn("job编号:" + jobId + " jobName:" + scheduleJobInfo.getJobName() + "cron表达式修改,原cron:" + jobMarker.getJobCron() + " 新:" + scheduleJobInfo.getJobCron());
+                jobMarker.setJobCron(scheduleJobInfo.getJobCron());
+                ScheduleTimeout scheduleTimeout = jobMarker.getScheduleTimeout();
+                if (scheduleTimeout != null) {
+                    scheduleTimeout.cancel();
+                    checkExecuted = true;
+                }
+            }
         }
+        if (NumberUtils.INTEGER_ZERO.equals(scheduleJobInfo.getStatus())) {
+            jobMarker.setJobAvailable(JobAvailable.VALID);
+        } else {
+            jobMarker.setJobAvailable(JobAvailable.UNVALID);
+        }
+
+        //若内存中无该任务，或者该任务的表达式已经发生变化
+        if (checkExecuted) {
+            logger.warn("重新调度job编号:" + jobId + " jobName:" + scheduleJobInfo.getJobName());
+            boolean result = executeJob(jobId);
+            if (!result) {
+                jobMarker.setJobAvailable(JobAvailable.UNVALID);
+            }
+        }
+
     }
 
     //该方法的前置条件是本地内存有标记
     public boolean executeJob(Long jobId) {
-        if (currentRunningJob.containsKey(jobId) && currentRunningJob.get(jobId).equals(JobAvailable.VALID.getId())) {
+        JobMarker jobMarker = currentRunningJobs.get(jobId);
+        if (jobMarker != null && jobMarker.getJobAvailable().equals(JobAvailable.VALID)) {
             ScheduleJobInfo scheduleJobInfo = scheduleJobInfoService.getById(jobId);
             if (scheduleJobInfo == null || !NumberUtils.INTEGER_ZERO.equals(scheduleJobInfo.getStatus())) {
                 logger.info("当前任务:" + JSON.toJSONString(scheduleJobInfo) + " 已经禁用!");
@@ -82,7 +116,7 @@ public class ScheduleJobExecutor {
             if (nextExecuteDate != null) {
                 long delay = nextExecuteDate.getTime() - currentDate.getTime();
                 scheduleJobInfo.setTriggerNextTime(nextExecuteDate);
-                scheduleHashedWheelTimer.newTimeout(new ScheduleTimerTask() {
+                ScheduleTimeout scheduleTimeout = scheduleHashedWheelTimer.newTimeout(new ScheduleTimerTask() {
                     @Override
                     public void run(ScheduleTimeout timeout) throws Exception {
                         executor.execute(new Runnable() {
@@ -100,17 +134,28 @@ public class ScheduleJobExecutor {
                         });
                     }
                 }, delay, TimeUnit.MILLISECONDS);
+                //添加到内存中
+                jobMarker.setScheduleTimeout(scheduleTimeout);
             }
         }
         return true;
     }
 
     public synchronized void removeJobs() {
-        currentRunningJob.clear();
+        Iterator<Map.Entry<Long, JobMarker>> entries = currentRunningJobs.entrySet().iterator();
+        while (entries.hasNext()) {
+            Map.Entry<Long, JobMarker> entry = entries.next();
+            JobMarker jobMarker = entry.getValue();
+            ScheduleTimeout scheduleTimeout = jobMarker.getScheduleTimeout();
+            if (scheduleTimeout != null) {
+                scheduleTimeout.cancel();
+            }
+        }
+        currentRunningJobs.clear();
     }
 
-    public void removeJobById(Long jobId) {
-        currentRunningJob.remove(jobId);
+    public synchronized void removeJobById(Long jobId) {
+        
     }
 
     @PreDestroy
@@ -153,6 +198,55 @@ public class ScheduleJobExecutor {
 
         public void setName(String name) {
             this.name = name;
+        }
+
+    }
+
+    private class JobMarker {
+
+        private Long jobId;
+
+        private volatile String jobCron;
+
+        private volatile ScheduleTimeout scheduleTimeout;
+
+        private JobAvailable jobAvailable;
+
+        public JobMarker(Long jobId, String jobCron) {
+            this.jobId = jobId;
+            this.jobCron = jobCron;
+        }
+
+        public Long getJobId() {
+            return jobId;
+        }
+
+        public void setJobId(Long jobId) {
+            this.jobId = jobId;
+        }
+
+        public String getJobCron() {
+            return jobCron;
+        }
+
+        public void setJobCron(String jobCron) {
+            this.jobCron = jobCron;
+        }
+
+        public ScheduleTimeout getScheduleTimeout() {
+            return scheduleTimeout;
+        }
+
+        public void setScheduleTimeout(ScheduleTimeout scheduleTimeout) {
+            this.scheduleTimeout = scheduleTimeout;
+        }
+
+        public JobAvailable getJobAvailable() {
+            return jobAvailable;
+        }
+
+        public void setJobAvailable(JobAvailable jobAvailable) {
+            this.jobAvailable = jobAvailable;
         }
 
     }
