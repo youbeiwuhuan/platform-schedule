@@ -13,15 +13,14 @@ public class HashTimerWheelUnitTest {
 
     public static void main(String[] args) {
         ScheduleHashedWheelTimer scheduleHashedWheelTimer = new ScheduleHashedWheelTimer(1, TimeUnit.SECONDS, 3600);
-        scheduleHashedWheelTimer.newTimeout(new ScheduleTimerTask() {
+        ScheduleTimeout scheduleTimeout1 = scheduleHashedWheelTimer.newTimeout(new ScheduleTimerTask() {
             @Override
             public void run(ScheduleTimeout timeout) throws Exception {
                 System.out.println(12121);
             }
         }, 10, TimeUnit.SECONDS);
 
-
-        scheduleHashedWheelTimer.newTimeout(new ScheduleTimerTask() {
+        ScheduleTimeout scheduleTimeout2 = scheduleHashedWheelTimer.newTimeout(new ScheduleTimerTask() {
             @Override
             public void run(ScheduleTimeout timeout) throws Exception {
                 System.out.println(2222);
@@ -29,6 +28,8 @@ public class HashTimerWheelUnitTest {
         }, 5, TimeUnit.SECONDS);
 
         scheduleHashedWheelTimer.start();
+        //可以取消任务
+        scheduleTimeout1.cancel();
     }
 
 }
