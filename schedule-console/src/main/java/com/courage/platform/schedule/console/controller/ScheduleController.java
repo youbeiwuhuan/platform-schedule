@@ -1,11 +1,14 @@
 package com.courage.platform.schedule.console.controller;
 
+import com.courage.platform.schedule.console.service.AppInfoService;
 import com.courage.platform.schedule.console.service.ScheduleJobInfoService;
+import com.courage.platform.schedule.dao.domain.Appinfo;
 import com.courage.platform.schedule.dao.domain.ScheduleJobInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -25,13 +28,18 @@ public class ScheduleController {
     @Autowired
     private ScheduleJobInfoService scheduleJobInfoService;
 
+    @Autowired
+    private AppInfoService appInfoService;
+
     @RequestMapping("/jobinfo")
     public String jobinfo() {
         return "schedule/joblist.index";
     }
 
     @RequestMapping("/addjobpage")
-    public String addjobpage() {
+    public String addjobpage(Model model) {
+        List<Appinfo> appinfoList = appInfoService.getAll();
+        model.addAttribute("appinfoList", appinfoList);
         return "schedule/jobadd";
     }
 
@@ -60,6 +68,16 @@ public class ScheduleController {
         maps.put("recordsFiltered", count);        // 总记录数
         maps.put("data", list);                    // 分页列表
         return maps;
+    }
+
+    //添加请求
+    @RequestMapping("/addJob")
+    @ResponseBody
+    public Map addJob(HttpServletRequest httpServletRequest) {
+        logger.info("addJob param:" + httpServletRequest.getParameterMap());
+        Map map = new HashMap();
+        map.put("code", "200");
+        return map;
     }
 
 }

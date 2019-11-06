@@ -28,6 +28,8 @@ public class ScheduleJobInfo {
 
     private Integer status;
 
+    private String author;
+
     private String alarmEmail;
 
     private Date createTime;
@@ -148,6 +150,22 @@ public class ScheduleJobInfo {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getRouteMode() {
+        return routeMode;
+    }
+
+    public void setRouteMode(Integer routeMode) {
+        this.routeMode = routeMode;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
 }

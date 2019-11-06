@@ -13,6 +13,7 @@
         <result column="job_param" property="jobParam" />
         <result column="route_mode" property="routeMode" />
         <result column="status" property="status" />
+        <result column="author" property="author" />
         <result column="alarm_email" property="alarmEmail" />
         <result column="trigger_next_time" property="triggerNextTime" />
         <result column="trigger_last_time" property="triggerLastTime" />
@@ -31,6 +32,7 @@
         `job_param`,
         `route_mode`,
         `status`,
+        `author`,
         `alarm_email`,
         `trigger_next_time`,
         `trigger_last_time`,

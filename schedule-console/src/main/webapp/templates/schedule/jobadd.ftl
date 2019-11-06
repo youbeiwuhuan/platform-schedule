@@ -15,17 +15,14 @@
             <div class="form-group">
                 <label for="firstname" class="col-sm-2 control-label">app应用<font color="red">*</font></label>
                 <div class="col-sm-4">
-                    <select class="form-control" name="jobGroup">
-          		            	<#list JobGroupList as group>
-                                    <option value="${group.id}"
-                                            <#if jobGroup==group.id>selected</#if> >${group.title}</option>
+                    <select class="form-control" name="appId">
+          		            	<#list appinfoList as appinfo>
+                                    <option value="${appinfo.id}">${appinfo.appName}</option>
                                 </#list>
                     </select>
                 </div>
                 <label for="lastname" class="col-sm-2 control-label">任务名<font color="red">*</font></label>
-                <div class="col-sm-4"><input type="text" class="form-control" name="jobDesc"
-                                             placeholder="请输入任务名"
-                                             maxlength="50"></div>
+                <div class="col-sm-4"><input type="text" class="form-control" name="jobName" placeholder="请输入任务名" maxlength="50"></div>
             </div>
             <div class="form-group">
                 <label for="firstname" class="col-sm-2 control-label">路由模式<font
@@ -49,11 +46,20 @@
                     </select>
                 </div>
                 <label for="firstname" class="col-sm-2 control-label">JobHandler<font color="red">*</font></label>
-                <div class="col-sm-4"><input type="text" class="form-control" name="executorHandler"
+                <div class="col-sm-4"><input type="text" class="form-control" name="jobHandler"
                                              placeholder="请输入jobHandler" maxlength="100"></div>
             </div>
             <div class="form-group">
-                <label for="firstname" class="col-sm-2 control-label">任务参数<font color="black">*</font></label>
+                <label for="firstname" class="col-sm-2 control-label">负责人<font
+                        color="red">*</font></label>
+                <div class="col-sm-4"><input type="text" class="form-control" name="author"
+                                             placeholder="请输入负责人" maxlength="50"></div>
+                <label for="firstname" class="col-sm-2 control-label">报警邮件<font color="black">*</font></label>
+                <div class="col-sm-4"><input type="text" class="form-control" name="alarmEmail"
+                                             placeholder="请输入报警邮件" maxlength="100"></div>
+            </div>
+            <div class="form-group">
+                <label for="firstname" class="col-sm-2 control-label">任务参数</label>
                 <div class="col-sm-10">
                     <textarea class="textarea form-control" name="jobParam" placeholder="请输入任务参数" maxlength="512" style="height: 63px; line-height: 1.2;"></textarea>
                 </div>
@@ -80,40 +86,60 @@
 <!-- 弹窗 -->
 <script src="${request.contextPath}/static/plugins/layer/layer.js?t=20181226"></script>
 
+<script src="${request.contextPath}/static/plugins/cronGen/cronGen.js"></script>
+
 <script type="text/javascript">
 
     function closeLayer() {
         window.parent.layer.closeAll();
     }
 
+    $(".form input[name='jobCron']").cronGen({});
+
     jQuery.validator.addMethod("myValid01", function (value, element) {
         var length = value.length;
         var valid = /^[a-z][a-zA-Z0-9-]*$/;
         return this.optional(element) || valid.test(value);
-    }, 'AppName必须是字母数字组合');
+    }, 'jobName必须是字母数字组合');
 
     var addModalValidate = $("#jobaddForm").validate({
         errorElement: 'span',
         errorClass: 'help-block',
         focusInvalid: true,
         rules: {
-            appName: {
-                required: true,
-                myValid01: true
+            jobId: {
+                required: true
             },
-            appId: {
+            jobName: {
                 required: true,
                 rangelength: [4, 20]
+            },
+            jobCron: {
+                required: true
+            },
+            jobHandler: {
+                required: true
+            },
+            author: {
+                required: true
             }
         },
         messages: {
-            appName: {
-                required: '请输入' + "AppName",
-                myValid01: 'AppName含有特殊字符'
-            },
             appId: {
-                required: '请输入' + "应用编号",
-                rangelength: 'AppId必须大于4'
+                required: '请选择' + "应用"
+            },
+            jobName: {
+                required: '请输入' + "任务名",
+                rangelength: '任务名必须大于4,小于20'
+            },
+            jobCron: {
+                required: '请输入' + "cron表达式"
+            },
+            jobHandler: {
+                required: '请输入' + "jobHandler"
+            },
+            author: {
+                required: '请输入' + "负责人"
             }
         },
         highlight: function (element) {
@@ -143,7 +169,7 @@
                     layer.open({
                         title: '系统提示',
                         btn: ['确定'],
-                        content: '新增失败',
+                        content: '新增任务失败',
                         icon: '2'
                     });
                 }
