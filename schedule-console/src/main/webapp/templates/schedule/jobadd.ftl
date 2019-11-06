@@ -15,14 +15,15 @@
             <div class="form-group">
                 <label for="firstname" class="col-sm-2 control-label">app应用<font color="red">*</font></label>
                 <div class="col-sm-4">
-                    <select class="form-control" name="appId">
+                    <select class="form-control ignore" name="appId">
           		            	<#list appinfoList as appinfo>
                                     <option value="${appinfo.id}">${appinfo.appName}</option>
                                 </#list>
                     </select>
                 </div>
                 <label for="lastname" class="col-sm-2 control-label">任务名<font color="red">*</font></label>
-                <div class="col-sm-4"><input type="text" class="form-control" name="jobName" placeholder="请输入任务名" maxlength="50"></div>
+                <div class="col-sm-4"><input type="text" class="form-control" name="jobName" placeholder="请输入任务名"
+                                             maxlength="50"></div>
             </div>
             <div class="form-group">
                 <label for="firstname" class="col-sm-2 control-label">路由模式<font
@@ -41,8 +42,8 @@
                 <label for="firstname" class="col-sm-2 control-label">运行模式<font
                         color="red">*</font></label>
                 <div class="col-sm-4">
-                    <select class="form-control glueType" name="jobType">
-                         <option value="0">Bean模式</option>
+                    <select class="form-control glueType ignore" name="jobType">
+                        <option value="0">Bean模式</option>
                     </select>
                 </div>
                 <label for="firstname" class="col-sm-2 control-label">JobHandler<font color="red">*</font></label>
@@ -61,7 +62,8 @@
             <div class="form-group">
                 <label for="firstname" class="col-sm-2 control-label">任务参数</label>
                 <div class="col-sm-10">
-                    <textarea class="textarea form-control" name="jobParam" placeholder="请输入任务参数" maxlength="512" style="height: 63px; line-height: 1.2;"></textarea>
+                    <textarea class="textarea form-control" name="jobParam" placeholder="请输入任务参数" maxlength="512"
+                              style="height: 63px; line-height: 1.2;"></textarea>
                 </div>
             </div>
             <div class="form-group">
@@ -117,10 +119,19 @@
             jobCron: {
                 required: true
             },
+            routeMode: {
+                required: true
+            },
             jobHandler: {
                 required: true
             },
             author: {
+                required: false
+            },
+            jobParam: {
+                required: false
+            },
+            jobType: {
                 required: true
             }
         },
@@ -138,8 +149,11 @@
             jobHandler: {
                 required: '请输入' + "jobHandler"
             },
-            author: {
-                required: '请输入' + "负责人"
+            routeMode: {
+                required: '请选择' + "路由策略"
+            },
+            jobType: {
+                required: '请选择' + "运行模式"
             }
         },
         highlight: function (element) {
