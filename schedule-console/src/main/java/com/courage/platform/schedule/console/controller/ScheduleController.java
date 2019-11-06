@@ -4,6 +4,7 @@ import com.courage.platform.schedule.console.service.AppInfoService;
 import com.courage.platform.schedule.console.service.ScheduleJobInfoService;
 import com.courage.platform.schedule.dao.domain.Appinfo;
 import com.courage.platform.schedule.dao.domain.ScheduleJobInfo;
+import org.quartz.CronExpression;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,6 +87,13 @@ public class ScheduleController {
     @ResponseBody
     public Map addJob(@RequestParam Map<String, Object> params) {
         logger.info("addJob params:" + params);
+        String jobCron = (String) params.get("jobCron");
+        if (!CronExpression.isValidExpression(jobCron)) {
+            Map map = new HashMap();
+            map.put("code", "500");
+            map.put("msg", "请检查cron表达式");
+            return map;
+        }
         Appinfo appinfo = appInfoService.getByAppId((String) params.get("appId"));
         params.put("appName", appinfo.getAppName());
         params.put("status", 0);
@@ -99,6 +107,13 @@ public class ScheduleController {
     @ResponseBody
     public Map updateJob(@RequestParam Map<String, Object> params) {
         logger.info("updateJob params:" + params);
+        String jobCron = (String) params.get("jobCron");
+        if (!CronExpression.isValidExpression(jobCron)) {
+            Map map = new HashMap();
+            map.put("code", "500");
+            map.put("msg", "请检查cron表达式");
+            return map;
+        }
         Appinfo appinfo = appInfoService.getByAppId((String) params.get("appId"));
         params.put("appName", appinfo.getAppName());
         scheduleJobInfoService.update(params);

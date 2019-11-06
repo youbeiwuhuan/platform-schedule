@@ -184,10 +184,11 @@
                         }
                     });
                 } else {
+                    var msg = data.msg;
                     layer.open({
                         title: '系统提示',
                         btn: ['确定'],
-                        content: '新增任务失败',
+                        content: msg,
                         icon: '2'
                     });
                 }

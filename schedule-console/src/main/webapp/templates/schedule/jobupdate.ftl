@@ -17,13 +17,15 @@
                 <div class="col-sm-4">
                     <select class="form-control ignore" disabled>
           		         <#list appinfoList as appinfo>
-                               <option value="${appinfo.appId}" <#if appinfo.appId==scheduleJobInfo.appId>selected</#if>>${appinfo.appName}</option>
+                             <option value="${appinfo.appId}"
+                                     <#if appinfo.appId==scheduleJobInfo.appId>selected</#if>>${appinfo.appName}</option>
                          </#list>
                     </select>
-                    <input type="hidden" value="${scheduleJobInfo.appId}" name="appId" />
+                    <input type="hidden" value="${scheduleJobInfo.appId}" name="appId"/>
                 </div>
                 <label for="lastname" class="col-sm-2 control-label">任务名<font color="red">*</font></label>
-                <div class="col-sm-4"><input type="text" class="form-control" name="jobName" placeholder="请输入任务名" value="${scheduleJobInfo.jobName}"
+                <div class="col-sm-4"><input type="text" class="form-control" name="jobName" placeholder="请输入任务名"
+                                             value="${scheduleJobInfo.jobName}"
                                              maxlength="50"></div>
             </div>
             <div class="form-group">
@@ -36,7 +38,9 @@
                     </select>
                 </div>
                 <label for="lastname" class="col-sm-2 control-label">Cron<font color="red">*</font></label>
-                <div class="col-sm-4"><input type="text" class="form-control" name="jobCron" value="${scheduleJobInfo.jobCron}" placeholder="cron表达式..." maxlength="128"></div>
+                <div class="col-sm-4"><input type="text" class="form-control" name="jobCron"
+                                             value="${scheduleJobInfo.jobCron}" placeholder="cron表达式..."
+                                             maxlength="128"></div>
             </div>
             <div class="form-group">
                 <label for="firstname" class="col-sm-2 control-label">运行模式<font
@@ -47,15 +51,19 @@
                     </select>
                 </div>
                 <label for="firstname" class="col-sm-2 control-label">JobHandler<font color="red">*</font></label>
-                <div class="col-sm-4"><input type="text" class="form-control" name="jobHandler" value="${scheduleJobInfo.jobHandler}" placeholder="请输入jobHandler" maxlength="100"></div>
+                <div class="col-sm-4"><input type="text" class="form-control" name="jobHandler"
+                                             value="${scheduleJobInfo.jobHandler}" placeholder="请输入jobHandler"
+                                             maxlength="100"></div>
             </div>
             <div class="form-group">
                 <label for="firstname" class="col-sm-2 control-label">负责人<font
                         color="red">*</font></label>
-                <div class="col-sm-4"><input type="text" class="form-control" name="author" value="${scheduleJobInfo.author}"
+                <div class="col-sm-4"><input type="text" class="form-control" name="author"
+                                             value="${scheduleJobInfo.author}"
                                              placeholder="请输入负责人" maxlength="50"></div>
                 <label for="firstname" class="col-sm-2 control-label">报警邮件</label>
-                <div class="col-sm-4"><input type="text" class="form-control" name="alarmEmail" value="${scheduleJobInfo.alarmEmail}"
+                <div class="col-sm-4"><input type="text" class="form-control" name="alarmEmail"
+                                             value="${scheduleJobInfo.alarmEmail}"
                                              placeholder="请输入报警邮件" maxlength="100"></div>
             </div>
             <div class="form-group">
@@ -67,7 +75,7 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-6" style="text-align: center">
-                    <input type="hidden" name="id" value="${scheduleJobInfo.id}" />
+                    <input type="hidden" name="id" value="${scheduleJobInfo.id}"/>
                     <button type="submit" class="btn btn-primary">提交</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal" onclick="closeLayer()">取消
                     </button>
@@ -171,7 +179,7 @@
         },
         submitHandler: function (form) {
             //提交请求
-            $(".form input[name='jobCron']").val( $(".form input[name='cronGen_display']").val() );
+            $(".form input[name='jobCron']").val($(".form input[name='cronGen_display']").val());
             $.post(base_url + "/updateJob", $("#jobupdateForm").serialize(), function (data, status) {
                 if (data.code == "200") {
                     layer.open({
@@ -184,10 +192,11 @@
                         }
                     });
                 } else {
+                    var msg = data.msg;
                     layer.open({
                         title: '系统提示',
                         btn: ['确定'],
-                        content: '修改任务失败',
+                        content: msg,
                         icon: '2'
                     });
                 }
