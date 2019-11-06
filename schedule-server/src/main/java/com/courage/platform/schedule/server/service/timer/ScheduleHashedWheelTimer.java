@@ -45,7 +45,7 @@ public class ScheduleHashedWheelTimer implements ScheduleTimer {
     private final HashedWheelBucket[] wheel;
     private final int mask;
     private final CountDownLatch startTimeInitialized = new CountDownLatch(1);
-    private final Queue<HashedWheelScheduleTimeout> ScheduleTimeouts = PlatformDependent.newMpscQueue();
+    private final Queue<HashedWheelScheduleTimeout> scheduleTimeouts = PlatformDependent.newMpscQueue();
     private final Queue<HashedWheelScheduleTimeout> cancelledScheduleTimeouts = PlatformDependent.newMpscQueue();
 
     private volatile long startTime;
@@ -283,7 +283,7 @@ public class ScheduleHashedWheelTimer implements ScheduleTimer {
         // During processing all the queued HashedWheelScheduleTimeouts will be added to the correct HashedWheelBucket.
         long deadline = System.nanoTime() + unit.toNanos(delay) - startTime;
         HashedWheelScheduleTimeout ScheduleTimeout = new HashedWheelScheduleTimeout(this, task, deadline);
-        ScheduleTimeouts.add(ScheduleTimeout);
+        scheduleTimeouts.add(ScheduleTimeout);
         return ScheduleTimeout;
     }
 
@@ -321,7 +321,7 @@ public class ScheduleHashedWheelTimer implements ScheduleTimer {
                 bucket.clearScheduleTimeouts(unprocessedScheduleTimeouts);
             }
             for (; ; ) {
-                HashedWheelScheduleTimeout ScheduleTimeout = ScheduleTimeouts.poll();
+                HashedWheelScheduleTimeout ScheduleTimeout = scheduleTimeouts.poll();
                 if (ScheduleTimeout == null) {
                     break;
                 }
@@ -333,10 +333,10 @@ public class ScheduleHashedWheelTimer implements ScheduleTimer {
         }
 
         private void transferScheduleTimeoutsToBuckets() {
-            // transfer only max. 100000 ScheduleTimeouts per tick to prevent a thread to stale the workerThread when it just
-            // adds new ScheduleTimeouts in a loop.
+            // transfer only max. 100000 scheduleTimeouts per tick to prevent a thread to stale the workerThread when it just
+            // adds new scheduleTimeouts in a loop.
             for (int i = 0; i < 100000; i++) {
-                HashedWheelScheduleTimeout ScheduleTimeout = ScheduleTimeouts.poll();
+                HashedWheelScheduleTimeout ScheduleTimeout = scheduleTimeouts.poll();
                 if (ScheduleTimeout == null) {
                     // all processed
                     break;
@@ -445,7 +445,7 @@ public class ScheduleHashedWheelTimer implements ScheduleTimer {
         // HashedWheelScheduleTimeout will be added to the correct HashedWheelBucket.
         long remainingRounds;
 
-        // This will be used to chain ScheduleTimeouts in HashedWheelTimerBucket via a double-linked-list.
+        // This will be used to chain scheduleTimeouts in HashedWheelTimerBucket via a double-linked-list.
         // As only the workerThread will act on it there is no need for synchronization / volatile.
         HashedWheelScheduleTimeout next;
         HashedWheelScheduleTimeout prev;
@@ -574,7 +574,7 @@ public class ScheduleHashedWheelTimer implements ScheduleTimer {
         public void expireScheduleTimeouts(long deadline) {
             HashedWheelScheduleTimeout ScheduleTimeout = head;
 
-            // process all ScheduleTimeouts
+            // process all scheduleTimeouts
             while (ScheduleTimeout != null) {
                 boolean remove = false;
                 if (ScheduleTimeout.remainingRounds <= 0) {
