@@ -171,6 +171,7 @@
         },
         submitHandler: function (form) {
             //提交请求
+            $(".form input[name='jobCron']").val( $(".form input[name='cronGen_display']").val() );
             $.post(base_url + "/addJob", $("#jobaddForm").serialize(), function (data, status) {
                 if (data.code == "200") {
                     layer.open({
