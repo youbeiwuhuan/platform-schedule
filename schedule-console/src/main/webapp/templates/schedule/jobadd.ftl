@@ -126,7 +126,7 @@
                 required: true
             },
             author: {
-                required: false
+                required: true
             },
             jobParam: {
                 required: false
@@ -151,6 +151,9 @@
             },
             routeMode: {
                 required: '请选择' + "路由策略"
+            },
+            author: {
+                required: '请选择' + "负责人"
             },
             jobType: {
                 required: '请选择' + "运行模式"
