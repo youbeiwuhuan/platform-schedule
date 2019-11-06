@@ -90,6 +90,7 @@ $(function () {
             {
                 "data": 'operate',
                 "visible": true,
+                "width": '13%',
                 "render": function (data, type, row) {
                     var btn = '<button class="btn btn-warning btn-xs" type="button" onclick="toUpdateJobPage()">编辑</button> ';
                     var executeOncebtn = '<button class="btn btn-info btn-xs" type="button" onclick="toupdateJobPage()">立即执行</button> ';

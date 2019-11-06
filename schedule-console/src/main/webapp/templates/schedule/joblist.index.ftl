@@ -92,7 +92,7 @@
 <script src="${request.contextPath}/static/plugins/layer/layer.js?t=20181226"></script>
 
 <!-- custom -->
-<script src="${request.contextPath}/static/js/jobinfo.index.1.js?t=2015a65xafg111x8705265877xx"></script>
+<script src="${request.contextPath}/static/js/jobinfo.index.1.js?t=1125a65xafg111x8705265877xx"></script>
 
 </body>
 </html>
