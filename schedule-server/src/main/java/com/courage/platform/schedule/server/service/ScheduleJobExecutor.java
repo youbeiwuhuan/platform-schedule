@@ -155,7 +155,14 @@ public class ScheduleJobExecutor {
     }
 
     public synchronized void removeJobById(Long jobId) {
-
+        JobMarker jobMarker = currentRunningJobs.get(jobId);
+        if (jobMarker != null) {
+            ScheduleTimeout scheduleTimeout = jobMarker.getScheduleTimeout();
+            if (scheduleTimeout != null) {
+                scheduleTimeout.cancel();
+            }
+        }
+        currentRunningJobs.remove(jobId);
     }
 
     @PreDestroy
