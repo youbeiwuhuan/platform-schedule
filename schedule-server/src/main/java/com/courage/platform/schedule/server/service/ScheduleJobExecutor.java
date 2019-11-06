@@ -85,7 +85,7 @@ public class ScheduleJobExecutor {
 
         //若内存中无该任务，或者该任务的表达式已经发生变化
         if (checkExecuted) {
-            logger.warn("重新调度job编号:" + jobId + " jobName:" + scheduleJobInfo.getJobName());
+            logger.warn("调度job编号:" + jobId + " jobName:" + scheduleJobInfo.getJobName());
             boolean result = executeJob(jobId);
             if (!result) {
                 jobMarker.setJobAvailable(JobAvailable.UNVALID);
@@ -155,7 +155,7 @@ public class ScheduleJobExecutor {
     }
 
     public synchronized void removeJobById(Long jobId) {
-        
+
     }
 
     @PreDestroy
