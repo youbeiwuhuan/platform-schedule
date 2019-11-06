@@ -17,9 +17,9 @@ public class MainApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         long start = System.currentTimeMillis();
-        logger.info("开始启动平台任务调度系统 ^_^");
+        logger.info("开始启动平台任务调度系统控制台 ^_^");
         SpringApplication.run(MainApplication.class, args);
-        logger.info("结束启动平台任务调度系统,耗时:" + (System.currentTimeMillis() - start) + "ms");
+        logger.info("结束启动平台任务调度系统控制台,耗时:" + (System.currentTimeMillis() - start) + "ms");
     }
 
 }
