@@ -3,7 +3,7 @@ package com.courage.platform.schedule.server.service.mode;
 import com.courage.platform.schedule.core.util.IpUtil;
 import com.courage.platform.schedule.dao.domain.PlatformNamesrv;
 import com.courage.platform.schedule.dao.domain.ScheduleJobInfo;
-import com.courage.platform.schedule.rpc.config.ScheduleRpcServerConfig;
+import com.courage.platform.schedule.rpc.ScheduleRpcServer;
 import com.courage.platform.schedule.server.service.PlatformNamesrvService;
 import com.courage.platform.schedule.server.service.ScheduleJobExecutor;
 import com.courage.platform.schedule.server.service.ScheduleJobInfoService;
@@ -34,6 +34,9 @@ public class DatabaseTriggerMode implements TriggerMode {
     @Autowired
     private ScheduleJobExecutor scheduleJobExecutor;
 
+    @Autowired
+    private ScheduleRpcServer scheduleRpcServer;
+
     @Override
     @Scheduled(initialDelay = 60000, fixedRate = 30000)
     public void start() {
@@ -54,7 +57,7 @@ public class DatabaseTriggerMode implements TriggerMode {
     }
 
     private boolean isCurrentHostMasterRole() {
-        String currentHost = IpUtil.getIpPort(ScheduleRpcServerConfig.TASK_PRC_LISTEN_PORT);
+        String currentHost = IpUtil.getIpPort(scheduleRpcServer.localListenPort());
         PlatformNamesrv platformNamesrv = platformNamesrvService.getPlatformNamesrvByNamesrvIp(currentHost);
         if (platformNamesrv == null || platformNamesrv.getRole() == 1) {
             logger.warn("当前host:" + currentHost + " 没有被设置为master role");
