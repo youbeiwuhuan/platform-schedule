@@ -94,7 +94,12 @@ $(function () {
                 "render": function (data, type, row) {
                     var btn = '<button class="btn btn-warning btn-xs" type="button" onclick="toUpdateJobPage(' + data + ')">编辑</button> ';
                     var executeOncebtn = '<button class="btn bg-purple btn-xs" type="button" onclick="toexecuteAtonce(' + data + ')">立即执行</button> ';
-                    var msgBtn = '<button class="btn btn-success btn-xs" type="button" onclick="valid(' + data + ')">启动</button> ';
+                    var msgBtn;
+                    if (row.status == 1){
+                        msgBtn = '<button class="btn btn-success btn-xs" type="button" onclick="validJob(' + data + ')">启动</button> ';
+                    } else {
+                        msgBtn = '<button class="btn bg-gray btn-xs" type="button" onclick="validJob(' + data + ')">关闭</button> ';
+                    }
                     var tipBtn = '<button class="btn btn-danger btn-xs" type="button" onclick="deleteJob(' + data + ')">删除</button> ';
                     return btn + executeOncebtn + msgBtn + tipBtn;
                 }
@@ -174,6 +179,34 @@ $(function () {
                         title: '系统提示',
                         btn: ['确定'],
                         content: '删除失败',
+                        icon: '2'
+                    });
+                }
+            });
+        });
+    }
+
+    validJob = function (jobId) {
+        layer.confirm('您确定修改任务状态吗?', {btn: ['确定', '取消'], title: "提示"}, function () {
+            $.post(base_url + "/validJob", {
+                id: jobId,
+                t: new Date().getTime()
+            }, function (data, status) {
+                if (data.code == "200") {
+                    layer.open({
+                        title: '系统提示',
+                        btn: ['确定'],
+                        content: '修改任务状态成功',
+                        icon: '1',
+                        end: function (layero, index) {
+                            window.parent.location.reload();
+                        }
+                    });
+                } else {
+                    layer.open({
+                        title: '系统提示',
+                        btn: ['确定'],
+                        content: '修改任务状态成功失败',
                         icon: '2'
                     });
                 }

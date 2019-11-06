@@ -117,4 +117,25 @@ public class ScheduleController {
         return map;
     }
 
+    @RequestMapping("/validJob")
+    @ResponseBody
+    public Map validJob(HttpServletRequest httpServletRequest) {
+        String id = httpServletRequest.getParameter("id");
+        ScheduleJobInfo scheduleJobInfo = scheduleJobInfoService.getById(id);
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        if (scheduleJobInfo.getStatus() == 0) {
+            params.put("status", 1);
+        }
+        if (scheduleJobInfo.getStatus() == 1) {
+            params.put("status", 0);
+        }
+        scheduleJobInfoService.update(params);
+        Map map = new HashMap();
+        map.put("code", "200");
+        return map;
+    }
+
+
 }

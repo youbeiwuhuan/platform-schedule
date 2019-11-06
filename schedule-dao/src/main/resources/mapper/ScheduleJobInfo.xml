@@ -119,40 +119,40 @@
     <update id="update" parameterType="java.util.HashMap">
         update t_schedule_job_info
         <set>
-            <if test="appName != null and appName != ''">
+            <if test="appName != null">
                 app_name = #{appName},
             </if>
-            <if test="jobName != null and jobName != ''">
+            <if test="jobName != null">
                 job_name = #{jobName},
             </if>
-            <if test="jobType != null and jobType != ''">
+            <if test="jobType != null">
                 job_type = #{jobType},
             </if>
-            <if test="jobCron != null and jobCron != ''">
+            <if test="jobCron != null">
                 job_cron = #{jobCron},
             </if>
-            <if test="jobHandler != null and jobHandler != ''">
+            <if test="jobHandler != null">
                 job_handler = #{jobHandler},
             </if>
-            <if test="routeMode != null and routeMode != ''">
+            <if test="routeMode != null ">
                 route_mode = #{routeMode},
             </if>
-            <if test="author != null and author != ''">
+            <if test="author != null">
                 author = #{author},
             </if>
-            <if test="alarmEmail != null and alarmEmail != ''">
+            <if test="alarmEmail != null">
                 alarm_email = #{alarmEmail},
             </if>
-            <if test="jobParam != null and jobParam != ''">
+            <if test="jobParam != null">
                 job_param = #{jobParam},
             </if>
-            <if test="status != null and status != ''">
+            <if test="status != null">
                 status = #{status},
             </if>
-            <if test="triggerNextTime != null and triggerNextTime != ''">
+            <if test="triggerNextTime != null">
                 trigger_next_time = #{triggerNextTime},
             </if>
-            <if test="triggerLastTime != null and triggerLastTime != ''">
+            <if test="triggerLastTime != null">
                 trigger_last_time = #{triggerLastTime},
             </if>
             update_time = now()
