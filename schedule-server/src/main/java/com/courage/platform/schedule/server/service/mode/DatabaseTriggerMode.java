@@ -35,7 +35,7 @@ public class DatabaseTriggerMode implements TriggerMode {
     private ScheduleJobExecutor scheduleJobExecutor;
 
     @Override
-    @Scheduled(initialDelay = 60000, fixedRate = 10000)
+    @Scheduled(initialDelay = 60000, fixedRate = 30000)
     public void start() {
         //检测当前是否有执行权限
         boolean isCurrentHostMasterRole = isCurrentHostMasterRole();
