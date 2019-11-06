@@ -17,7 +17,7 @@
                 <div class="col-sm-4">
                     <select class="form-control ignore" name="appId">
           		            	<#list appinfoList as appinfo>
-                                    <option value="${appinfo.id}">${appinfo.appName}</option>
+                                    <option value="${appinfo.appId}">${appinfo.appName}</option>
                                 </#list>
                     </select>
                 </div>
