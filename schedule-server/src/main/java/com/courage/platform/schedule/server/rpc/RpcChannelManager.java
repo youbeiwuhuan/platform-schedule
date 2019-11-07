@@ -1,11 +1,14 @@
 package com.courage.platform.schedule.server.rpc;
 
-import io.netty.channel.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * rpc 通道管理
@@ -16,6 +19,14 @@ public class RpcChannelManager {
 
     private static final Logger logger = LoggerFactory.getLogger(RpcChannelManager.class);
 
-    private static ConcurrentHashMap<Long, Channel> channelConcurrentHashMap = new ConcurrentHashMap<>(4048);
+    private HashMap<Long, RpcChannelSession> channelConcurrentHashMap = new HashMap<>(4048);
+
+    private HashMap<String, Set<Long>> appNameChannelIdMapping = new HashMap<>(4048);
+
+    private ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+
+    public List<RpcChannelSession> getChannelSessionListByAppName(String appName) {
+        return null;
+    }
 
 }
