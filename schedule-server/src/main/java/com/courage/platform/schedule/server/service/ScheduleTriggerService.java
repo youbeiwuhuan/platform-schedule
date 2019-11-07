@@ -47,7 +47,7 @@ public class ScheduleTriggerService {
         try {
             ScheduleJobInfo scheduleJobInfo = scheduleJobInfoService.getById(jobId);
             scheduleJobInfo.setTriggerLastTime(new Date());
-            logger.info("开始执行:" + scheduleJobInfo.getJobName() + " param:" + scheduleJobInfo.getJobParam());
+            logger.info("执行任务:" + scheduleJobInfo.getJobName() + " param:" + scheduleJobInfo.getJobParam());
             //存储到db
             ScheduleJobLog scheduleJobLog = new ScheduleJobLog();
             Long id = IdGenerator.getUniqueIdAutoSeq(workerId);
