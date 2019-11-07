@@ -4,7 +4,6 @@ import com.courage.platform.rpc.remoting.netty.codec.NodePlatformRemotingServer;
 import com.courage.platform.rpc.remoting.netty.codec.PlatformNettyRequestProcessor;
 import com.courage.platform.rpc.remoting.netty.codec.PlatformNettyServerConfig;
 import com.courage.platform.schedule.rpc.config.ScheduleRpcServerConfig;
-import com.courage.platform.schedule.rpc.processor.HeartBeatProcessor;
 import com.courage.platform.schedule.rpc.protocol.CommandEnum;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -94,7 +93,6 @@ public class ScheduleRpcServer implements ScheduleRpcService {
             }
         };
         synchronized (this) {
-            processorTable.put(CommandEnum.SCHEDULE_HEART_BEAT_CMD, new HeartBeatProcessor());
             //添加命令处理器
             Set<Integer> set = processorTable.keySet();
             for (Integer cmd : set) {
