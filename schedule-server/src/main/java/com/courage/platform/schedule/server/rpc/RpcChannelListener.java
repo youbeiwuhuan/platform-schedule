@@ -26,6 +26,7 @@ public class RpcChannelListener implements PlatformChannelEventListener {
     @Override
     public void onChannelClose(String remoteAddr, Channel channel) {
         logger.info("close远程链接:" + remoteAddr);
+        rpcChannelManager.closeChannelSession(channel);
     }
 
     @Override

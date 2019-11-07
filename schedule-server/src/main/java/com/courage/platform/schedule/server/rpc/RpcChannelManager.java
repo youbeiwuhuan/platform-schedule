@@ -72,4 +72,20 @@ public class RpcChannelManager {
         }
     }
 
+    public void closeChannelSession(Channel channel) {
+        readWriteLock.writeLock().lock();
+        try {
+            String channelId = (String) ChannelUtils.getAttr(CHANNEL_ID_KEY, channel);
+            RpcChannelSession rpcChannelSession = sessionHashMap.get(channelId);
+            if (rpcChannelSession != null) {
+                Set<String> channelIdSet = appNameChannelIdMapping.get(rpcChannelSession.getAppName());
+                if (CollectionUtils.isNotEmpty(channelIdSet)) {
+                    channelIdSet.remove(channelId);
+                }
+            }
+        } finally {
+            readWriteLock.writeLock().unlock();
+        }
+    }
+
 }
