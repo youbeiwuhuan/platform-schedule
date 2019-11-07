@@ -1,12 +1,12 @@
 package com.courage.platform.schedule.server.service;
 
 import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingCommand;
+import com.courage.platform.schedule.core.domain.TriggerStatusEnum;
 import com.courage.platform.schedule.core.util.IdGenerator;
 import com.courage.platform.schedule.core.util.IpUtil;
 import com.courage.platform.schedule.dao.ScheduleJobLogDao;
 import com.courage.platform.schedule.dao.domain.ScheduleJobInfo;
 import com.courage.platform.schedule.dao.domain.ScheduleJobLog;
-import com.courage.platform.schedule.dao.domain.TriggerStatusEnum;
 import com.courage.platform.schedule.rpc.ScheduleRpcServer;
 import com.courage.platform.schedule.rpc.protocol.CommandEnum;
 import com.courage.platform.schedule.server.rpc.RpcChannelManager;

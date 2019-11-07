@@ -1,4 +1,4 @@
-package com.courage.platform.schedule.dao.domain;
+package com.courage.platform.schedule.core.domain;
 
 /**
  * 调度日志状态
