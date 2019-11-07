@@ -6,7 +6,7 @@
         <result column="id" property="id" />
         <result column="job_id" property="jobId" />
         <result column="app_id" property="appId" />
-        <result column="status" property="status"/>
+        <result column="trigger_status" property="triggerStatus"/>
         <result column="trigger_time" property="triggerTime" />
         <result column="callback_time" property="callbackTime" />
         <result column="message" property="message" />
@@ -18,7 +18,7 @@
         `id`,
         `job_id`,
         `app_id`,
-        `status`,
+        `trigger_status`,
         `trigger_time`,
         `callback_time`,
         `message`,
@@ -31,7 +31,7 @@
         (`id`,
         `job_id`,
         `app_id`,
-        `status`,
+        `trigger_status`,
         `trigger_time`,
         `create_time`,
         `update_time`)
@@ -40,7 +40,7 @@
          #{id},
          #{jobId},
          #{appId},
-         #{status},
+         #{triggerStatus},
          #{triggerTime},
          now(),
          now()

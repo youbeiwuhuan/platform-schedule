@@ -14,7 +14,7 @@ public class ScheduleJobLog {
 
     private Long appId;
 
-    private Integer status;
+    private Integer triggerStatus;
 
     private String message;
 
@@ -48,14 +48,6 @@ public class ScheduleJobLog {
 
     public void setAppId(Long appId) {
         this.appId = appId;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
     }
 
     public String getMessage() {
@@ -96,6 +88,14 @@ public class ScheduleJobLog {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getTriggerStatus() {
+        return triggerStatus;
+    }
+
+    public void setTriggerStatus(Integer triggerStatus) {
+        this.triggerStatus = triggerStatus;
     }
 
 }
