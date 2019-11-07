@@ -16,7 +16,7 @@
         <!-- 平台客户端 start -->
         <dependency>
             <groupId>com.courage</groupId>
-            <artifactId>platformrpc-remoting</artifactId>
+            <artifactId>schedule-remoting</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <!-- 平台客户端 end -->
