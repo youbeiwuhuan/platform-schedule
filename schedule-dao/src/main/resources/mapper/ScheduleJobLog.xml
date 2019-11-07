@@ -32,6 +32,7 @@
         `job_id`,
         `app_id`,
         `trigger_status`,
+        `message`,
         `trigger_time`,
         `create_time`,
         `update_time`)
@@ -40,6 +41,7 @@
          #{id},
          #{jobId},
          #{appId},
+         #{message},
          #{triggerStatus},
          #{triggerTime},
          now(),

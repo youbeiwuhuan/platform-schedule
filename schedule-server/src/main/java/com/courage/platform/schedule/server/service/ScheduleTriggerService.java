@@ -57,13 +57,17 @@ public class ScheduleTriggerService {
             scheduleJobLog.setCreateTime(new Date());
             scheduleJobLog.setTriggerTime(new Date());
             scheduleJobLog.setTriggerStatus(TriggerStatusEnum.INITIALIZE.getId());
-            //获取当前存在的链接
+
             List<RpcChannelSession> rpcChannelSessionList = rpcChannelManager.getChannelSessionListByAppName(scheduleJobInfo.getAppName());
             if (CollectionUtils.isNotEmpty(rpcChannelSessionList)) {
                 RpcChannelSession rpcChannelSession = rpcChannelSessionList.get(0);
                 PlatformRemotingCommand platformRemotingCommand = new PlatformRemotingCommand();
                 platformRemotingCommand.setRequestCmd(CommandEnum.TRIGGER_SCHEDULE_TASK_CMD);
                 scheduleRpcServer.getNodePlatformRemotingServer().invokeOneway(rpcChannelSession.getChannel(), platformRemotingCommand, 5000L);
+                scheduleJobLog.setTriggerStatus(TriggerStatusEnum.SUCCESS.getId());
+            } else {
+                scheduleJobLog.setTriggerStatus(TriggerStatusEnum.FAIL.getId());
+                scheduleJobLog.setMessage("应用没有链接到调度服务中心");
             }
             scheduleJobLogDao.insert(scheduleJobLog);
         } catch (Exception e) {
