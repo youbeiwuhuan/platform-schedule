@@ -82,6 +82,7 @@ public class RpcChannelManager {
                 if (CollectionUtils.isNotEmpty(channelIdSet)) {
                     channelIdSet.remove(channelId);
                 }
+                sessionHashMap.remove(channelId);
             }
         } finally {
             readWriteLock.writeLock().unlock();
