@@ -41,8 +41,8 @@
          #{id},
          #{jobId},
          #{appId},
-         #{message},
          #{triggerStatus},
+         #{message},
          #{triggerTime},
          now(),
          now()
