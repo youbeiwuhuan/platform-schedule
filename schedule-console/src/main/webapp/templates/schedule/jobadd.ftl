@@ -114,7 +114,7 @@
             },
             jobName: {
                 required: true,
-                rangelength: [4, 20]
+                rangelength: [2, 20]
             },
             jobCron: {
                 required: true
@@ -141,7 +141,7 @@
             },
             jobName: {
                 required: '请输入' + "任务名",
-                rangelength: '任务名长度必须大于4,小于20'
+                rangelength: '任务名长度必须大于2,小于20'
             },
             jobCron: {
                 required: '请输入' + "cron表达式"
