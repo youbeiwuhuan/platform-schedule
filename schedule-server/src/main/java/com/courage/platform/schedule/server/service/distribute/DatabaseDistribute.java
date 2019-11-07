@@ -21,7 +21,7 @@ import java.util.Map;
  * Created by zhangyong on 2019/11/4.
  */
 @Service
-public class DatabaseDistribute implements TriggerMode {
+public class DatabaseDistribute implements DistributeMode {
 
     private final static Logger logger = LoggerFactory.getLogger(DatabaseDistribute.class);
 

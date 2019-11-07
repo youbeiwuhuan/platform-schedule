@@ -18,6 +18,4 @@ public class RpcChannelManager {
 
     private static ConcurrentHashMap<Long, Channel> channelConcurrentHashMap = new ConcurrentHashMap<>(4048);
 
-    
-
 }

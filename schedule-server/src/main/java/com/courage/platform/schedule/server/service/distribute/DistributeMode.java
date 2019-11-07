@@ -4,7 +4,7 @@ package com.courage.platform.schedule.server.service.distribute;
  * 触发模式
  * Created by zhangyong on 2019/11/4.
  */
-public interface TriggerMode {
+public interface DistributeMode {
 
     void start();
 
