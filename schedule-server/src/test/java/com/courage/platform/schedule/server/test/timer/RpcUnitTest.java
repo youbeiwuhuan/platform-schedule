@@ -5,9 +5,13 @@ import com.courage.platform.rpc.remoting.exception.PlatformRemotingSendRequestEx
 import com.courage.platform.rpc.remoting.exception.PlatformRemotingTimeoutException;
 import com.courage.platform.rpc.remoting.netty.codec.PlatformNettyClientConfig;
 import com.courage.platform.rpc.remoting.netty.codec.PlatformNettyRemotingClient;
+import com.courage.platform.rpc.remoting.netty.codec.PlatformNettyRequestProcessor;
 import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingCommand;
 import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingSerializable;
 import com.courage.platform.schedule.rpc.protocol.CommandEnum;
+import io.netty.channel.ChannelHandlerContext;
+
+import static java.util.concurrent.Executors.newFixedThreadPool;
 
 /**
  * rpc 单元测试
@@ -17,10 +21,22 @@ public class RpcUnitTest {
 
     public static void main(String[] args) throws InterruptedException, PlatformRemotingTimeoutException, PlatformRemotingConnectException, PlatformRemotingSendRequestException {
         PlatformNettyRemotingClient platformNettyRemotingClient = new PlatformNettyRemotingClient(new PlatformNettyClientConfig());
+        platformNettyRemotingClient.registerProcessor(CommandEnum.TRIGGER_SCHEDULE_TASK_CMD, new PlatformNettyRequestProcessor() {
+            @Override
+            public PlatformRemotingCommand processRequest(ChannelHandlerContext channelHandlerContext, PlatformRemotingCommand platformRemotingCommand) throws Exception {
+                System.out.println(platformRemotingCommand);
+                return null;
+            }
+
+            @Override
+            public boolean rejectRequest() {
+                return false;
+            }
+        }, newFixedThreadPool(2));
         platformNettyRemotingClient.start();
         PlatformRemotingCommand requestCommand = new PlatformRemotingCommand();
         requestCommand.putHeadParam("appName", "com.courage.test");
-        requestCommand.putHeadParam("appKey", "123123");
+        requestCommand.putHeadParam("clientId", "xxxxxxxxx");
         requestCommand.setRequestCmd(CommandEnum.REGISTER_CMD);
         requestCommand.setTimestamp(System.currentTimeMillis());
         requestCommand.setBody(PlatformRemotingSerializable.encode("mylife"));

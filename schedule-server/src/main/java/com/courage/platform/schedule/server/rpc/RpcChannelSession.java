@@ -8,17 +8,23 @@ import io.netty.channel.Channel;
  */
 public class RpcChannelSession {
 
+    private String appName;
+
     private String clientId;
 
-    private Long channelId;
+    private String channelId;
 
     private Channel channel;
 
+    private boolean auth;
+
     private long createTime = System.currentTimeMillis();
 
-    public RpcChannelSession(Long channelId, Channel channel) {
+    public RpcChannelSession(String channelId, Channel channel, String appName, String clientId) {
         this.channelId = channelId;
         this.channel = channel;
+        this.appName = appName;
+        this.clientId = clientId;
     }
 
     public String getClientId() {
@@ -27,14 +33,6 @@ public class RpcChannelSession {
 
     public void setClientId(String clientId) {
         this.clientId = clientId;
-    }
-
-    public Long getChannelId() {
-        return channelId;
-    }
-
-    public void setChannelId(Long channelId) {
-        this.channelId = channelId;
     }
 
     public Channel getChannel() {
@@ -51,6 +49,30 @@ public class RpcChannelSession {
 
     public void setCreateTime(long createTime) {
         this.createTime = createTime;
+    }
+
+    public String getAppName() {
+        return appName;
+    }
+
+    public String getChannelId() {
+        return channelId;
+    }
+
+    public void setChannelId(String channelId) {
+        this.channelId = channelId;
+    }
+
+    public void setAppName(String appName) {
+        this.appName = appName;
+    }
+
+    public boolean isAuth() {
+        return auth;
+    }
+
+    public void setAuth(boolean auth) {
+        this.auth = auth;
     }
 
 }

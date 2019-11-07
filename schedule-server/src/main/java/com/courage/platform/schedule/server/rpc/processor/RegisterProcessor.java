@@ -31,10 +31,9 @@ public class RegisterProcessor implements PlatformNettyRequestProcessor {
     public PlatformRemotingCommand processRequest(ChannelHandlerContext channelHandlerContext, PlatformRemotingCommand platformRemotingCommand) throws Exception {
         String appName = (String) platformRemotingCommand.getHeadParam(APP_NAME);
         String clientId = (String) platformRemotingCommand.getHeadParam(CLIENT_ID);
-
+        
+        rpcChannelManager.createChannelSession(channelHandlerContext.channel(), appName, clientId);
         PlatformRemotingCommand responseCommand = new PlatformRemotingCommand();
-        responseCommand.setBody("hello".getBytes());
-        responseCommand.putHeadParam("prize", "150");
         return responseCommand;
     }
 

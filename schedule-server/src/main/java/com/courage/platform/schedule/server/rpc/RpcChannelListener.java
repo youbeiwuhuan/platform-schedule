@@ -14,7 +14,6 @@ public class RpcChannelListener implements PlatformChannelEventListener {
 
     private static final Logger logger = LoggerFactory.getLogger(RpcChannelListener.class);
 
-    private final static String CHANNEL_ID_KEY = "channelId";
 
     @Autowired
     private RpcChannelManager rpcChannelManager;
@@ -22,8 +21,7 @@ public class RpcChannelListener implements PlatformChannelEventListener {
     @Override
     public void onChannelConnect(String remoteAddr, Channel channel) {
         logger.info("connect远程链接:" + remoteAddr);
-        Long channelId = ChannelUtils.getChannelId();
-        ChannelUtils.putAttr(CHANNEL_ID_KEY, String.valueOf(channelId), channel);
+        rpcChannelManager.bindChannelId(channel);
     }
 
     @Override

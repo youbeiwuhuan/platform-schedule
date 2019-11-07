@@ -12,6 +12,7 @@
     <artifactId>schedule-server</artifactId>
 
     <dependencies>
+
         <!-- 日志 start -->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -46,6 +47,12 @@
             <version>${springframework.version}</version>
         </dependency>
         <!-- spring end -->
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>${commons-collections4.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>com.courage</groupId>
