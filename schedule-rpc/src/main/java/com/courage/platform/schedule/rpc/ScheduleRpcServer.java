@@ -121,4 +121,7 @@ public class ScheduleRpcServer implements ScheduleRpcService {
         this.platformChannelEventListener = platformChannelEventListener;
     }
 
+    public NodePlatformRemotingServer getNodePlatformRemotingServer() {
+        return nodePlatformRemotingServer;
+    }
 }

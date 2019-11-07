@@ -124,7 +124,7 @@ public class ScheduleJobExecutor {
                             public void run() {
                                 try {
                                     //调用rpc触发任务
-                                    scheduleTriggerService.doRpcTrigger(scheduleJobInfo);
+                                    scheduleTriggerService.doRpcTrigger(jobId);
                                 } catch (Throwable e) {
                                     logger.error("doRpcTrigger error:", e);
                                 }
