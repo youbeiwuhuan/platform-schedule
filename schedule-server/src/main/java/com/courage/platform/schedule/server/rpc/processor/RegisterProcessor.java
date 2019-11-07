@@ -19,16 +19,23 @@ public class RegisterProcessor implements PlatformNettyRequestProcessor {
 
     private static final String APP_NAME = "appName";
 
+    private static final String CLIENT_ID = "clientId";
+
     @Autowired
     private RpcChannelManager rpcChannelManager;
 
-    @Value("${auth}")
+    @Value("${auth:false}")
     private boolean auth;
 
     @Override
     public PlatformRemotingCommand processRequest(ChannelHandlerContext channelHandlerContext, PlatformRemotingCommand platformRemotingCommand) throws Exception {
         String appName = (String) platformRemotingCommand.getHeadParam(APP_NAME);
-        return null;
+        String clientId = (String) platformRemotingCommand.getHeadParam(CLIENT_ID);
+
+        PlatformRemotingCommand responseCommand = new PlatformRemotingCommand();
+        responseCommand.setBody("hello".getBytes());
+        responseCommand.putHeadParam("prize", "150");
+        return responseCommand;
     }
 
     @Override

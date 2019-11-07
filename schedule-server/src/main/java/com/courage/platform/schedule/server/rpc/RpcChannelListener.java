@@ -4,8 +4,7 @@ import com.courage.platform.rpc.remoting.PlatformChannelEventListener;
 import io.netty.channel.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.concurrent.atomic.AtomicLong;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * rpc channel 变化监听器
@@ -15,15 +14,17 @@ public class RpcChannelListener implements PlatformChannelEventListener {
 
     private static final Logger logger = LoggerFactory.getLogger(RpcChannelListener.class);
 
-    private final static AtomicLong channelId = new AtomicLong(0);
+    @Autowired
+    private RpcChannelManager rpcChannelManager;
 
     @Override
     public void onChannelConnect(String remoteAddr, Channel channel) {
-        logger.info("远程链接:" + remoteAddr + "链接上了");
+        logger.info("connect远程链接:" + remoteAddr);
     }
 
     @Override
     public void onChannelClose(String remoteAddr, Channel channel) {
+        logger.info("close远程链接:" + remoteAddr);
     }
 
     @Override
@@ -35,10 +36,5 @@ public class RpcChannelListener implements PlatformChannelEventListener {
     public void onChannelIdle(String remoteAddr, Channel channel) {
 
     }
-
-    public static Long getChannelId() {
-        return channelId.getAndIncrement();
-    }
-
 
 }

@@ -19,12 +19,12 @@ public class RpcUnitTest {
         PlatformNettyRemotingClient platformNettyRemotingClient = new PlatformNettyRemotingClient(new PlatformNettyClientConfig());
         platformNettyRemotingClient.start();
         PlatformRemotingCommand requestCommand = new PlatformRemotingCommand();
-        requestCommand.putHeadParam("appName" , "com.courage.test");
-        requestCommand.putHeadParam("appKey" , "123123");
+        requestCommand.putHeadParam("appName", "com.courage.test");
+        requestCommand.putHeadParam("appKey", "123123");
         requestCommand.setRequestCmd(CommandEnum.REGISTER_CMD);
         requestCommand.setTimestamp(System.currentTimeMillis());
         requestCommand.setBody(PlatformRemotingSerializable.encode("mylife"));
-        platformNettyRemotingClient.invokeSync("localhost:12999", requestCommand, 3000L);
+        PlatformRemotingCommand response = platformNettyRemotingClient.invokeSync("localhost:12999", requestCommand, 3000L);
         Thread.sleep(100000);
     }
 
