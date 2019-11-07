@@ -33,13 +33,11 @@ public class SpringCustomEnviromentConfig extends PropertyPlaceholderConfigurer 
         //获取当前应用env
         if (applicationFile != null) {
             InputStream inputStream = applicationFile.getInputStream();
-            Properties mConfig = new Properties();
-            mConfig.load(inputStream);
-            String env = mConfig.getProperty("spring.profiles.active");
+            propertiesPersister.load(props, inputStream);
+            String env = props.getProperty("spring.profiles.active");
             if (StringUtils.isEmpty(jvmEnv)) {
                 jvmEnv = env;
             }
-            propertiesPersister.load(props, inputStream);
         }
         logger.info("应用启动env:" + jvmEnv + " 当前ip:" + IpUtil.getIp());
         if (locations != null) {
