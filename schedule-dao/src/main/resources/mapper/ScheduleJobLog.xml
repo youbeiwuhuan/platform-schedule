@@ -8,6 +8,7 @@
         <result column="app_id" property="appId" />
         <result column="trigger_status" property="triggerStatus"/>
         <result column="trigger_time" property="triggerTime" />
+        <result column="callback_status" property="callbackStatus" />
         <result column="callback_time" property="callbackTime" />
         <result column="message" property="message" />
         <result column="create_time" property="createTime" />
@@ -20,6 +21,7 @@
         `app_id`,
         `trigger_status`,
         `trigger_time`,
+        `callback_status`,
         `callback_time`,
         `message`,
         `create_time`,

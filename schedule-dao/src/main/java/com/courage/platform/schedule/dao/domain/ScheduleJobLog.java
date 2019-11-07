@@ -16,6 +16,8 @@ public class ScheduleJobLog {
 
     private Integer triggerStatus;
 
+    private Integer callbackStatus;
+
     private String message;
 
     private Date triggerTime;
@@ -36,6 +38,14 @@ public class ScheduleJobLog {
 
     public Long getJobId() {
         return jobId;
+    }
+
+    public Integer getCallbackStatus() {
+        return callbackStatus;
+    }
+
+    public void setCallbackStatus(Integer callbackStatus) {
+        this.callbackStatus = callbackStatus;
     }
 
     public void setJobId(Long jobId) {
