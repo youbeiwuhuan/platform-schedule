@@ -1,4 +1,4 @@
-package com.courage.platform.schedule.server.service.mode;
+package com.courage.platform.schedule.server.service.distribute;
 
 import org.springframework.stereotype.Service;
 
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
  * Created by zhangyong on 2019/11/4.
  */
 @Service
-public class RaftTriggerMode implements TriggerMode {
+public class RaftDistribute implements TriggerMode {
 
     @Override
     public void start() {

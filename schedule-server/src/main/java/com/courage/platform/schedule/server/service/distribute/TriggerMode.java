@@ -1,4 +1,4 @@
-package com.courage.platform.schedule.server.service.mode;
+package com.courage.platform.schedule.server.service.distribute;
 
 /**
  * 触发模式

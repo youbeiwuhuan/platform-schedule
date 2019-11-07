@@ -18,6 +18,9 @@
     <bean id="registerProcessor"
           class="com.courage.platform.schedule.server.rpc.processor.RegisterProcessor"></bean>
 
+    <bean id="channelListener" class="com.courage.platform.schedule.server.rpc.RpcChannelListener">
+    </bean>
+
     <!-- 调度rpc server -->
     <bean id="scheduleRpcServer" class="com.courage.platform.schedule.rpc.ScheduleRpcServer" init-method="start"
           destroy-method="shutdown">
@@ -27,6 +30,7 @@
                 <entry key-ref="registerCmd" value-ref="registerProcessor"/>
             </map>
         </property>
+        <property name="platformChannelEventListener" ref="channelListener" />
     </bean>
 
 </beans>

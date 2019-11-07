@@ -1,4 +1,4 @@
-package com.courage.platform.schedule.server.service.mode;
+package com.courage.platform.schedule.server.service.distribute;
 
 import com.courage.platform.schedule.core.util.IpUtil;
 import com.courage.platform.schedule.dao.domain.PlatformNamesrv;
@@ -21,9 +21,9 @@ import java.util.Map;
  * Created by zhangyong on 2019/11/4.
  */
 @Service
-public class DatabaseTriggerMode implements TriggerMode {
+public class DatabaseDistribute implements TriggerMode {
 
-    private final static Logger logger = LoggerFactory.getLogger(DatabaseTriggerMode.class);
+    private final static Logger logger = LoggerFactory.getLogger(DatabaseDistribute.class);
 
     @Autowired
     private ScheduleJobInfoService scheduleJobInfoService;

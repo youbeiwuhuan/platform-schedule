@@ -37,7 +37,7 @@ public class ScheduleJobExecutor {
     private ScheduleHashedWheelTimer scheduleHashedWheelTimer;
 
     @Autowired
-    private ScheduleRpcService scheduleRpcService;
+    private ScheduleTriggerService scheduleTriggerService;
 
     @Autowired
     private ScheduleJobInfoService scheduleJobInfoService;
@@ -124,7 +124,7 @@ public class ScheduleJobExecutor {
                             public void run() {
                                 try {
                                     //调用rpc触发任务
-                                    scheduleRpcService.doRpcTrigger(scheduleJobInfo);
+                                    scheduleTriggerService.doRpcTrigger(scheduleJobInfo);
                                 } catch (Throwable e) {
                                     logger.error("doRpcTrigger error:", e);
                                 }

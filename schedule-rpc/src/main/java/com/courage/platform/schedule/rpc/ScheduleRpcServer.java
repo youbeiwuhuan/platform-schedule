@@ -1,10 +1,10 @@
 package com.courage.platform.schedule.rpc;
 
+import com.courage.platform.rpc.remoting.PlatformChannelEventListener;
 import com.courage.platform.rpc.remoting.netty.codec.NodePlatformRemotingServer;
 import com.courage.platform.rpc.remoting.netty.codec.PlatformNettyRequestProcessor;
 import com.courage.platform.rpc.remoting.netty.codec.PlatformNettyServerConfig;
 import com.courage.platform.schedule.rpc.config.ScheduleRpcServerConfig;
-import com.courage.platform.schedule.rpc.protocol.CommandEnum;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import org.slf4j.Logger;
@@ -38,30 +38,24 @@ public class ScheduleRpcServer implements ScheduleRpcService {
 
     private final static int POOL_CORE_SIZE = 20;
 
-    private final static ThreadPoolExecutor scheduleRpcThreadPool = new ThreadPoolExecutor(
-            POOL_CORE_SIZE,
-            POOL_CORE_SIZE,
-            500,
-            TimeUnit.SECONDS,
-            new ArrayBlockingQueue<Runnable>(100000),
-            new ThreadFactory() {
-                private AtomicInteger threadIndex = new AtomicInteger(0);
+    private final static ThreadPoolExecutor scheduleRpcThreadPool = new ThreadPoolExecutor(POOL_CORE_SIZE, POOL_CORE_SIZE, 500, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(100000), new ThreadFactory() {
+        private AtomicInteger threadIndex = new AtomicInteger(0);
 
-                @Override
-                public Thread newThread(Runnable r) {
-                    return new Thread(r, "ScheduleRpcThreadPool_" + this.threadIndex.incrementAndGet());
-                }
-            },
-            new ThreadPoolExecutor.CallerRunsPolicy()
-    );
+        @Override
+        public Thread newThread(Runnable r) {
+            return new Thread(r, "ScheduleRpcThreadPool_" + this.threadIndex.incrementAndGet());
+        }
+    }, new ThreadPoolExecutor.CallerRunsPolicy());
 
     private Map<Integer, PlatformNettyRequestProcessor> processorTable = new HashMap<Integer, PlatformNettyRequestProcessor>(4);
+
+    private PlatformChannelEventListener platformChannelEventListener;
 
     public void start() {
         this.platformNettyServerConfig = new PlatformNettyServerConfig();
         platformNettyServerConfig.setListenPort(ScheduleRpcServerConfig.TASK_PRC_LISTEN_PORT);
         platformNettyServerConfig.setServerChannelMaxIdleTimeSeconds(ScheduleRpcServerConfig.MAX_IDLE_TIME);
-        this.nodePlatformRemotingServer = new NodePlatformRemotingServer(platformNettyServerConfig) {
+        this.nodePlatformRemotingServer = new NodePlatformRemotingServer(platformNettyServerConfig, platformChannelEventListener) {
             @Override
             public void boot(ServerBootstrap serverBootstrap) {
                 try {
@@ -96,10 +90,7 @@ public class ScheduleRpcServer implements ScheduleRpcService {
             //添加命令处理器
             Set<Integer> set = processorTable.keySet();
             for (Integer cmd : set) {
-                this.nodePlatformRemotingServer.registerProcessor(
-                        cmd,
-                        processorTable.get(cmd),
-                        scheduleRpcThreadPool);
+                this.nodePlatformRemotingServer.registerProcessor(cmd, processorTable.get(cmd), scheduleRpcThreadPool);
             }
         }
         this.nodePlatformRemotingServer.start();
@@ -120,6 +111,14 @@ public class ScheduleRpcServer implements ScheduleRpcService {
 
     public int localListenPort() {
         return this.listenPort;
+    }
+
+    public PlatformChannelEventListener getPlatformChannelEventListener() {
+        return platformChannelEventListener;
+    }
+
+    public void setPlatformChannelEventListener(PlatformChannelEventListener platformChannelEventListener) {
+        this.platformChannelEventListener = platformChannelEventListener;
     }
 
 }
