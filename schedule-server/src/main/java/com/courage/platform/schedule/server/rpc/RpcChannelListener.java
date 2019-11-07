@@ -14,7 +14,6 @@ public class RpcChannelListener implements PlatformChannelEventListener {
 
     private static final Logger logger = LoggerFactory.getLogger(RpcChannelListener.class);
 
-
     @Autowired
     private RpcChannelManager rpcChannelManager;
 
