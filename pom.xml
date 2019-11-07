@@ -13,6 +13,7 @@
     <modules>
         <module>schedule-client</module>
         <module>schedule-server</module>
+        <module>schedule-remoting</module>
         <module>schedule-rpc</module>
         <module>schedule-console</module>
         <module>schedule-core</module>
