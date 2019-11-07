@@ -25,6 +25,7 @@ public class RpcUnitTest {
         requestCommand.setTimestamp(System.currentTimeMillis());
         requestCommand.setBody(PlatformRemotingSerializable.encode("mylife"));
         platformNettyRemotingClient.invokeSync("localhost:12999", requestCommand, 3000L);
+        Thread.sleep(100000);
     }
 
 }
