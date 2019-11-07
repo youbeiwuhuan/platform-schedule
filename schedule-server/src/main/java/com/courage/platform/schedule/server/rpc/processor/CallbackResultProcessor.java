@@ -9,9 +9,9 @@ import org.slf4j.LoggerFactory;
 /*
    回调任务处理结果处理器(client发送命令给server)
  */
-public class CallbackScheduleResultProcessor implements PlatformNettyRequestProcessor {
+public class CallbackResultProcessor implements PlatformNettyRequestProcessor {
 
-    private static final Logger logger = LoggerFactory.getLogger(CallbackScheduleResultProcessor.class);
+    private static final Logger logger = LoggerFactory.getLogger(CallbackResultProcessor.class);
 
     @Override
     public PlatformRemotingCommand processRequest(ChannelHandlerContext channelHandlerContext, PlatformRemotingCommand platformRemotingCommand) throws Exception {

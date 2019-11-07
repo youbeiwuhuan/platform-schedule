@@ -7,17 +7,9 @@
     <util:constant id="callBackCmd"
                    static-field="com.courage.platform.schedule.rpc.protocol.CommandEnum.CALLBACK_SCHEDULE_RESULT_CMD"/>
 
-    <util:constant id="triggerScheduleTask"
-                   static-field="com.courage.platform.schedule.rpc.protocol.CommandEnum.TRIGGER_SCHEDULE_TASK_CMD"/>
-
-    <!-- 触发调度处理器  -->
-    <bean id="triggerScheduleProcessor"
-          class="com.courage.platform.schedule.server.rpc.processor.TriggerScheduleProcessor">
-    </bean>
-
     <!-- 回调结果处理器  -->
     <bean id="callbackResultProcessor"
-          class="com.courage.platform.schedule.server.rpc.processor.CallbackScheduleResultProcessor"></bean>
+          class="com.courage.platform.schedule.server.rpc.processor.CallbackResultProcessor"></bean>
 
     <!-- 调度rpc server -->
     <bean id="scheduleRpcServer" class="com.courage.platform.schedule.rpc.ScheduleRpcServer" init-method="start"
@@ -25,7 +17,6 @@
         <property name="processorTable">
             <map>
                 <entry key-ref="callBackCmd" value-ref="callbackResultProcessor"/>
-                <entry key-ref="triggerScheduleTask" value-ref="triggerScheduleProcessor"/>
             </map>
         </property>
     </bean>
