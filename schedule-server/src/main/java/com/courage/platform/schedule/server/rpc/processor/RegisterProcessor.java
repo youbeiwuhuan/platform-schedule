@@ -17,6 +17,8 @@ public class RegisterProcessor implements PlatformNettyRequestProcessor {
 
     private final static Logger logger = LoggerFactory.getLogger(RegisterProcessor.class);
 
+    private static final String APP_NAME = "appName";
+
     @Autowired
     private RpcChannelManager rpcChannelManager;
 
@@ -25,6 +27,7 @@ public class RegisterProcessor implements PlatformNettyRequestProcessor {
 
     @Override
     public PlatformRemotingCommand processRequest(ChannelHandlerContext channelHandlerContext, PlatformRemotingCommand platformRemotingCommand) throws Exception {
+        String appName = (String) platformRemotingCommand.getHeadParam(APP_NAME);
         return null;
     }
 

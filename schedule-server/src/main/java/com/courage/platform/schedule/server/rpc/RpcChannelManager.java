@@ -13,5 +13,4 @@ public class RpcChannelManager {
 
     private static final Logger logger = LoggerFactory.getLogger(RpcChannelManager.class);
 
-
 }
