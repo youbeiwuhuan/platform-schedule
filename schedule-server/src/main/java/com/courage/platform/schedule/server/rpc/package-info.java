@@ -1,1 +1,0 @@
-package com.courage.platform.schedule.server.rpc;
