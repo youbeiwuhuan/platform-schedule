@@ -6,7 +6,9 @@ import com.courage.platform.schedule.client.domain.ScheduleParam;
 import com.courage.platform.schedule.client.domain.ScheduleResult;
 import com.courage.platform.schedule.client.invoke.ClientInvoke;
 import com.courage.platform.schedule.client.manager.PlatformScheduleResolver;
+import com.courage.platform.schedule.rpc.ScheduleRpcClient;
 import com.courage.platform.schedule.rpc.protocol.CallbackCommand;
+import com.courage.platform.schedule.rpc.protocol.CommandEnum;
 import com.courage.platform.schedule.rpc.protocol.TriggerScheduleCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +27,10 @@ public class CallBackService implements Runnable {
 
     private TriggerScheduleCommand triggerScheduleCommand;
 
-    public CallBackService(String remoteAddress, TriggerScheduleCommand triggerScheduleCommand) {
+    private ScheduleRpcClient scheduleRpcClient;
+
+    public CallBackService(ScheduleRpcClient scheduleRpcClient, String remoteAddress, TriggerScheduleCommand triggerScheduleCommand) {
+        this.scheduleRpcClient = scheduleRpcClient;
         this.remoteAddress = remoteAddress;
         this.triggerScheduleCommand = triggerScheduleCommand;
     }
@@ -78,7 +83,8 @@ public class CallBackService implements Runnable {
             callbackCommand.setHandleTime(new Date());
             callbackCommand.setHandleCode(String.valueOf(handleCode));
             callbackCommand.setHandleMsg(handlerMsg);
-            
+
+            scheduleRpcClient.send(remoteAddress, CommandEnum.CALLBACK_SCHEDULE_RESULT_CMD, callbackCommand);
         } catch (Throwable e) {
             logger.error("发送日志信息异常", e);
         }

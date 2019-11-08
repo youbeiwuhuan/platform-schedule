@@ -7,13 +7,30 @@ import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingCommand;
 import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingSerializable;
 import com.courage.platform.schedule.rpc.protocol.BaseCommand;
 
-import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 任务客户端
  * Created by zhangyong on 2018/10/3.
  */
 public class ScheduleRpcClient implements ScheduleRpcService {
+
+    private final static int POOL_CORE_SIZE = 5;
+
+    private final static int POOL_MAX_SIZE = 5;
+
+    private final static ThreadPoolExecutor scheduleClientThread = new ThreadPoolExecutor(POOL_CORE_SIZE, POOL_MAX_SIZE, 500, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(100000), new ThreadFactory() {
+        private AtomicInteger threadIndex = new AtomicInteger(0);
+
+        @Override
+        public Thread newThread(Runnable r) {
+            return new Thread(r, "ScheduleClientThreadPool_" + this.threadIndex.incrementAndGet());
+        }
+    }, new ThreadPoolExecutor.CallerRunsPolicy());
 
     private volatile boolean inited = false;
 
@@ -33,8 +50,8 @@ public class ScheduleRpcClient implements ScheduleRpcService {
         }
     }
 
-    public void registerProcessor(int requestCmd, PlatformNettyRequestProcessor processor, ExecutorService executor) {
-        this.platformNettyRemotingClient.registerProcessor(requestCmd, processor, executor);
+    public void registerProcessor(int requestCmd, PlatformNettyRequestProcessor processor) {
+        this.platformNettyRemotingClient.registerProcessor(requestCmd, processor, scheduleClientThread);
     }
 
     public PlatformRemotingCommand send(String remoteAddress, Integer requestCmd, BaseCommand scheduleCommand) throws Throwable {
