@@ -8,16 +8,13 @@ import org.slf4j.LoggerFactory;
 public class ScheduleClientController {
 
     private static final Logger logger = LoggerFactory.getLogger(ScheduleClientController.class);
-    
-    private final static ScheduleRpcClient scheduleRpcClient = ScheduleRpcClient.getSingleInstance();
 
-    private static ScheduleClientController instance = new ScheduleClientController();
+    private ScheduleRpcClient scheduleRpcClient;
+
+    private ScheduleClientController instance = new ScheduleClientController();
 
     private ScheduleClientController() {
-    }
 
-    public static ScheduleClientController getSingleInstance() {
-        return instance;
     }
 
     public void request(CallbackCommand callbackCommand) {

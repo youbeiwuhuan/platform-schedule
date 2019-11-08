@@ -24,6 +24,10 @@ public class PlatformSchedulerClient implements ApplicationContextAware, Applica
 
     private ApplicationContext applicationContext = null;
 
+    private String appName;
+
+    private String appKey;
+
     private final static ScheduleClientController scheduleClientController = ScheduleClientController.getSingleInstance();
 
     private final static CallbackThreadService threadService = CallbackThreadService.getSingleInstance();

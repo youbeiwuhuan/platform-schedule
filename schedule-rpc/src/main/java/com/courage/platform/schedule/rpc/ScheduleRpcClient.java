@@ -2,11 +2,14 @@ package com.courage.platform.schedule.rpc;
 
 import com.courage.platform.rpc.remoting.netty.codec.PlatformNettyClientConfig;
 import com.courage.platform.rpc.remoting.netty.codec.PlatformNettyRemotingClient;
+import com.courage.platform.rpc.remoting.netty.codec.PlatformNettyRequestProcessor;
 import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingCommand;
 import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingSerializable;
 import com.courage.platform.schedule.rpc.protocol.BaseCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.concurrent.ExecutorService;
 
 /**
  * 任务客户端
@@ -17,12 +20,6 @@ public class ScheduleRpcClient implements ScheduleRpcService {
     private static final Logger logger = LoggerFactory.getLogger(ScheduleRpcClient.class);
 
     private PlatformNettyRemotingClient platformNettyRemotingClient;
-
-    private static ScheduleRpcClient instance = new ScheduleRpcClient();
-
-    public static ScheduleRpcClient getSingleInstance() {
-        return instance;
-    }
 
     private static volatile boolean inited = false;
 
@@ -35,8 +32,8 @@ public class ScheduleRpcClient implements ScheduleRpcService {
         }
     }
 
-    private ScheduleRpcClient() {
-        start();
+    public void registerProcessor(int requestCmd, PlatformNettyRequestProcessor processor, ExecutorService executor) {
+        this.platformNettyRemotingClient.registerProcessor(requestCmd, processor, executor);
     }
 
     public PlatformRemotingCommand send(String remoteAddress, Integer requestCmd, BaseCommand scheduleCommand) throws Throwable {
