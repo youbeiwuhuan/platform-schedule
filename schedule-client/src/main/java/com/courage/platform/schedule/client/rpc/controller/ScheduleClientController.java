@@ -14,11 +14,9 @@ public class ScheduleClientController {
     private ScheduleClientController instance = new ScheduleClientController();
 
     private ScheduleClientController() {
-
     }
 
     public void request(CallbackCommand callbackCommand) {
-
     }
 
     public void close() {

@@ -17,8 +17,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class PlatformScheduleResolver {
 
     private static final Logger logger = LoggerFactory.getLogger(PlatformScheduleResolver.class);
-    private static final Map<String, ClientInvoke> invokerMap = new ConcurrentHashMap<String, ClientInvoke>(512);
 
+    private static final Map<String, ClientInvoke> invokerMap = new ConcurrentHashMap<String, ClientInvoke>(512);
 
     public static void getAbstractBean(Map<String, Object> serviceBeanMap) {
         //遍历每个Component注解标注的bean
