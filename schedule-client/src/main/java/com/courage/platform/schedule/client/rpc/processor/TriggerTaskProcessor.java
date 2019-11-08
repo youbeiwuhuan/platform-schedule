@@ -5,8 +5,6 @@ import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingCommand;
 import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingSerializable;
 import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingSysResponseCode;
 import com.courage.platform.schedule.client.common.ScheduleUtils;
-import com.courage.platform.schedule.client.service.CallBackService;
-import com.courage.platform.schedule.client.service.CallbackThreadService;
 import com.courage.platform.schedule.rpc.protocol.TriggerScheduleCommand;
 import io.netty.channel.ChannelHandlerContext;
 import org.slf4j.Logger;
@@ -20,8 +18,6 @@ import java.util.Objects;
 public class TriggerTaskProcessor implements PlatformNettyRequestProcessor {
 
     private final static Logger logger = LoggerFactory.getLogger(TriggerTaskProcessor.class);
-
-    private final static CallbackThreadService threadService = CallbackThreadService.getSingleInstance();
 
     @Override
     public PlatformRemotingCommand processRequest(ChannelHandlerContext channelHandlerContext, PlatformRemotingCommand platformRemotingCommand) throws Exception {
@@ -39,8 +35,8 @@ public class TriggerTaskProcessor implements PlatformNettyRequestProcessor {
             String serviceId = triggerScheduleCommand.getServiceId();
             Objects.requireNonNull(serviceId, "调度参数为错误，serviceId为null");
 
-            //异步执行调度
-            threadService.getCallBackThread().execute(new CallBackService(remoteAddress, triggerScheduleCommand));
+
+
         } catch (Exception e) {
             String error = "触发任务失败，执行调度任务异常，调用IP：" + remoteAddress + ",请求命令:" + new String(platformRemotingCommand.getBody()) + ",具体原因：";
             response.setCode(PlatformRemotingSysResponseCode.SYSTEM_ERROR);
@@ -50,10 +46,10 @@ public class TriggerTaskProcessor implements PlatformNettyRequestProcessor {
         return response;
     }
 
-
     @Override
     public boolean rejectRequest() {
         return false;
     }
+
 
 }
