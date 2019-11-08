@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class CallbackThreadService {
 
-    private final static int POOL_CORE_SIZE = 5;
+    private final static int POOL_CORE_SIZE = 10;
 
     private final static int POOL_MAX_SIZE = 15;
 

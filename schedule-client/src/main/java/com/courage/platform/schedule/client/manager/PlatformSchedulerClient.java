@@ -1,8 +1,6 @@
 package com.courage.platform.schedule.client.manager;
 
-import com.courage.platform.schedule.client.rpc.controller.RegistryController;
 import com.courage.platform.schedule.client.rpc.controller.ScheduleClientController;
-import com.courage.platform.schedule.client.rpc.controller.ScheduleServerController;
 import com.courage.platform.schedule.client.service.CallbackThreadService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,11 +26,7 @@ public class PlatformSchedulerClient implements ApplicationContextAware, Applica
 
     private final static ScheduleClientController scheduleClientController = ScheduleClientController.getSingleInstance();
 
-    private final static ScheduleServerController scheduleServerController = ScheduleServerController.getSingleInstance();
-
     private final static CallbackThreadService threadService = CallbackThreadService.getSingleInstance();
-
-    private final static RegistryController registryController = RegistryController.getSingleInstance();
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -49,10 +43,7 @@ public class PlatformSchedulerClient implements ApplicationContextAware, Applica
             Map<String, Object> serviceBeanMap = applicationContext.getBeansWithAnnotation(Component.class);
             //扫描所有的远程服务的注解(放入本地缓存中)
             PlatformScheduleResolver.getAbstractBean(serviceBeanMap);
-            //实例化，启动Scheduler server 并监听端口
-            scheduleServerController.start();
-            //注册服务
-            registryController.registry();
+            //实例化，启动Scheduler client
             logger.info("启动调度服务成功!");
         } catch (Exception e) {
             logger.error("启动调度服务失败!", e);
@@ -61,8 +52,6 @@ public class PlatformSchedulerClient implements ApplicationContextAware, Applica
 
     @Override
     public void destroy() {
-        //关闭调度服务端
-        scheduleServerController.close();
         //关闭存储执行结果的线程池
         threadService.close();
         //关闭发送执行结果的tcp客户端

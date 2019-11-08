@@ -45,6 +45,7 @@
         <quartz.version>2.3.0</quartz.version>
 
         <spring-boot.version>1.5.10.RELEASE</spring-boot.version>
+
     </properties>
 
     <dependencies>
@@ -80,12 +81,14 @@
             <artifactId>commons-collections4</artifactId>
             <version>${commons-collections4.version}</version>
         </dependency>
+
         <!-- commons-lang3 -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons-lang3.version}</version>
         </dependency>
+
         <!-- commons-email -->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -122,6 +125,12 @@
         <dependency>
             <groupId>com.courage</groupId>
             <artifactId>schedule-dao</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.courage</groupId>
+            <artifactId>schedule-client</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
 
