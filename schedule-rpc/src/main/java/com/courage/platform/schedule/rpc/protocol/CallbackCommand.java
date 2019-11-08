@@ -7,6 +7,10 @@ import java.util.Date;
  */
 public class CallbackCommand extends BaseCommand {
 
+    //任务Id
+    private Long jobId;
+
+
     /**
      * 当前任务执行的唯一日志标识
      */
@@ -58,4 +62,14 @@ public class CallbackCommand extends BaseCommand {
     public void setJobLogId(String jobLogId) {
         this.jobLogId = jobLogId;
     }
+
+
+    public Long getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(Long jobId) {
+        this.jobId = jobId;
+    }
+
 }

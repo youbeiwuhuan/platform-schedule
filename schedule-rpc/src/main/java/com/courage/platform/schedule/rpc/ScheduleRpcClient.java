@@ -6,8 +6,6 @@ import com.courage.platform.rpc.remoting.netty.codec.PlatformNettyRequestProcess
 import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingCommand;
 import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingSerializable;
 import com.courage.platform.schedule.rpc.protocol.BaseCommand;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.ExecutorService;
 
@@ -17,16 +15,19 @@ import java.util.concurrent.ExecutorService;
  */
 public class ScheduleRpcClient implements ScheduleRpcService {
 
-    private static final Logger logger = LoggerFactory.getLogger(ScheduleRpcClient.class);
+    private volatile boolean inited = false;
 
     private PlatformNettyRemotingClient platformNettyRemotingClient;
 
-    private static volatile boolean inited = false;
+    private PlatformNettyClientConfig platformNettyClientConfig;
+
+    public ScheduleRpcClient() {
+        this.platformNettyClientConfig = new PlatformNettyClientConfig();
+        this.platformNettyRemotingClient = new PlatformNettyRemotingClient(platformNettyClientConfig);
+    }
 
     public void start() {
         if (!inited) {
-            PlatformNettyClientConfig platformNettyClientConfig = new PlatformNettyClientConfig();
-            this.platformNettyRemotingClient = new PlatformNettyRemotingClient(platformNettyClientConfig);
             this.platformNettyRemotingClient.start();
             inited = true;
         }

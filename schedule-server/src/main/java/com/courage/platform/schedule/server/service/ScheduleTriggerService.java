@@ -48,7 +48,7 @@ public class ScheduleTriggerService {
             ScheduleJobInfo scheduleJobInfo = scheduleJobInfoService.getById(jobId);
             scheduleJobInfo.setTriggerLastTime(new Date());
             logger.info("执行任务:" + scheduleJobInfo.getJobName() + " param:" + scheduleJobInfo.getJobParam());
-            //存储到db
+
             ScheduleJobLog scheduleJobLog = new ScheduleJobLog();
             Long id = IdGenerator.getUniqueIdAutoSeq(workerId);
             scheduleJobLog.setId(id);
@@ -63,8 +63,14 @@ public class ScheduleTriggerService {
                 RpcChannelSession rpcChannelSession = rpcChannelSessionList.get(0);
                 PlatformRemotingCommand platformRemotingCommand = new PlatformRemotingCommand();
                 platformRemotingCommand.setRequestCmd(CommandEnum.TRIGGER_SCHEDULE_TASK_CMD);
-                scheduleRpcServer.getNodePlatformRemotingServer().invokeOneway(rpcChannelSession.getChannel(), platformRemotingCommand, 5000L);
-                scheduleJobLog.setTriggerStatus(TriggerStatusEnum.SUCCESS.getId());
+                //同步调用发送给client客户端命令
+                PlatformRemotingCommand response = scheduleRpcServer.getNodePlatformRemotingServer().invokeSync(rpcChannelSession.getChannel(), platformRemotingCommand, 5000L);
+                if (response != null) {
+                    scheduleJobLog.setTriggerStatus(TriggerStatusEnum.SUCCESS.getId());
+                } else {
+                    scheduleJobLog.setTriggerStatus(TriggerStatusEnum.FAIL.getId());
+                    scheduleJobLog.setMessage("调用client失败,remoteAddr:" + rpcChannelSession.getChannel().remoteAddress().toString());
+                }
             } else {
                 scheduleJobLog.setTriggerStatus(TriggerStatusEnum.FAIL.getId());
                 scheduleJobLog.setMessage("应用没有链接到调度服务中心");

@@ -6,6 +6,8 @@ package com.courage.platform.schedule.rpc.protocol;
  */
 public class TriggerScheduleCommand extends BaseCommand {
 
+    //任务Id
+    private Long jobId;
     /**
      * 服务ID
      */
@@ -57,4 +59,13 @@ public class TriggerScheduleCommand extends BaseCommand {
     public void setCreateMillisTime(long createMillisTime) {
         this.createMillisTime = createMillisTime;
     }
+
+    public Long getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(Long jobId) {
+        this.jobId = jobId;
+    }
+
 }

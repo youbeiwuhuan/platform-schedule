@@ -34,4 +34,8 @@
         <constructor-arg index="0" ref="sqlSessionFactory"/>
     </bean>
 
+    <bean id="scheduleClient" class="com.courage.platform.schedule.client.manager.SpringPlatformSchedulerClient" init-method="start" destroy-method="destroy">
+
+    </bean>
+
 </beans>

@@ -55,7 +55,6 @@ public class ScheduleClientInvoke implements ClientInvoke {
         return result;
     }
 
-
     @Override
     public String getServiceId() {
         return serviceId;
