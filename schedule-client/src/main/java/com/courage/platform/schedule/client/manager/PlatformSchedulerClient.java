@@ -6,9 +6,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class PlatformSchedulerClient {
 
     private final static Logger logger = LoggerFactory.getLogger(PlatformSchedulerClient.class);
+
+    private Timer timer;
 
     private ScheduleClientController scheduleClientController;
 
@@ -25,6 +30,18 @@ public class PlatformSchedulerClient {
         }
         this.scheduleClientController = new ScheduleClientController();
         this.scheduleClientController.start();
+        //定时从console抓取 schedule server地址 并定时注册到scheduleserver上
+        this.timer = new Timer("ScheduleRegisterTimerThread", true);
+        this.timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    logger.info("my timer");
+                } catch (Throwable e) {
+                    logger.error("scheduleAtFixedRate flush exception", e);
+                }
+            }
+        }, 10000, 30000);
     }
 
     public void destroy() {

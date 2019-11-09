@@ -17,7 +17,7 @@ public class ScheduleClientController {
         this.scheduleRpcClient = new ScheduleRpcClient();
         //server端推送需要处理
         this.scheduleRpcClient.registerProcessor(CommandEnum.TRIGGER_SCHEDULE_TASK_CMD, new TriggerTaskProcessor(this.scheduleRpcClient));
-    }
+    }PlatformSchedulerClient
 
     public void start() {
         this.scheduleRpcClient.start();
