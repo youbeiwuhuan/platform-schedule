@@ -3,7 +3,7 @@ package com.courage.platform.schedule.rpc.protocol;
 /**
  * Created by zhangyong on 2019/11/9.
  */
-public class RegisterCommand extends BaseCommand {
+public class RegisterScheduleCommand extends BaseCommand {
 
     private String appName;
 

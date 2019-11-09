@@ -6,7 +6,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.courage.platform.schedule.client.rpc.controller.ScheduleClientController;
 import com.courage.platform.schedule.core.util.HttpClientUtils;
-import com.courage.platform.schedule.rpc.protocol.RegisterCommand;
+import com.courage.platform.schedule.rpc.protocol.RegisterScheduleCommand;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,10 +58,10 @@ public class PlatformSchedulerClient {
                         String namesrvIp = namesrv.getString("namesrvIp");
                         if ("1".equals(status)) {
                             //发送注册命令到schduleserver
-                            RegisterCommand registerCommand = new RegisterCommand();
-                            registerCommand.setAppName(appName);
-                            registerCommand.setClientId("xxxx");
-                            scheduleClientController.requestRegisterCommand(namesrvIp, registerCommand);
+                            RegisterScheduleCommand registerScheduleCommand = new RegisterScheduleCommand();
+                            registerScheduleCommand.setAppName(appName);
+                            registerScheduleCommand.setClientId("xxxx");
+                            scheduleClientController.requestRegisterCommand(namesrvIp, registerScheduleCommand);
                         }
                     }
                 } catch (Throwable e) {

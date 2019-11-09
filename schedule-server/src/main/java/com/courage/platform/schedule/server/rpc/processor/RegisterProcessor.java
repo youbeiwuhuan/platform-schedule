@@ -1,7 +1,9 @@
 package com.courage.platform.schedule.server.rpc.processor;
 
+import com.alibaba.fastjson.JSON;
 import com.courage.platform.rpc.remoting.netty.codec.PlatformNettyRequestProcessor;
 import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingCommand;
+import com.courage.platform.schedule.rpc.protocol.RegisterScheduleCommand;
 import com.courage.platform.schedule.server.rpc.RpcChannelManager;
 import io.netty.channel.ChannelHandlerContext;
 import org.slf4j.Logger;
@@ -29,9 +31,12 @@ public class RegisterProcessor implements PlatformNettyRequestProcessor {
 
     @Override
     public PlatformRemotingCommand processRequest(ChannelHandlerContext channelHandlerContext, PlatformRemotingCommand platformRemotingCommand) throws Exception {
-        String appName = (String) platformRemotingCommand.getHeadParam(APP_NAME);
-        String clientId = (String) platformRemotingCommand.getHeadParam(CLIENT_ID);
-        
+        byte[] bytes = platformRemotingCommand.getBody();
+        RegisterScheduleCommand registerCommand = JSON.parseObject(bytes, RegisterScheduleCommand.class);
+
+        String appName = registerCommand.getAppName();
+        String clientId = registerCommand.getClientId();
+
         rpcChannelManager.createChannelSession(channelHandlerContext.channel(), appName, clientId);
         PlatformRemotingCommand responseCommand = new PlatformRemotingCommand();
         return responseCommand;
