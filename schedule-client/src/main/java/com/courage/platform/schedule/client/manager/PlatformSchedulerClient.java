@@ -2,6 +2,7 @@ package com.courage.platform.schedule.client.manager;
 
 
 import com.courage.platform.schedule.client.rpc.controller.ScheduleClientController;
+import com.courage.platform.schedule.core.util.HttpClientUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,9 +14,9 @@ public class PlatformSchedulerClient {
 
     private final static Logger logger = LoggerFactory.getLogger(PlatformSchedulerClient.class);
 
-    private Timer timer;
-
     private ScheduleClientController scheduleClientController;
+
+    private Timer timer;
 
     private String appName;
 
@@ -36,7 +37,16 @@ public class PlatformSchedulerClient {
             @Override
             public void run() {
                 try {
-                    logger.info("my timer");
+                    if (StringUtils.isEmpty(consoleAddress)) {
+                        logger.error("任务调度控制台地址为空");
+                        return;
+                    }
+                    String rtn = HttpClientUtils.doGet(consoleAddress, null);
+                    if (StringUtils.isBlank(rtn)) {
+                        logger.error("无法从console控制台" + consoleAddress + " 中获取schedulerserver地址信息");
+                        return;
+                    }
+
                 } catch (Throwable e) {
                     logger.error("scheduleAtFixedRate flush exception", e);
                 }
