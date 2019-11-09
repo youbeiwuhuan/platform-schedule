@@ -8,8 +8,10 @@ import io.netty.channel.Channel;
  */
 public class RpcChannelSession {
 
+    //应用名称
     private String appName;
 
+    //客户端编号
     private String clientId;
 
     private String channelId;
