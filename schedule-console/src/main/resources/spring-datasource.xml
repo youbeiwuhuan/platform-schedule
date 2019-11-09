@@ -35,7 +35,8 @@
     </bean>
 
     <bean id="scheduleClient" class="com.courage.platform.schedule.client.manager.SpringPlatformSchedulerClient" init-method="start" destroy-method="destroy">
-        <property name="consoleAddress" value="http://localhost:8080" />
+        <property name="consoleAddress" value="http://localhost:8080/address" />
+        <property name="appName" value="scheduleconsole"/>
     </bean>
 
 </beans>

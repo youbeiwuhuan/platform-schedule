@@ -1,8 +1,12 @@
 package com.courage.platform.schedule.client.manager;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.courage.platform.schedule.client.rpc.controller.ScheduleClientController;
 import com.courage.platform.schedule.core.util.HttpClientUtils;
+import com.courage.platform.schedule.rpc.protocol.RegisterCommand;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +29,7 @@ public class PlatformSchedulerClient {
     private String consoleAddress;
 
     public void start() {
-        if (StringUtils.isNotBlank(appName) || StringUtils.isNotBlank(consoleAddress)) {
+        if (StringUtils.isEmpty(appName) || StringUtils.isEmpty(consoleAddress)) {
             logger.error("任务调度服务需要配置appName & consoleAddress");
             return;
         }
@@ -46,7 +50,20 @@ public class PlatformSchedulerClient {
                         logger.error("无法从console控制台" + consoleAddress + " 中获取schedulerserver地址信息");
                         return;
                     }
-
+                    JSONObject jsonObject = JSON.parseObject(rtn);
+                    JSONArray dataNode = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < dataNode.size(); i++) {
+                        JSONObject namesrv = dataNode.getJSONObject(i);
+                        String status = namesrv.getString("status");
+                        String namesrvIp = namesrv.getString("namesrvIp");
+                        if ("1".equals(status)) {
+                            //发送注册命令到schduleserver
+                            RegisterCommand registerCommand = new RegisterCommand();
+                            registerCommand.setAppName(appName);
+                            registerCommand.setClientId("xxxx");
+                            scheduleClientController.requestRegisterCommand(namesrvIp, registerCommand);
+                        }
+                    }
                 } catch (Throwable e) {
                     logger.error("scheduleAtFixedRate flush exception", e);
                 }
