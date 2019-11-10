@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * 触发任务处理器
@@ -45,7 +46,8 @@ public class TriggerTaskProcessor implements PlatformNettyRequestProcessor {
             Objects.requireNonNull(serviceId, "调度参数为错误，serviceId为null");
 
             CallbackThreadService callbackThreadService = CallbackThreadService.getSingleInstance();
-            callbackThreadService.getCallBackThread().execute(new CallBackService(scheduleRpcClient, remoteAddress, triggerScheduleCommand));
+            ThreadPoolExecutor threadPoolExecutor = callbackThreadService.getCallBackThread();
+            threadPoolExecutor.execute(new CallBackService(scheduleRpcClient, remoteAddress, triggerScheduleCommand));
         } catch (Exception e) {
             String error = "触发任务失败，执行调度任务异常，调用IP：" + remoteAddress + ",请求命令:" + new String(platformRemotingCommand.getBody()) + ",具体原因：";
             response.setCode(PlatformRemotingSysResponseCode.SYSTEM_ERROR);

@@ -15,7 +15,9 @@ public class CallbackResultProcessor implements PlatformNettyRequestProcessor {
 
     @Override
     public PlatformRemotingCommand processRequest(ChannelHandlerContext channelHandlerContext, PlatformRemotingCommand platformRemotingCommand) throws Exception {
-        return null;
+        logger.info("callback........");
+        PlatformRemotingCommand response = new PlatformRemotingCommand();
+        return response;
     }
 
     @Override
