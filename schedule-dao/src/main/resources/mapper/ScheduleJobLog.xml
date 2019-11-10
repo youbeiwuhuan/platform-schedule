@@ -51,4 +51,14 @@
         )
     </insert>
 
+    <update id="update" parameterType="map">
+        update t_schedule_job_log
+        set
+        callback_time = #{callbackTime} ,
+        callback_status = #{callbackStatus},
+        message = #{message},
+        update_time = now()
+        where id = #{id}
+    </update>
+
 </mapper>
