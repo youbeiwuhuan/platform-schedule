@@ -36,7 +36,7 @@ public class ScheduleClientController {
 
     public void requestRegisterCommand(String remoteAddress, BaseCommand baseCommand) {
         try {
-            PlatformRemotingCommand result = this.scheduleRpcClient.send(remoteAddress, CommandEnum.CALLBACK_SCHEDULE_RESULT_CMD, baseCommand);
+            PlatformRemotingCommand result = this.scheduleRpcClient.send(remoteAddress, CommandEnum.REGISTER_CMD, baseCommand);
             if (result == null) {
 
             }

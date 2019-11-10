@@ -19,10 +19,6 @@ public class RegisterProcessor implements PlatformNettyRequestProcessor {
 
     private final static Logger logger = LoggerFactory.getLogger(RegisterProcessor.class);
 
-    private static final String APP_NAME = "appName";
-
-    private static final String CLIENT_ID = "clientId";
-
     @Autowired
     private RpcChannelManager rpcChannelManager;
 
