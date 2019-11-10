@@ -1,6 +1,7 @@
 package com.courage.platform.schedule.client.rpc.controller;
 
 import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingCommand;
+import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingSysResponseCode;
 import com.courage.platform.schedule.client.rpc.processor.TriggerTaskProcessor;
 import com.courage.platform.schedule.rpc.ScheduleRpcClient;
 import com.courage.platform.schedule.rpc.protocol.BaseCommand;
@@ -37,8 +38,8 @@ public class ScheduleClientController {
     public void requestRegisterCommand(String remoteAddress, BaseCommand baseCommand) {
         try {
             PlatformRemotingCommand result = this.scheduleRpcClient.send(remoteAddress, CommandEnum.REGISTER_CMD, baseCommand);
-            if (result == null) {
-
+            if (result == null || result.getCode() == PlatformRemotingSysResponseCode.SYSTEM_ERROR) {
+                logger.error("注册命令响应为空");
             }
         } catch (Throwable throwable) {
             logger.error("request callbackCommand error:", throwable);
