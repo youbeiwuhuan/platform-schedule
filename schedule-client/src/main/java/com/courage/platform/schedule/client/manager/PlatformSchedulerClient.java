@@ -63,6 +63,8 @@ public class PlatformSchedulerClient {
                             registerScheduleCommand.setAppName(appName);
                             registerScheduleCommand.setClientId(JvmClientUtils.getJmvClientId());
                             scheduleClientController.requestRegisterCommand(namesrvIp, registerScheduleCommand);
+                        } else {
+                            //no need to destroy original channel
                         }
                     }
                 } catch (Throwable e) {
