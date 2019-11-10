@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.courage.platform.schedule.client.rpc.controller.ScheduleClientController;
 import com.courage.platform.schedule.core.util.HttpClientUtils;
+import com.courage.platform.schedule.core.util.JvmClientUtils;
 import com.courage.platform.schedule.rpc.protocol.RegisterScheduleCommand;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -56,11 +57,11 @@ public class PlatformSchedulerClient {
                         JSONObject namesrv = dataNode.getJSONObject(i);
                         String status = namesrv.getString("status");
                         String namesrvIp = namesrv.getString("namesrvIp");
-                        if ("1".equals(status)) {
+                        if ("0".equals(status)) {
                             //发送注册命令到schduleserver
                             RegisterScheduleCommand registerScheduleCommand = new RegisterScheduleCommand();
                             registerScheduleCommand.setAppName(appName);
-                            registerScheduleCommand.setClientId("xxxx");
+                            registerScheduleCommand.setClientId(JvmClientUtils.getJmvClientId());
                             scheduleClientController.requestRegisterCommand(namesrvIp, registerScheduleCommand);
                         }
                     }
@@ -68,7 +69,7 @@ public class PlatformSchedulerClient {
                     logger.error("scheduleAtFixedRate flush exception", e);
                 }
             }
-        }, 10000, 30000);
+        }, 5000, 20000);
     }
 
     public void destroy() {

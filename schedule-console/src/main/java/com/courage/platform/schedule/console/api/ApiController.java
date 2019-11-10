@@ -26,7 +26,7 @@ public class ApiController {
         List<Map> data = new ArrayList<>();
         Map ele = new HashMap();
         ele.put("type", "0");
-        ele.put("namesrvIp", "127.0.0.12999");
+        ele.put("namesrvIp", "127.0.0.1:12999");
         ele.put("status", "0");
 
         data.add(ele);

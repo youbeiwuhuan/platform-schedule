@@ -1,5 +1,6 @@
 package com.courage.platform.schedule.client.rpc.controller;
 
+import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingCommand;
 import com.courage.platform.schedule.client.rpc.processor.TriggerTaskProcessor;
 import com.courage.platform.schedule.rpc.ScheduleRpcClient;
 import com.courage.platform.schedule.rpc.protocol.BaseCommand;
@@ -35,7 +36,10 @@ public class ScheduleClientController {
 
     public void requestRegisterCommand(String remoteAddress, BaseCommand baseCommand) {
         try {
-            this.scheduleRpcClient.send(remoteAddress, CommandEnum.CALLBACK_SCHEDULE_RESULT_CMD, baseCommand);
+            PlatformRemotingCommand result = this.scheduleRpcClient.send(remoteAddress, CommandEnum.CALLBACK_SCHEDULE_RESULT_CMD, baseCommand);
+            if (result == null) {
+
+            }
         } catch (Throwable throwable) {
             logger.error("request callbackCommand error:", throwable);
         }
