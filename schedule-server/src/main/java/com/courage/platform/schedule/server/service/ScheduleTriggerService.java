@@ -1,6 +1,8 @@
 package com.courage.platform.schedule.server.service;
 
+import com.alibaba.fastjson.JSON;
 import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingCommand;
+import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingSysResponseCode;
 import com.courage.platform.schedule.core.domain.TriggerStatusEnum;
 import com.courage.platform.schedule.core.util.IdGenerator;
 import com.courage.platform.schedule.core.util.IpUtil;
@@ -9,9 +11,11 @@ import com.courage.platform.schedule.dao.domain.ScheduleJobInfo;
 import com.courage.platform.schedule.dao.domain.ScheduleJobLog;
 import com.courage.platform.schedule.rpc.ScheduleRpcServer;
 import com.courage.platform.schedule.rpc.protocol.CommandEnum;
+import com.courage.platform.schedule.rpc.protocol.TriggerScheduleCommand;
 import com.courage.platform.schedule.server.rpc.RpcChannelManager;
 import com.courage.platform.schedule.server.rpc.RpcChannelSession;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,9 +67,15 @@ public class ScheduleTriggerService {
                 RpcChannelSession rpcChannelSession = rpcChannelSessionList.get(0);
                 PlatformRemotingCommand platformRemotingCommand = new PlatformRemotingCommand();
                 platformRemotingCommand.setRequestCmd(CommandEnum.TRIGGER_SCHEDULE_TASK_CMD);
+                TriggerScheduleCommand triggerScheduleCommand = new TriggerScheduleCommand();
+                triggerScheduleCommand.setExecutorParam(StringUtils.trimToEmpty(scheduleJobInfo.getJobParam()));
+                triggerScheduleCommand.setJobId(scheduleJobLog.getJobId());
+                triggerScheduleCommand.setJobLogId(String.valueOf(id));
+                triggerScheduleCommand.setServiceId(scheduleJobInfo.getJobHandler());
+                platformRemotingCommand.setBody(JSON.toJSONBytes(triggerScheduleCommand));
                 //同步调用发送给client客户端命令
                 PlatformRemotingCommand response = scheduleRpcServer.getNodePlatformRemotingServer().invokeSync(rpcChannelSession.getChannel(), platformRemotingCommand, 5000L);
-                if (response != null) {
+                if (response != null && response.getCode() == PlatformRemotingSysResponseCode.SUCCESS) {
                     scheduleJobLog.setTriggerStatus(TriggerStatusEnum.SUCCESS.getId());
                 } else {
                     scheduleJobLog.setTriggerStatus(TriggerStatusEnum.FAIL.getId());
