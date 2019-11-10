@@ -1,5 +1,6 @@
 package com.courage.platform.schedule.client.rpc.processor;
 
+import com.courage.platform.rpc.remoting.common.PlatformRemotingHelper;
 import com.courage.platform.rpc.remoting.netty.codec.PlatformNettyRequestProcessor;
 import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingCommand;
 import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingSerializable;
@@ -32,7 +33,7 @@ public class TriggerTaskProcessor implements PlatformNettyRequestProcessor {
 
     @Override
     public PlatformRemotingCommand processRequest(ChannelHandlerContext channelHandlerContext, PlatformRemotingCommand platformRemotingCommand) throws Exception {
-        String remoteAddress = channelHandlerContext.channel().remoteAddress().toString();
+        String remoteAddress = PlatformRemotingHelper.parseChannelRemoteAddr(channelHandlerContext.channel());
         PlatformRemotingCommand response = new PlatformRemotingCommand();
         response.setCode(PlatformRemotingSysResponseCode.SUCCESS);
         response.setRemark("触发成功");
