@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -64,6 +65,7 @@ public class ScheduleTriggerService {
 
             List<RpcChannelSession> rpcChannelSessionList = rpcChannelManager.getChannelSessionListByAppName(scheduleJobInfo.getAppName());
             if (CollectionUtils.isNotEmpty(rpcChannelSessionList)) {
+                Collections.shuffle(rpcChannelSessionList);
                 RpcChannelSession rpcChannelSession = rpcChannelSessionList.get(0);
                 PlatformRemotingCommand platformRemotingCommand = new PlatformRemotingCommand();
                 platformRemotingCommand.setRequestCmd(CommandEnum.TRIGGER_SCHEDULE_TASK_CMD);
