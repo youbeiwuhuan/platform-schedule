@@ -7,6 +7,7 @@ import java.net.*;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,9 +15,7 @@ public class JvmClientUtils {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JvmClientUtils.class);
 
-    public static final String INNER_IP_PATTERN = "((192\\.168|172\\.([1][6-9]|[2]\\d|3[01]))"
-            + "(\\.([2][0-4]\\d|[2][5][0-5]|[01]?\\d?\\d)){2}|"
-            + "^(\\D)*10(\\.([2][0-4]\\d|[2][5][0-5]|[01]?\\d?\\d)){3})";
+    public static final String INNER_IP_PATTERN = "((192\\.168|172\\.([1][6-9]|[2]\\d|3[01]))" + "(\\.([2][0-4]\\d|[2][5][0-5]|[01]?\\d?\\d)){2}|" + "^(\\D)*10(\\.([2][0-4]\\d|[2][5][0-5]|[01]?\\d?\\d)){3})";
 
     public static final String LOCAL_IP = initIP();
 
@@ -159,7 +158,7 @@ public class JvmClientUtils {
     }
 
     public static String getJmvClientId() {
-        return LOCAL_IP + "@" + getPID();
+        return LOCAL_IP + "@" + getPID() + "@" + UUID.randomUUID().toString();
     }
 
 }
