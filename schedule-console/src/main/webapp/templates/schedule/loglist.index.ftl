@@ -52,7 +52,7 @@
                 <div class="col-xs-12">
                     <div class="box">
                         <div class="box-body">
-                            <table id="jobListTable" class="table table-bordered table-striped" width="100%">
+                            <table id="joblogTable" class="table table-bordered table-striped" width="100%">
                                 <thead>
                                 <tr>
                                     <th name="id">任务ID</th>

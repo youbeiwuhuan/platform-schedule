@@ -158,4 +158,31 @@ public class ScheduleController {
     }
 
 
+    @RequestMapping("/joblog/pageList")
+    @ResponseBody
+    public Map<String, Object> joblogPageList(HttpServletRequest httpServletRequest) {
+        String start = httpServletRequest.getParameter("start");
+        String length = httpServletRequest.getParameter("length"); //类似请求pageSize
+        String appName = httpServletRequest.getParameter("appName");
+        String jobName = httpServletRequest.getParameter("jobName");
+        String jobHandler = httpServletRequest.getParameter("jobHandler");
+
+        Map<String, Object> param = new HashMap<>();
+        param.put("start", start);
+        param.put("length", length);
+        param.put("appName", appName);
+        param.put("jobName", jobName);
+        param.put("jobHandler", jobHandler);
+
+        List<ScheduleJobInfo> list = scheduleJobInfoService.getPage(param, start, Integer.valueOf(length));
+
+        Integer count = scheduleJobInfoService.count(param);
+
+        Map<String, Object> maps = new HashMap<String, Object>();
+        maps.put("recordsTotal", count);        // 总记录数
+        maps.put("recordsFiltered", count);        // 总记录数
+        maps.put("data", list);                    // 分页列表
+        return maps;
+    }
+
 }
