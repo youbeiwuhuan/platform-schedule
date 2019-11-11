@@ -25,7 +25,7 @@ $(function () {
             {
                 "data": 'jobId',
                 "visible": true,
-                "width": '10%',
+                "width": '8%',
                 "render": function (data, type, row) {
                     return data;
                 }
@@ -33,7 +33,7 @@ $(function () {
             {
                 "data": 'triggerTime',
                 "visible": true,
-                "width": '13%',
+                "width": '14%',
                 "render": function (data, type, row) {
                     return data;
                 }
@@ -41,7 +41,7 @@ $(function () {
             {
                 "data": 'triggerStatus',
                 "visible": true,
-                "width": '7%',
+                "width": '10%',
                 "render": function (data, type, row) {
                     var html = data;
                     if (data == 0) {
@@ -57,7 +57,7 @@ $(function () {
             {
                 "data": 'callbackTime',
                 "visible": true,
-                "width": '13%',
+                "width": '14%',
                 "render": function (data, type, row) {
                     return data;
                 }
@@ -65,7 +65,7 @@ $(function () {
             {
                 "data": 'callbackStatus',
                 "visible": true,
-                "width": '7%',
+                "width": '10%',
                 "render": function (data, type, row) {
                     var html = data;
                     if (data == 0) {
@@ -81,17 +81,9 @@ $(function () {
             {
                 "data": 'message',
                 "visible": true,
-                "width": '10%',
                 "render": function (data, type, row) {
-                    return data;
-                }
-            },
-            {
-                "data": 'id',
-                "visible": true,
-                "width": '13%',
-                "render": function (data, type, row) {
-                    return "";
+                    var btn = '<button class="btn btn-warning btn-xs" type="button" onclick="logMessage(' + row.id + ')">查看</button> ';
+                    return btn;
                 }
             }
         ],

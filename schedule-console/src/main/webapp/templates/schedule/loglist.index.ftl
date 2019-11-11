@@ -60,8 +60,10 @@
                                     <th name="triggerStatus">调度结果</th>
                                     <th name="callbackTime">执行时间</th>
                                     <th name="callbackStatus">执行结果</th>
-                                    <th name="message">执行备注</th>
+                                    <th name="message">备注</th>
+                                    <!--
                                     <th>操作</th>
+                                    -->
                                 </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -90,7 +92,7 @@
 <script src="${request.contextPath}/static/plugins/layer/layer.js?t=20181226"></script>
 
 <!-- custom -->
-<script src="${request.contextPath}/static/js/joblog.index.1.js?t=2019aaaa9112112"></script>
+<script src="${request.contextPath}/static/js/joblog.index.1.js?t=2019ssyourxx133m019sss1123aaaa9112112"></script>
 
 
 </body>

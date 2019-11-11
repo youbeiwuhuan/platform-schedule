@@ -95,14 +95,15 @@ $(function () {
                     var btn = '<button class="btn btn-warning btn-xs" type="button" onclick="toUpdateJobPage(' + data + ')">编辑</button> ';
                     var executeOncebtn = '<button class="btn bg-purple btn-xs" type="button" onclick="toexecuteAtonce(' + data + ')">立即执行</button> ';
                     var msgBtn;
-                    if (row.status == 1){
+                    if (row.status == 1) {
                         msgBtn = '<button class="btn btn-success btn-xs" type="button" onclick="validJob(' + data + ')">启动</button> ';
                     } else {
                         msgBtn = '<button class="btn bg-gray btn-xs" type="button" onclick="validJob(' + data + ')">关闭</button> ';
                     }
-                  //  var tipBtn = '<button class="btn btn-danger btn-xs" type="button" onclick="deleteJob(' + data + ')">删除</button> ';
-                  //  return btn + executeOncebtn + msgBtn + tipBtn;
-                    return btn + executeOncebtn + msgBtn;
+                    var logBtn = '<button class="btn bg-navy btn-xs" type="button" onclick="gotolog(' + data + ')">日志</button> ';
+                    //  var tipBtn = '<button class="btn btn-danger btn-xs" type="button" onclick="deleteJob(' + data + ')">删除</button> ';
+                    //  return btn + executeOncebtn + msgBtn + tipBtn;
+                    return btn + executeOncebtn + msgBtn + logBtn;
                 }
             }
         ],
@@ -215,8 +216,8 @@ $(function () {
         });
     }
 
-    alertMsg = function () {
-        layer.msg('hello');
+    gotolog = function (jobId) {
+        window.open(base_url + "/joblog?jobId=" + jobId)
     };
 
     alertTip = function () {
