@@ -65,7 +65,6 @@
         SELECT <include refid="scheduleLogColumnList" />
         FROM t_schedule_job_log AS t
         where 1 = 1
-        <include refid="queryCondition"/>
         ORDER BY t.id desc
         limit #{start},#{pageSize}
     </select>
@@ -74,6 +73,10 @@
         SELECT <include refid="scheduleLogColumnList" />
         FROM t_schedule_job_log AS t
         where t.id = #{id}
+    </select>
+
+    <select id="count" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+        select  count(1) FROM t_schedule_job_log AS t
     </select>
     
 </mapper>
