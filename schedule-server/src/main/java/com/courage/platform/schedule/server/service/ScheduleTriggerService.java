@@ -84,13 +84,13 @@ public class ScheduleTriggerService {
                     scheduleJobLog.setTriggerStatus(TriggerStatusEnum.FAIL.getId());
                     String message = " 调用client失败,remoteAddr:" + rpcChannelSession.getChannel().remoteAddress().toString();
                     scheduleJobLog.setMessage(message);
-                    logger.info("任务id:" + id + " 任务名:" + scheduleJobInfo.getJobName() + message);
+                    logger.error("任务id:" + id + " 任务名:" + scheduleJobInfo.getJobName() + message);
                 }
             } else {
                 String message = " 应用没有链接到调度服务中心";
                 scheduleJobLog.setTriggerStatus(TriggerStatusEnum.FAIL.getId());
                 scheduleJobLog.setMessage(message);
-                logger.info("任务:" + scheduleJobInfo.getJobName() + message);
+                logger.warn("任务:" + scheduleJobInfo.getJobName() + message);
             }
             scheduleJobLogDao.insert(scheduleJobLog);
         } catch (Exception e) {
