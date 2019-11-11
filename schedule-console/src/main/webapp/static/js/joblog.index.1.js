@@ -43,13 +43,15 @@ $(function () {
                 "visible": true,
                 "width": '7%',
                 "render": function (data, type, row) {
-                    if (0 == data) {
-                        return '成功';
+                    var html = data;
+                    if (data == 0) {
+                        html = '<span style="color: green">' + '成功' + '</span>';
+                    } else if (data == 1) {
+                        html = '<span style="color: red">' + '失败' + '</span>';
+                    } else {
+                        html = '';
                     }
-                    if (1 == data) {
-                        return '失败';
-                    }
-                    return '';
+                    return html;
                 }
             },
             {
@@ -65,13 +67,15 @@ $(function () {
                 "visible": true,
                 "width": '7%',
                 "render": function (data, type, row) {
-                    if (0 == data) {
-                        return '成功';
+                    var html = data;
+                    if (data == 0) {
+                        html = '<span style="color: green">' + '成功' + '</span>';
+                    } else if (data == 1) {
+                        html = '<span style="color: red">' + '失败' + '</span>';
+                    } else {
+                        html = '';
                     }
-                    if (1 == data) {
-                        return '失败';
-                    }
-                    return '';
+                    return html;
                 }
             },
             {
@@ -79,7 +83,7 @@ $(function () {
                 "visible": true,
                 "width": '10%',
                 "render": function (data, type, row) {
-                   return data;
+                    return data;
                 }
             },
             {
