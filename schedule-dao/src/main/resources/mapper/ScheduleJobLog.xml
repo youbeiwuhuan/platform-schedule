@@ -28,6 +28,22 @@
         `update_time`
 	</sql>
 
+    <sql id="queryCondition">
+        <if test='logStatus == "1"'>
+            and callback_status = 0
+        </if>
+        <if test='logStatus == "2"'>
+            and trigger_status = 1
+            or
+            callback_status = 1
+        </if>
+        <if test='logStatus == "3"'>
+            and trigger_status = 0
+            and
+            callback_status = -1
+        </if>
+    </sql>
+
     <insert id="insert" parameterType="com.courage.platform.schedule.dao.domain.ScheduleJobLog">
         INSERT INTO `t_schedule_job_log`
         (`id`,
@@ -65,6 +81,7 @@
         SELECT <include refid="scheduleLogColumnList" />
         FROM t_schedule_job_log AS t
         where 1 = 1
+        <include refid="queryCondition" />
         ORDER BY t.id desc
         limit #{start},#{pageSize}
     </select>
@@ -76,7 +93,8 @@
     </select>
 
     <select id="count" parameterType="java.util.HashMap" resultType="java.lang.Integer">
-        select  count(1) FROM t_schedule_job_log AS t
+        select  count(1) FROM t_schedule_job_log AS t where 1 = 1
+        <include refid="queryCondition" />
     </select>
     
 </mapper>
