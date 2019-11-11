@@ -29,19 +29,21 @@
                         <input type="text" class="form-control" id="appName" autocomplete="off">
                     </div>
                 </div>
-                <div class="col-xs-3">
+                <div class="col-xs-2">
                     <div class="input-group">
-                         <span class="input-group-addon">状态</span>
-                         <input type="text" class="form-control" id="jobHandler" autocomplete="off">
+                        <span class="input-group-addon">状态</span>
+                        <select class="form-control" id="logStatus">
+                            <option value="">全部</option>
+                            <option value="1">成功</option>
+                            <option value="2">失败</option>
+                            <option value="3">进行中</option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-xs-1">
                     <button class="btn btn-block btn-info" id="searchBtn">查询</button>
                 </div>
-                 <div class="col-xs-1">
-                     <!--
-                	  <button class="btn btn-block btn-success add" type="button">清理</button>
-                	  -->
+                <div class="col-xs-1">
                 </div>
             </div>
 
@@ -88,7 +90,6 @@
 <script src="${request.contextPath}/static/plugins/layer/layer.js?t=20181226"></script>
 
 <!-- custom -->
-
 
 
 </body>
