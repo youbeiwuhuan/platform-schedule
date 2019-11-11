@@ -23,15 +23,9 @@ $(function () {
         //"scrollX": true,	// scroll x，close self-adaption
         "columns": [
             {
-                "data": 'id',
-                "bSortable": false,
+                "data": 'jobId',
                 "visible": true,
-                "width": '6%'
-            },
-            {
-                "data": 'jodbName',
-                "visible": true,
-                "width": '20%',
+                "width": '10%',
                 "render": function (data, type, row) {
                     return data;
                 }
@@ -39,7 +33,7 @@ $(function () {
             {
                 "data": 'triggerTime',
                 "visible": true,
-                "width": '11%',
+                "width": '13%',
                 "render": function (data, type, row) {
                     return data;
                 }
@@ -61,7 +55,7 @@ $(function () {
             {
                 "data": 'callbackTime',
                 "visible": true,
-                "width": '11%',
+                "width": '13%',
                 "render": function (data, type, row) {
                     return data;
                 }
@@ -69,7 +63,7 @@ $(function () {
             {
                 "data": 'callbackStatus',
                 "visible": true,
-                "width": '11%',
+                "width": '7%',
                 "render": function (data, type, row) {
                     if (0 == data) {
                         return '成功';
@@ -83,7 +77,7 @@ $(function () {
             {
                 "data": 'message',
                 "visible": true,
-                "width": '5%',
+                "width": '10%',
                 "render": function (data, type, row) {
                    return data;
                 }

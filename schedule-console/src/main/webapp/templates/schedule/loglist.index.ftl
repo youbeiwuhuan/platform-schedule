@@ -56,7 +56,6 @@
                                 <thead>
                                 <tr>
                                     <th name="id">任务ID</th>
-                                    <th name="jobName">任务名</th>
                                     <th name="triggerTime">调度时间</th>
                                     <th name="triggerStatus">调度结果</th>
                                     <th name="callbackTime">执行时间</th>
@@ -91,7 +90,7 @@
 <script src="${request.contextPath}/static/plugins/layer/layer.js?t=20181226"></script>
 
 <!-- custom -->
-<script src="${request.contextPath}/static/js/joblog.index.1.js?t=20191111"></script>
+<script src="${request.contextPath}/static/js/joblog.index.1.js?t=19112112"></script>
 
 
 </body>

@@ -77,12 +77,12 @@ public class ScheduleTriggerService {
                 PlatformRemotingCommand response = scheduleRpcServer.getNodePlatformRemotingServer().invokeSync(rpcChannelSession.getChannel(), platformRemotingCommand, 5000L);
                 if (response != null && response.getCode() == PlatformRemotingSysResponseCode.SUCCESS) {
                     scheduleJobLog.setTriggerStatus(TriggerStatusEnum.SUCCESS.getId());
-                    logger.info("任务:" + scheduleJobInfo.getJobName() + " 触发成功");
+                    logger.info("任务id:" + id + " 任务名:" + scheduleJobInfo.getJobName() + " 触发成功");
                 } else {
                     scheduleJobLog.setTriggerStatus(TriggerStatusEnum.FAIL.getId());
                     String message = " 调用client失败,remoteAddr:" + rpcChannelSession.getChannel().remoteAddress().toString();
                     scheduleJobLog.setMessage(message);
-                    logger.info("任务:" + scheduleJobInfo.getJobName() + message);
+                    logger.info("任务id:" + id + " 任务名:" + scheduleJobInfo.getJobName() + message);
                 }
             } else {
                 String message = " 应用没有链接到调度服务中心";
