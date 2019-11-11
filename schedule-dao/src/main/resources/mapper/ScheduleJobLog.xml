@@ -28,9 +28,6 @@
         `update_time`
 	</sql>
 
-    <select id="queryCondition">
-    </select>
-
     <insert id="insert" parameterType="com.courage.platform.schedule.dao.domain.ScheduleJobLog">
         INSERT INTO `t_schedule_job_log`
         (`id`,
@@ -73,4 +70,10 @@
         limit #{start},#{pageSize}
     </select>
 
+    <select id="findById" parameterType="java.util.HashMap" resultMap="scheduleJobLog">
+        SELECT <include refid="scheduleLogColumnList" />
+        FROM t_schedule_job_log AS t
+        where t.id = #{id}
+    </select>
+    
 </mapper>

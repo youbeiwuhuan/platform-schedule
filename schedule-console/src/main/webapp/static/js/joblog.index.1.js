@@ -29,7 +29,7 @@ $(function () {
                 "width": '6%'
             },
             {
-                "data": 'jobName',
+                "data": 'jodbName',
                 "visible": true,
                 "width": '20%',
                 "render": function (data, type, row) {
@@ -37,7 +37,7 @@ $(function () {
                 }
             },
             {
-                "data": 'appName',
+                "data": 'triggerTime',
                 "visible": true,
                 "width": '11%',
                 "render": function (data, type, row) {
@@ -45,21 +45,21 @@ $(function () {
                 }
             },
             {
-                "data": 'jobType',
+                "data": 'triggerStatus',
                 "visible": true,
                 "width": '7%',
                 "render": function (data, type, row) {
                     if (0 == data) {
-                        return 'bean模式';
+                        return '成功';
                     }
                     if (1 == data) {
-                        return 'shell模式';
+                        return '失败';
                     }
                     return '';
                 }
             },
             {
-                "data": 'jobHandler',
+                "data": 'callbackTime',
                 "visible": true,
                 "width": '11%',
                 "render": function (data, type, row) {
@@ -67,24 +67,25 @@ $(function () {
                 }
             },
             {
-                "data": 'jobCron',
+                "data": 'callbackStatus',
                 "visible": true,
                 "width": '11%',
                 "render": function (data, type, row) {
-                    return data;
+                    if (0 == data) {
+                        return '成功';
+                    }
+                    if (1 == data) {
+                        return '失败';
+                    }
+                    return '';
                 }
             },
             {
-                "data": 'status',
+                "data": 'message',
                 "visible": true,
                 "width": '5%',
                 "render": function (data, type, row) {
-                    // status
-                    if (0 == data) {
-                        return '<small class="label label-success" >RUNNING</small>';
-                    } else {
-                        return '<small class="label label-default" >STOP</small>';
-                    }
+                   return data;
                 }
             },
             {
@@ -92,17 +93,7 @@ $(function () {
                 "visible": true,
                 "width": '13%',
                 "render": function (data, type, row) {
-                    var btn = '<button class="btn btn-warning btn-xs" type="button" onclick="toUpdateJobPage(' + data + ')">编辑</button> ';
-                    var executeOncebtn = '<button class="btn bg-purple btn-xs" type="button" onclick="toexecuteAtonce(' + data + ')">立即执行</button> ';
-                    var msgBtn;
-                    if (row.status == 1) {
-                        msgBtn = '<button class="btn btn-success btn-xs" type="button" onclick="validJob(' + data + ')">启动</button> ';
-                    } else {
-                        msgBtn = '<button class="btn bg-gray btn-xs" type="button" onclick="validJob(' + data + ')">关闭</button> ';
-                    }
-                    //  var tipBtn = '<button class="btn btn-danger btn-xs" type="button" onclick="deleteJob(' + data + ')">删除</button> ';
-                    //  return btn + executeOncebtn + msgBtn + tipBtn;
-                    return btn + executeOncebtn + msgBtn;
+                    return "";
                 }
             }
         ],

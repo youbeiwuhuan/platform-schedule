@@ -18,4 +18,6 @@ public interface ScheduleJobLogDao {
 
     Integer count(Map map);
 
+    ScheduleJobLog findById(Long id);
+
 }
