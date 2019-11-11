@@ -12,7 +12,7 @@ $(function () {
                 var obj = {};
                 obj.appName = $('#appName').val();
                 obj.jobName = $('#jobName').val();
-                obj.jobHandler = $('#jobHandler').val();
+                obj.logStatus = $('#logStatus').val();
                 obj.start = d.start;
                 obj.length = d.length;
                 return obj;
