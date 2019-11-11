@@ -10,6 +10,10 @@
     <util:constant id="registerCmd"
                    static-field="com.courage.platform.schedule.rpc.protocol.CommandEnum.REGISTER_CMD"/>
 
+    <util:constant id="otherTriggerTaskCmd"
+                   static-field="com.courage.platform.schedule.rpc.protocol.CommandEnum.OTHER_TRIGGER_SCHEDULE_TASK_CMD"/>
+
+
     <!-- 回调结果处理器  -->
     <bean id="callbackResultProcessor"
           class="com.courage.platform.schedule.server.rpc.processor.CallbackResultProcessor"></bean>
@@ -17,6 +21,9 @@
     <!-- 注册处理器 -->
     <bean id="registerProcessor"
           class="com.courage.platform.schedule.server.rpc.processor.RegisterProcessor"></bean>
+
+    <!-- 其他服务触发任务 -->
+    <bean id="otherTriggerTaskProcessor" class="com.courage.platform.schedule.server.rpc.processor.OtherTriggerTaskProcessor"></bean>
 
     <bean id="channelListener" class="com.courage.platform.schedule.server.rpc.RpcChannelListener">
     </bean>
@@ -28,6 +35,7 @@
             <map>
                 <entry key-ref="callBackCmd" value-ref="callbackResultProcessor"/>
                 <entry key-ref="registerCmd" value-ref="registerProcessor"/>
+                <entry key-ref="otherTriggerTaskCmd" value-ref="otherTriggerTaskProcessor"/>
             </map>
         </property>
         <property name="platformChannelEventListener" ref="channelListener" />
