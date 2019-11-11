@@ -38,6 +38,11 @@ public class ScheduleController {
         return "schedule/joblist.index";
     }
 
+    @RequestMapping("/loginfo")
+    public String loginfo() {
+        return "schedule/loglist.index";
+    }
+
     @RequestMapping("/addjobpage")
     public String addjobpage(Model model) {
         List<Appinfo> appinfoList = appInfoService.getAll();
