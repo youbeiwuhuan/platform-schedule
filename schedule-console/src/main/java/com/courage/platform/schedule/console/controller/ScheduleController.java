@@ -38,7 +38,7 @@ public class ScheduleController {
         return "schedule/joblist.index";
     }
 
-    @RequestMapping("/loginfo")
+    @RequestMapping("/joblog")
     public String loginfo() {
         return "schedule/loglist.index";
     }

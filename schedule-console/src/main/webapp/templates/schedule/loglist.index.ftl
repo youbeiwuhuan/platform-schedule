@@ -12,7 +12,7 @@
     <!-- header -->
 	<@netCommon.commonHeader />
     <!-- left -->
-	<@netCommon.commonLeft "loginfo" />
+	<@netCommon.commonLeft "joblog" />
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -39,7 +39,9 @@
                     <button class="btn btn-block btn-info" id="searchBtn">查询</button>
                 </div>
                  <div class="col-xs-1">
-                	  <button class="btn btn-block btn-success add" type="button" onclick="toAddJobPage()">新增</button>
+                     <!--
+                	  <button class="btn btn-block btn-success add" type="button">清理</button>
+                	  -->
                 </div>
             </div>
 
