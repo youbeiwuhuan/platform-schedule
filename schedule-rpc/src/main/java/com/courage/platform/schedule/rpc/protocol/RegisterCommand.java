@@ -1,9 +1,10 @@
 package com.courage.platform.schedule.rpc.protocol;
 
 /**
+ * client app 发送注册命令到 server端
  * Created by zhangyong on 2019/11/9.
  */
-public class RegisterScheduleCommand extends BaseCommand {
+public class RegisterCommand extends BaseCommand {
 
     private String appName;
 

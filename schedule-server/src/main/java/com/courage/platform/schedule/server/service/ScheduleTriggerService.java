@@ -11,7 +11,7 @@ import com.courage.platform.schedule.dao.domain.ScheduleJobInfo;
 import com.courage.platform.schedule.dao.domain.ScheduleJobLog;
 import com.courage.platform.schedule.rpc.ScheduleRpcServer;
 import com.courage.platform.schedule.rpc.protocol.CommandEnum;
-import com.courage.platform.schedule.rpc.protocol.TriggerScheduleCommand;
+import com.courage.platform.schedule.rpc.protocol.TriggerCommand;
 import com.courage.platform.schedule.server.rpc.RpcChannelManager;
 import com.courage.platform.schedule.server.rpc.RpcChannelSession;
 import org.apache.commons.collections4.CollectionUtils;
@@ -69,12 +69,12 @@ public class ScheduleTriggerService {
                 RpcChannelSession rpcChannelSession = rpcChannelSessionList.get(0);
                 PlatformRemotingCommand platformRemotingCommand = new PlatformRemotingCommand();
                 platformRemotingCommand.setRequestCmd(CommandEnum.TRIGGER_SCHEDULE_TASK_CMD);
-                TriggerScheduleCommand triggerScheduleCommand = new TriggerScheduleCommand();
-                triggerScheduleCommand.setExecutorParam(StringUtils.trimToEmpty(scheduleJobInfo.getJobParam()));
-                triggerScheduleCommand.setJobId(scheduleJobLog.getJobId());
-                triggerScheduleCommand.setJobLogId(String.valueOf(id));
-                triggerScheduleCommand.setServiceId(scheduleJobInfo.getJobHandler());
-                platformRemotingCommand.setBody(JSON.toJSONBytes(triggerScheduleCommand));
+                TriggerCommand triggerCommand = new TriggerCommand();
+                triggerCommand.setExecutorParam(StringUtils.trimToEmpty(scheduleJobInfo.getJobParam()));
+                triggerCommand.setJobId(scheduleJobLog.getJobId());
+                triggerCommand.setJobLogId(String.valueOf(id));
+                triggerCommand.setServiceId(scheduleJobInfo.getJobHandler());
+                platformRemotingCommand.setBody(JSON.toJSONBytes(triggerCommand));
                 //同步调用发送给client客户端命令
                 PlatformRemotingCommand response = scheduleRpcServer.getNodePlatformRemotingServer().invokeSync(rpcChannelSession.getChannel(), platformRemotingCommand, 5000L);
                 if (response != null && response.getCode() == PlatformRemotingSysResponseCode.SUCCESS) {

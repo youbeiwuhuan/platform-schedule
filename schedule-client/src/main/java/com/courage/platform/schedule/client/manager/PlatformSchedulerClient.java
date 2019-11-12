@@ -7,7 +7,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.courage.platform.schedule.client.rpc.controller.ScheduleClientController;
 import com.courage.platform.schedule.core.util.HttpClientUtils;
 import com.courage.platform.schedule.core.util.JvmClientUtils;
-import com.courage.platform.schedule.rpc.protocol.RegisterScheduleCommand;
+import com.courage.platform.schedule.rpc.protocol.RegisterCommand;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,10 +59,10 @@ public class PlatformSchedulerClient {
                         String namesrvIp = namesrv.getString("namesrvIp");
                         if ("0".equals(status)) {
                             //发送注册命令到schduleserver
-                            RegisterScheduleCommand registerScheduleCommand = new RegisterScheduleCommand();
-                            registerScheduleCommand.setAppName(appName);
-                            registerScheduleCommand.setClientId(JvmClientUtils.getJmvClientId());
-                            scheduleClientController.requestRegisterCommand(namesrvIp, registerScheduleCommand);
+                            RegisterCommand registerCommand = new RegisterCommand();
+                            registerCommand.setAppName(appName);
+                            registerCommand.setClientId(JvmClientUtils.getJmvClientId());
+                            scheduleClientController.requestRegisterCommand(namesrvIp, registerCommand);
                         } else {
                             //no need to destroy original channel
                         }

@@ -9,7 +9,7 @@ import com.courage.platform.schedule.client.common.ScheduleUtils;
 import com.courage.platform.schedule.client.service.CallBackService;
 import com.courage.platform.schedule.client.service.CallbackThreadService;
 import com.courage.platform.schedule.rpc.ScheduleRpcClient;
-import com.courage.platform.schedule.rpc.protocol.TriggerScheduleCommand;
+import com.courage.platform.schedule.rpc.protocol.TriggerCommand;
 import io.netty.channel.ChannelHandlerContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,17 +38,17 @@ public class TriggerTaskProcessor implements PlatformNettyRequestProcessor {
         response.setCode(PlatformRemotingSysResponseCode.SUCCESS);
         response.setRemark("触发成功");
 
-        TriggerScheduleCommand triggerScheduleCommand = null;
+        TriggerCommand triggerCommand = null;
         try {
-            triggerScheduleCommand = PlatformRemotingSerializable.decode(platformRemotingCommand.getBody(), TriggerScheduleCommand.class);
-            Objects.requireNonNull(triggerScheduleCommand, "解析PlatformRemotingCommand body属性数据异常");
+            triggerCommand = PlatformRemotingSerializable.decode(platformRemotingCommand.getBody(), TriggerCommand.class);
+            Objects.requireNonNull(triggerCommand, "解析PlatformRemotingCommand body属性数据异常");
 
-            String serviceId = triggerScheduleCommand.getServiceId();
+            String serviceId = triggerCommand.getServiceId();
             Objects.requireNonNull(serviceId, "调度参数为错误，serviceId为null");
 
             CallbackThreadService callbackThreadService = CallbackThreadService.getSingleInstance();
             ThreadPoolExecutor threadPoolExecutor = callbackThreadService.getCallBackThread();
-            threadPoolExecutor.execute(new CallBackService(scheduleRpcClient, remoteAddress, triggerScheduleCommand));
+            threadPoolExecutor.execute(new CallBackService(scheduleRpcClient, remoteAddress, triggerCommand));
         } catch (Exception e) {
             String error = "触发任务失败，执行调度任务异常，调用IP：" + remoteAddress + ",请求命令:" + new String(platformRemotingCommand.getBody()) + ",具体原因：";
             response.setCode(PlatformRemotingSysResponseCode.SYSTEM_ERROR);

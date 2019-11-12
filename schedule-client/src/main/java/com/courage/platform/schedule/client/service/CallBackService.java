@@ -9,7 +9,7 @@ import com.courage.platform.schedule.client.manager.PlatformScheduleResolver;
 import com.courage.platform.schedule.rpc.ScheduleRpcClient;
 import com.courage.platform.schedule.rpc.protocol.CallbackCommand;
 import com.courage.platform.schedule.rpc.protocol.CommandEnum;
-import com.courage.platform.schedule.rpc.protocol.TriggerScheduleCommand;
+import com.courage.platform.schedule.rpc.protocol.TriggerCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,14 +25,14 @@ public class CallBackService implements Runnable {
 
     private String remoteAddress;
 
-    private TriggerScheduleCommand triggerScheduleCommand;
+    private TriggerCommand triggerCommand;
 
     private ScheduleRpcClient scheduleRpcClient;
 
-    public CallBackService(ScheduleRpcClient scheduleRpcClient, String remoteAddress, TriggerScheduleCommand triggerScheduleCommand) {
+    public CallBackService(ScheduleRpcClient scheduleRpcClient, String remoteAddress, TriggerCommand triggerCommand) {
         this.scheduleRpcClient = scheduleRpcClient;
         this.remoteAddress = remoteAddress;
-        this.triggerScheduleCommand = triggerScheduleCommand;
+        this.triggerCommand = triggerCommand;
     }
 
     @Override
@@ -40,11 +40,11 @@ public class CallBackService implements Runnable {
         int handleCode = 0;
         String handlerMsg = null;
         try {
-            String serviceId = triggerScheduleCommand.getServiceId();
+            String serviceId = triggerCommand.getServiceId();
             ScheduleParam scheduleParam = new ScheduleParam();
-            scheduleParam.setJobLogId(triggerScheduleCommand.getJobLogId());
-            scheduleParam.setExecutorParam(triggerScheduleCommand.getExecutorParam());
-            scheduleParam.setCreateMillisTime(triggerScheduleCommand.getCreateMillisTime());
+            scheduleParam.setJobLogId(triggerCommand.getJobLogId());
+            scheduleParam.setExecutorParam(triggerCommand.getExecutorParam());
+            scheduleParam.setCreateMillisTime(triggerCommand.getCreateMillisTime());
 
             ClientInvoke clientInvoke = PlatformScheduleResolver.getInvoker(serviceId);
             Objects.requireNonNull(clientInvoke, "调度服务不存在");
@@ -58,28 +58,28 @@ public class CallBackService implements Runnable {
             handleCode = scheduleResult.getCode();
             handlerMsg = scheduleResult.getMsg();
         } catch (Exception e) {
-            handlerMsg = "执行调度任务异常，调用IP：" + remoteAddress + ",请求命令" + JSON.toJSONString(triggerScheduleCommand);
+            handlerMsg = "执行调度任务异常，调用IP：" + remoteAddress + ",请求命令" + JSON.toJSONString(triggerCommand);
             handleCode = ScheduleResult.FAIL_CODE;
             handlerMsg = handlerMsg + "\n" + ScheduleUtils.getlogMsg(e);
             logger.error(handlerMsg, e);
         }
         //发送日志信息
-        sendScheduleServer(triggerScheduleCommand, handleCode, handlerMsg);
+        sendScheduleServer(triggerCommand, handleCode, handlerMsg);
     }
 
     /**
      * 发送日志信息
      *
-     * @param triggerScheduleCommand
+     * @param triggerCommand
      * @param handleCode
      * @param handlerMsg
      */
-    private void sendScheduleServer(TriggerScheduleCommand triggerScheduleCommand, int handleCode, String handlerMsg) {
+    private void sendScheduleServer(TriggerCommand triggerCommand, int handleCode, String handlerMsg) {
         try {
             //发送记录日志
             CallbackCommand callbackCommand = new CallbackCommand();
-            callbackCommand.setJobId(triggerScheduleCommand.getJobId());
-            callbackCommand.setJobLogId(triggerScheduleCommand.getJobLogId());
+            callbackCommand.setJobId(triggerCommand.getJobId());
+            callbackCommand.setJobLogId(triggerCommand.getJobLogId());
             callbackCommand.setHandleTime(new Date());
             callbackCommand.setHandleCode(String.valueOf(handleCode));
             callbackCommand.setHandleMsg(handlerMsg);

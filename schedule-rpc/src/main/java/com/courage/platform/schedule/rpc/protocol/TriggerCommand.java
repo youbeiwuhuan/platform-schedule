@@ -1,10 +1,10 @@
 package com.courage.platform.schedule.rpc.protocol;
 
 /**
- * 触发任务调度命令
+ * 触发任务调度命令(服务端发送到client app)
  * Created by zhangyong on 2018/10/5.
  */
-public class TriggerScheduleCommand extends BaseCommand {
+public class TriggerCommand extends BaseCommand {
 
     //任务Id
     private Long jobId;
