@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /*
    应用管理
@@ -107,9 +104,9 @@ public class AppController {
         appinfo.setId(Integer.valueOf(id));
         appinfo.setAppName(appName);
         appinfo.setRemark(remark);
-        appinfo.setAppKey(Md5Util.getMd5Code(appName + UUID.randomUUID().toString()));
+        appinfo.setUpdateTime(new Date());
 
-        appInfoService.addAppInfo(appinfo);
+        appInfoService.update(appinfo);
 
         Map map = new HashMap();
         map.put("code", "200");

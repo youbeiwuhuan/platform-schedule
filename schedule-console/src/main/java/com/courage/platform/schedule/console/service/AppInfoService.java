@@ -61,4 +61,8 @@ public class AppInfoService {
         appinfoDao.insertAppInfo(appinfo);
     }
 
+    public void update(Appinfo appinfo) {
+        
+    }
+
 }
