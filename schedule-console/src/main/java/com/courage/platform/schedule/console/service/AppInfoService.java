@@ -61,8 +61,8 @@ public class AppInfoService {
         appinfoDao.insertAppInfo(appinfo);
     }
 
-    public void update(Appinfo appinfo) {
-        appinfoDao.updateAppInfo(appinfo);
+    public void update2(Appinfo appinfo) {
+        appinfoDao.update2(appinfo);
     }
 
 }

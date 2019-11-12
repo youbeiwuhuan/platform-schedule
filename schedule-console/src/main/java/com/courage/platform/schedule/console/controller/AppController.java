@@ -112,7 +112,7 @@ public class AppController {
         appinfo.setRemark(remark);
         appinfo.setUpdateTime(new Date());
 
-        appInfoService.update(appinfo);
+        appInfoService.update2(appinfo);
 
         Map map = new HashMap();
         map.put("code", "200");

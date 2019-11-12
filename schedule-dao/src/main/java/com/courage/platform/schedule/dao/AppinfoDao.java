@@ -21,6 +21,8 @@ public interface AppinfoDao {
 
     int updateAppInfo(Appinfo appInfo);
 
+    int update2(Appinfo appInfo);
+
     void deleteAppInfoByIds(List<String> appIds);
 
     List<Appinfo> findPage(Map map);
