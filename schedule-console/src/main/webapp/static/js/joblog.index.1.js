@@ -10,11 +10,10 @@ $(function () {
             type: "post",
             data: function (d) {
                 var obj = {};
-                obj.appName = $('#appName').val();
-                obj.jobName = $('#jobName').val();
                 obj.logStatus = $('#logStatus').val();
                 obj.start = d.start;
                 obj.length = d.length;
+                obj.jobId = $('#jobSelect').val();
                 return obj;
             }
         },

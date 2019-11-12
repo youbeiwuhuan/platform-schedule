@@ -100,7 +100,7 @@
 <script src="${request.contextPath}/static/plugins/layer/layer.js?t=20181226"></script>
 
 <!-- custom -->
-<script src="${request.contextPath}/static/js/joblog.index.1.js?t=2019ssyourxx133m019sss1123aaaa9112112"></script>
+<script src="${request.contextPath}/static/js/joblog.index.1.js?t=201919291291"></script>
 
 <script type="text/javascript">
     $('#jobSelect').selectpicker({
