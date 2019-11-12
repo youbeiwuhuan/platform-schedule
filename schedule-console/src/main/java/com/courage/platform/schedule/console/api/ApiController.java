@@ -1,11 +1,13 @@
 package com.courage.platform.schedule.console.api;
 
+import com.courage.platform.schedule.console.service.PlatformNamesrvService;
+import com.courage.platform.schedule.dao.domain.PlatformNamesrv;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,18 +20,15 @@ public class ApiController {
 
     private final static Logger logger = LoggerFactory.getLogger(ApiController.class);
 
+    @Autowired
+    private PlatformNamesrvService platformNamesrvService;
+
     @RequestMapping("/address")
     public Object scheduleserver() {
         Map map = new HashMap<>();
         map.put("code", 0);
 
-        List<Map> data = new ArrayList<>();
-        Map ele = new HashMap();
-        ele.put("type", "0");
-        ele.put("namesrvIp", "127.0.0.1:12999");
-        ele.put("status", "0");
-
-        data.add(ele);
+        List<PlatformNamesrv> data = platformNamesrvService.findAll();
 
         map.put("data", data);
 
