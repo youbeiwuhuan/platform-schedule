@@ -36,6 +36,7 @@ public class ScheduleJobInfoService {
     @PostConstruct
     public void start() {
         this.scheduleRpcClient = new ScheduleRpcClient();
+        this.scheduleRpcClient.start();
     }
 
     public List<ScheduleJobInfo> getPage(Map<String, Object> param, String start, Integer pageSize) {
