@@ -44,7 +44,11 @@ public class ScheduleController {
     }
 
     @RequestMapping("/joblog")
-    public String loginfo() {
+    public String loginfo(Model model, HttpServletRequest request) {
+        String jobId = request.getParameter("jobId");
+        List<ScheduleJobInfo> scheduleJobInfoList = scheduleJobInfoService.findAll();
+        model.addAttribute("scheduleJobInfoList", scheduleJobInfoList);
+        model.addAttribute("jobId", jobId);
         return "schedule/loglist.index";
     }
 

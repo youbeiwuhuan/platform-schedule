@@ -87,6 +87,10 @@ public class ScheduleJobInfoService {
         return flag;
     }
 
+    public List<ScheduleJobInfo> findAll() {
+        return scheduleJobInfoDao.findAll();
+    }
+
     @PreDestroy
     public void shutdown() {
         if (this.scheduleRpcClient != null) {

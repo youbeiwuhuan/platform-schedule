@@ -5,6 +5,7 @@
 	<@netCommon.commonStyle />
     <!-- DataTables -->
     <link rel="stylesheet" href="${request.contextPath}/static/adminlte/plugins/datatables/dataTables.bootstrap.css">
+    <link rel="stylesheet" href="${request.contextPath}/static/plugins/select/css/bootstrap-select.css">
     <title>任务调度系统-调度日志</title>
 </head>
 <body class="hold-transition skin-purple sidebar-mini">
@@ -25,8 +26,13 @@
             <div class="row">
                 <div class="col-xs-3">
                     <div class="input-group">
-                        <span class="input-group-addon">应用名称</span>
-                        <input type="text" class="form-control" id="appName" autocomplete="off">
+                        <span class="input-group-addon">任务名称</span>
+                        <select id="jobSelect" class="form-control" data-live-search="true" data-live-search-placeholder="Search" data-actions-box="true" name="jobId">
+                            <option value="">全部</option>
+                            <#list scheduleJobInfoList as scheduleJobInfo>
+                                <option value="${scheduleJobInfo.id}" <#if jobId==scheduleJobInfo.id>selected</#if> >${scheduleJobInfo.jobName}</option>
+                            </#list>
+                        </select>
                     </div>
                 </div>
                 <div class="col-xs-2">
@@ -88,12 +94,20 @@
 <!-- moment -->
 <script src="${request.contextPath}/static/adminlte/plugins/daterangepicker/moment.min.js"></script>
 
+<script src="${request.contextPath}/static/plugins/select/js/bootstrap-select.js"></script>
+
 <!-- 弹窗 -->
 <script src="${request.contextPath}/static/plugins/layer/layer.js?t=20181226"></script>
 
 <!-- custom -->
 <script src="${request.contextPath}/static/js/joblog.index.1.js?t=2019ssyourxx133m019sss1123aaaa9112112"></script>
 
+<script type="text/javascript">
+    $('#jobSelect').selectpicker({
+        liveSearch: true,
+        maxOptions: 1
+    });
+</script>
 
 </body>
 </html>

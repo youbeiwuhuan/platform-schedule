@@ -20,4 +20,5 @@ public interface ScheduleJobLogDao {
 
     ScheduleJobLog findById(Long id);
 
+
 }
