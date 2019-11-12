@@ -62,7 +62,7 @@ public class AppInfoService {
     }
 
     public void update(Appinfo appinfo) {
-        
+        appinfoDao.updateAppInfo(appinfo);
     }
 
 }

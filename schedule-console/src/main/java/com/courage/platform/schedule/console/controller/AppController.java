@@ -67,20 +67,26 @@ public class AppController {
     @RequestMapping("/applist/doAdd")
     @ResponseBody
     public Map doAdd(HttpServletRequest httpServletRequest) {
-        String appName = httpServletRequest.getParameter("appName");
-        String remark = httpServletRequest.getParameter("remark");
-        logger.info("appName:{} remark:{}", new Object[]{appName, remark});
+        try {
+            String appName = httpServletRequest.getParameter("appName");
+            String remark = httpServletRequest.getParameter("remark");
+            logger.info("appName:{} remark:{}", new Object[]{appName, remark});
 
-        Appinfo appinfo = new Appinfo();
-        appinfo.setAppName(appName);
-        appinfo.setRemark(remark);
-        appinfo.setAppKey(Md5Util.getMd5Code(appName + UUID.randomUUID().toString()));
+            Appinfo appinfo = new Appinfo();
+            appinfo.setAppName(appName);
+            appinfo.setRemark(remark);
+            appinfo.setAppKey(Md5Util.getMd5Code(appName + UUID.randomUUID().toString()));
 
-        appInfoService.addAppInfo(appinfo);
+            appInfoService.addAppInfo(appinfo);
 
-        Map map = new HashMap();
-        map.put("code", "200");
-        return map;
+            Map map = new HashMap();
+            map.put("code", "200");
+            return map;
+        } catch (Exception e) {
+            Map map = new HashMap();
+            map.put("code", "500");
+            return map;
+        }
     }
 
     //编辑页面
