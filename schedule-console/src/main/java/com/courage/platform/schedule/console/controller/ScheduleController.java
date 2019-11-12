@@ -162,6 +162,18 @@ public class ScheduleController {
         return map;
     }
 
+    /*
+       立刻执行
+     */
+    @RequestMapping("/executeAtOnce")
+    @ResponseBody
+    public Map executeAtOnce(HttpServletRequest httpServletRequest) {
+        String jobId = httpServletRequest.getParameter("jobId");
+        scheduleJobInfoService.executeAtOnce(jobId);
+        Map map = new HashMap();
+        map.put("code", "200");
+        return map;
+    }
 
     @RequestMapping("/joblog/pageList")
     @ResponseBody

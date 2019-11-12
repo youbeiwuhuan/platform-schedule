@@ -47,4 +47,9 @@ public class ScheduleJobInfoService {
         scheduleJobInfoDao.delete(map);
     }
 
+    public void executeAtOnce(String jobId) {
+        logger.info("立刻执行任务id:" + jobId);
+
+    }
+
 }
