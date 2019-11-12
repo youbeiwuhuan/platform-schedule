@@ -65,7 +65,8 @@ public class ScheduleJobInfoService {
         scheduleJobInfoDao.delete(map);
     }
 
-    public void executeAtOnce(String jobId) {
+    public boolean executeAtOnce(String jobId) {
+        boolean flag = true;
         logger.info("立刻执行任务id:" + jobId);
         List<PlatformNamesrv> platformNamesrvList = platformNamesrvService.findAll();
         if (CollectionUtils.isNotEmpty(platformNamesrvList)) {
@@ -78,10 +79,12 @@ public class ScheduleJobInfoService {
                         scheduleRpcClient.send(platformNamesrv.getNamesrvIp(), CommandEnum.OTHER_TRIGGER_SCHEDULE_TASK_CMD, otherTriggerCommand);
                     } catch (Throwable throwable) {
                         logger.error("send error:", throwable);
+                        flag = false;
                     }
                 }
             }
         }
+        return flag;
     }
 
     @PreDestroy

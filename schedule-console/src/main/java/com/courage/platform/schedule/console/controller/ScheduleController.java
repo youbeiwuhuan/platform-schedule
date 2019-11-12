@@ -169,10 +169,16 @@ public class ScheduleController {
     @ResponseBody
     public Map executeAtOnce(HttpServletRequest httpServletRequest) {
         String jobId = httpServletRequest.getParameter("jobId");
-        scheduleJobInfoService.executeAtOnce(jobId);
-        Map map = new HashMap();
-        map.put("code", "200");
-        return map;
+        boolean flag = scheduleJobInfoService.executeAtOnce(jobId);
+        if (flag) {
+            Map map = new HashMap();
+            map.put("code", "200");
+            return map;
+        } else {
+            Map map = new HashMap();
+            map.put("code", "500");
+            return map;
+        }
     }
 
     @RequestMapping("/joblog/pageList")
