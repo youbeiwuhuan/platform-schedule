@@ -40,6 +40,9 @@
                 <div class="col-xs-1">
                     <button class="btn btn-block btn-info" id="searchBtn">查询</button>
                 </div>
+                <div class="col-xs-1">
+                    <button class="btn btn-block btn-success add" type="button" onclick="toAddAppPage()">新增</button>
+                </div>
             </div>
 
             <div class="row" style="margin-top: 5px;">
@@ -51,9 +54,10 @@
                                 <tr>
                                     <th name="appId">应用编号</th>
                                     <th name="appName">应用名</th>
+                                    <th name="status">状态</th>
+                                    <th name="appKey">appkey</th>
                                     <th name="remark">应用描述</th>
                                     <th name="createTime">创建时间</th>
-                                    <th name="updateTime">修改时间</th>
                                     <th>操作</th>
                                 </tr>
                                 </thead>
@@ -83,7 +87,7 @@
 <script src="${request.contextPath}/static/plugins/layer/layer.js?t=20181226"></script>
 
 <!-- custom -->
-<script src="${request.contextPath}/static/js/applist.index.1.js"></script>
+<script src="${request.contextPath}/static/js/applist.index.1.js?t=20191112"></script>
 
 </body>
 </html>

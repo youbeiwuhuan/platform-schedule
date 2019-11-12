@@ -5,19 +5,25 @@
 	<@netCommon.commonStyle />
     <!-- DataTables -->
     <link rel="stylesheet" href="${request.contextPath}/static/adminlte/plugins/datatables/dataTables.bootstrap.css">
-    <title>添加应用</title>
+    <title>编辑应用</title>
 </head>
 
 <body>
 <div>
     <div class="modal-body">
-        <form class="form-horizontal form" role="form" id="appaddForm">
+        <form class="form-horizontal form" role="form" id="appupdateForm">
             <div class="form-group">
                 <label for="lastname" class="col-sm-2 control-label">AppName<font color="red">*</font></label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control required" name="appName" placeholder="应用名" autocomplete="off"
                            style="width: 500px;">
                 </div>
+            </div>
+            <div class="form-group">
+                <label for="lastname" class="col-sm-2 control-label">应用编号<font
+                        color="red">*</font></label>
+                <div class="col-sm-10"><input type="text" class="form-control required" name="appId" autocomplete="off"
+                                              placeholder="" style="width: 500px;"></div>
             </div>
             <div class="form-group">
                 <label for="lastname" class="col-sm-2 control-label">描述</label>
@@ -69,12 +75,20 @@
             appName: {
                 required: true,
                 myValid01: true
+            },
+            appId: {
+                required: true,
+                rangelength: [4, 20]
             }
         },
         messages: {
             appName: {
                 required: '请输入' + "AppName",
                 myValid01: 'AppName含有特殊字符'
+            },
+            appId: {
+                required: '请输入' + "应用编号",
+                rangelength: 'AppId必须大于4'
             }
         },
         highlight: function (element) {
@@ -89,12 +103,12 @@
         },
         submitHandler: function (form) {
             //提交请求
-            $.post(base_url + "/applist/doAdd",  $("#appaddForm").serialize(), function(data, status) {
+            $.post(base_url + "/applist/doUpdate",  $("#appupdateForm").serialize(), function(data, status) {
                 if (data.code == "200") {
                     layer.open({
                         title: '系统提示' ,
                         btn: [ '确定' ],
-                        content: '新增成功' ,
+                        content: '编辑成功' ,
                         icon: '1',
                         end: function(layero, index){
                             window.parent.location.reload();

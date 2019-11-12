@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,8 @@ import java.util.Map;
 public class AppInfoService {
 
     private static final Logger logger = LoggerFactory.getLogger(AppInfoService.class);
+
+    private static final int APP_ID_STEP = 1000;
 
     @Autowired
     private AppinfoDao appinfoDao;
@@ -37,6 +40,21 @@ public class AppInfoService {
 
     public Integer count(Map param) {
         return appinfoDao.count(param);
+    }
+
+    public Integer getMaxAppId() {
+        Integer maxAppId = appinfoDao.getMaxAppId();
+        if (maxAppId == null) {
+            return APP_ID_STEP + 1;
+        }
+        return maxAppId + 1;
+    }
+
+    public void addAppInfo(Appinfo appinfo) {
+        appinfo.setAppId(String.valueOf(getMaxAppId()));
+        appinfo.setCreateTime(new Date());
+        appinfo.setUpdateTime(new Date());
+        appinfoDao.insertAppInfo(appinfo);
     }
 
 }

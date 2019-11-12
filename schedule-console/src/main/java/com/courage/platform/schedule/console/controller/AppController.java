@@ -1,6 +1,7 @@
 package com.courage.platform.schedule.console.controller;
 
 import com.courage.platform.schedule.console.service.AppInfoService;
+import com.courage.platform.schedule.console.util.Md5Util;
 import com.courage.platform.schedule.dao.domain.Appinfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /*
    应用管理
@@ -67,10 +69,17 @@ public class AppController {
     @RequestMapping("/applist/doAdd")
     @ResponseBody
     public Map doAdd(HttpServletRequest httpServletRequest) {
-        String appId = httpServletRequest.getParameter("appId");
         String appName = httpServletRequest.getParameter("appName");
         String remark = httpServletRequest.getParameter("remark");
-        logger.info("appId:{} appName:{} remark:{}", new Object[]{appId, appName, remark});
+        logger.info("appName:{} remark:{}", new Object[]{appName, remark});
+
+        Appinfo appinfo = new Appinfo();
+        appinfo.setAppName(appName);
+        appinfo.setRemark(remark);
+        appinfo.setAppKey(Md5Util.getMd5Code(appName + UUID.randomUUID().toString()));
+
+        appInfoService.addAppInfo(appinfo);
+
         Map map = new HashMap();
         map.put("code", "200");
         return map;

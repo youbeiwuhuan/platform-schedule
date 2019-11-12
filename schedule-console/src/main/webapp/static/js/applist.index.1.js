@@ -25,7 +25,7 @@ $(function () {
                 "data": 'appId',
                 "bSortable": false,
                 "visible": true,
-                "width": '10%'
+                "width": '8%'
             },
             {
                 "data": 'appName',
@@ -36,19 +36,34 @@ $(function () {
                 }
             },
             {
+                "data": 'status',
+                "visible": true,
+                "width": '8%',
+                "render": function (data, type, row) {
+                    var html = data;
+                    if (data == 0) {
+                        html = '<span style="color: green">' + '正常' + '</span>';
+                    } else if (data == 1) {
+                        html = '<span style="color: grey">' + '失效' + '</span>';
+                    } else {
+                        html = '';
+                    }
+                    return html;
+                }
+            },
+            {
+                "data": 'appKey',
+                "visible": true,
+                "width": '15%'
+            },
+            {
                 "data": 'remark',
                 "visible": true,
                 "width": '20%'
             },
             {
+                "width": '13%',
                 "data": 'createTime',
-                "visible": true,
-                "render": function (data, type, row) {
-                    return data ? moment(new Date(data)).format("YYYY-MM-DD HH:mm:ss") : "";
-                }
-            },
-            {
-                "data": 'updateTime',
                 "visible": true,
                 "render": function (data, type, row) {
                     return data ? moment(new Date(data)).format("YYYY-MM-DD HH:mm:ss") : "";
@@ -58,10 +73,8 @@ $(function () {
                 "data": 'operate',
                 "visible": true,
                 "render": function (data, type, row) {
-                    var btn = '<button class="btn btn-warning btn-xs" type="button" onclick="toAddAppPage()">添加</button> ';
-                    var msgBtn = '<button class="btn btn-success btn-xs" type="button" onclick="alertMsg()">消息</button> ';
-                    var tipBtn = '<button class="btn btn-primary btn-xs" type="button" onclick="alertTip()">tip</button> ';
-                    return btn + msgBtn + tipBtn;
+                    var btn = '<button class="btn btn-warning btn-xs" type="button" onclick="toUpdateAppPage()">编辑</button> ';
+                    return btn;
                 }
             }
         ],
@@ -100,11 +113,22 @@ $(function () {
     toAddAppPage = function () {
         layer.open({
             type: 2,
-            title: '编辑应用',
+            title: '添加应用',
             maxmin: true,
             shadeClose: false, //点击遮罩关闭层
             area: ['790px', '550px'],
             content: base_url + '/applist/addapp'
+        });
+    };
+
+    toUpdateAppPage = function () {
+        layer.open({
+            type: 2,
+            title: '编辑应用',
+            maxmin: true,
+            shadeClose: false, //点击遮罩关闭层
+            area: ['790px', '550px'],
+            content: base_url + '/applist/updateapppage'
         });
     };
 

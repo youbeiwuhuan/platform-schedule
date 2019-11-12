@@ -24,5 +24,7 @@ public interface AppinfoDao {
     List<Appinfo> findPage(Map map);
 
     Integer count(Map map);
-    
+
+    Integer getMaxAppId();
+
 }

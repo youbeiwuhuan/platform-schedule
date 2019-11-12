@@ -104,4 +104,8 @@
         <include refid="queryCondition"/>
     </select>
 
+    <select id="getMaxAppId" resultType="java.lang.Integer">
+        select  max(app_id)  from t_platform_appinfo
+    </select>
+
 </mapper>
