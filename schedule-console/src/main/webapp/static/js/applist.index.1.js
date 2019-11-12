@@ -70,10 +70,10 @@ $(function () {
                 }
             },
             {
-                "data": 'operate',
+                "data": 'id',
                 "visible": true,
                 "render": function (data, type, row) {
-                    var btn = '<button class="btn btn-warning btn-xs" type="button" onclick="toUpdateAppPage()">编辑</button> ';
+                    var btn = '<button class="btn btn-warning btn-xs" type="button" onclick="toUpdateAppPage(' + data + ')">编辑</button> ';
                     return btn;
                 }
             }
@@ -121,14 +121,14 @@ $(function () {
         });
     };
 
-    toUpdateAppPage = function () {
+    toUpdateAppPage = function (id) {
         layer.open({
             type: 2,
             title: '编辑应用',
             maxmin: true,
             shadeClose: false, //点击遮罩关闭层
             area: ['790px', '550px'],
-            content: base_url + '/applist/updateapppage'
+            content: base_url + '/applist/updateapppage?id=' + id
         });
     };
 

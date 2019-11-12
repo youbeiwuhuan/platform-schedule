@@ -108,4 +108,8 @@
         select  max(app_id)  from t_platform_appinfo
     </select>
 
+    <update id="update" parameterType="com.courage.platform.schedule.dao.domain.Appinfo">
+        update t_platform_appinfo t set t.app_name = #{appName} , t.remark = #{remark} , t.update_time = now() where t.id = #{id}
+    </update>
+
 </mapper>

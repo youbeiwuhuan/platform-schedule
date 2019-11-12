@@ -15,21 +15,25 @@
             <div class="form-group">
                 <label for="lastname" class="col-sm-2 control-label">AppName<font color="red">*</font></label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control required" name="appName" placeholder="应用名" autocomplete="off"
-                           style="width: 500px;">
+                    <input type="text" class="form-control required" name="appName" placeholder="应用名" autocomplete="off" value="${appinfo.appName}" style="width: 500px;">
+                    <input type="hidden" name="id" placeholder="应用名" value="${appinfo.id}">
                 </div>
             </div>
             <div class="form-group">
-                <label for="lastname" class="col-sm-2 control-label">应用编号<font
-                        color="red">*</font></label>
-                <div class="col-sm-10"><input type="text" class="form-control required" name="appId" autocomplete="off"
+                <label for="lastname" class="col-sm-2 control-label">应用编号</label>
+                <div class="col-sm-10"><input type="text" class="form-control required" name="appId" autocomplete="off" value="${appinfo.appId}" disabled
+                                              placeholder="" style="width: 500px;"></div>
+            </div>
+            <div class="form-group">
+                <label for="lastname" class="col-sm-2 control-label">appKey</label>
+                <div class="col-sm-10"><input type="text" class="form-control required" name="appId" autocomplete="off" value="${appinfo.appKey}" disabled
                                               placeholder="" style="width: 500px;"></div>
             </div>
             <div class="form-group">
                 <label for="lastname" class="col-sm-2 control-label">描述</label>
                 <div class="col-sm-10">
                     <textarea class="form-control" placeholder=""
-                              style="width: 500px;height: 150px;" name="remark"></textarea>
+                              style="width: 500px;height: 150px;" name="remark">${appinfo.remark}</textarea>
                 </div>
             </div>
             <hr>
@@ -67,7 +71,7 @@
         return this.optional(element) || valid.test(value);
     }, 'AppName必须是字母数字组合');
 
-    var addModalValidate = $("#appaddForm").validate({
+    var addModalValidate = $("#appupdateForm").validate({
         errorElement: 'span',
         errorClass: 'help-block',
         focusInvalid: true,
@@ -85,10 +89,6 @@
             appName: {
                 required: '请输入' + "AppName",
                 myValid01: 'AppName含有特殊字符'
-            },
-            appId: {
-                required: '请输入' + "应用编号",
-                rangelength: 'AppId必须大于4'
             }
         },
         highlight: function (element) {

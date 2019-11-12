@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -84,5 +85,36 @@ public class AppController {
         map.put("code", "200");
         return map;
     }
+
+    //编辑页面
+    @RequestMapping("/applist/updateapppage")
+    public String updateapppage(HttpServletRequest httpServletRequest, Model model) {
+        String id = httpServletRequest.getParameter("id");
+        Appinfo appinfo = appInfoService.getByAppId(id);
+        model.addAttribute("appinfo", appinfo);
+        return "appinfo/appupdate";
+    }
+
+    @RequestMapping("/applist/doUpdate")
+    @ResponseBody
+    public Map doUpdate(HttpServletRequest httpServletRequest) {
+        String id = httpServletRequest.getParameter("id");
+        String appName = httpServletRequest.getParameter("appName");
+        String remark = httpServletRequest.getParameter("remark");
+        logger.info("appName:{} remark:{}", new Object[]{appName, remark});
+
+        Appinfo appinfo = new Appinfo();
+        appinfo.setId(Integer.valueOf(id));
+        appinfo.setAppName(appName);
+        appinfo.setRemark(remark);
+        appinfo.setAppKey(Md5Util.getMd5Code(appName + UUID.randomUUID().toString()));
+
+        appInfoService.addAppInfo(appinfo);
+
+        Map map = new HashMap();
+        map.put("code", "200");
+        return map;
+    }
+
 
 }
