@@ -24,6 +24,12 @@
 		t.update_time
 	</sql>
 
+    <sql id="queryCondition">
+        <if test='appName != null and appName !=""'>
+                and app_name like '%${appName}%'
+        </if>
+    </sql>
+
     <select id="findAppinfoByAppId" parameterType="java.lang.String" resultMap="appinfo">
         SELECT <include refid="Base_Column_List" />
         FROM t_platform_appinfo AS t
@@ -81,5 +87,19 @@
             #{appId}
         </foreach>
     </update>
+
+    <select id="findPage" parameterType="java.util.HashMap" resultMap="appinfo">
+        SELECT <include refid="Base_Column_List" />
+        FROM t_platform_appinfo AS t
+        ORDER BY t.id desc
+        limit #{start},#{pageSize}
+    </select>
+
+    <select id="count" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+        SELECT count(1)
+        FROM t_platform_appinfo AS t
+        where 1 = 1
+        <include refid="queryCondition"/>
+    </select>
 
 </mapper>

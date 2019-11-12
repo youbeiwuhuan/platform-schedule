@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Repository
@@ -20,4 +21,8 @@ public interface AppinfoDao {
 
     void deleteAppInfoByIds(List<String> appIds);
 
+    List<Appinfo> findPage(Map map);
+
+    Integer count(Map map);
+    
 }

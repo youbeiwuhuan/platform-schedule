@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zhangyong on 2019/11/5.
@@ -26,6 +27,16 @@ public class AppInfoService {
 
     public Appinfo getByAppId(String id) {
         return appinfoDao.findAppinfoByAppId(id);
+    }
+
+    public List<Appinfo> getPage(Map param, String start, Integer pageSize) {
+        param.put("start", Integer.valueOf(start));
+        param.put("pageSize", pageSize);
+        return appinfoDao.findPage(param);
+    }
+
+    public Integer count(Map param) {
+        return appinfoDao.count(param);
     }
 
 }

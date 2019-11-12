@@ -29,12 +29,14 @@
                         <input type="text" class="form-control" id="appName" autocomplete="off">
                     </div>
                 </div>
+                <!--
                 <div class="col-xs-3">
                     <div class="input-group">
                         <span class="input-group-addon">应用编号</span>
                         <input type="text" class="form-control" id="appId" autocomplete="off">
                     </div>
                 </div>
+                -->
                 <div class="col-xs-1">
                     <button class="btn btn-block btn-info" id="searchBtn">查询</button>
                 </div>
