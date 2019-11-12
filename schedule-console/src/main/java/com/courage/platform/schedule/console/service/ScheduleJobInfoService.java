@@ -1,12 +1,19 @@
 package com.courage.platform.schedule.console.service;
 
 import com.courage.platform.schedule.dao.ScheduleJobInfoDao;
+import com.courage.platform.schedule.dao.domain.PlatformNamesrv;
 import com.courage.platform.schedule.dao.domain.ScheduleJobInfo;
+import com.courage.platform.schedule.rpc.ScheduleRpcClient;
+import com.courage.platform.schedule.rpc.protocol.CommandEnum;
+import com.courage.platform.schedule.rpc.protocol.OtherTriggerCommand;
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +27,16 @@ public class ScheduleJobInfoService {
 
     @Autowired
     private ScheduleJobInfoDao scheduleJobInfoDao;
+
+    @Autowired
+    private PlatformNamesrvService platformNamesrvService;
+
+    private ScheduleRpcClient scheduleRpcClient;
+
+    @PostConstruct
+    public void start() {
+        this.scheduleRpcClient = new ScheduleRpcClient();
+    }
 
     public List<ScheduleJobInfo> getPage(Map<String, Object> param, String start, Integer pageSize) {
         param.put("start", Integer.valueOf(start));
@@ -49,7 +66,28 @@ public class ScheduleJobInfoService {
 
     public void executeAtOnce(String jobId) {
         logger.info("立刻执行任务id:" + jobId);
+        List<PlatformNamesrv> platformNamesrvList = platformNamesrvService.findAll();
+        if (CollectionUtils.isNotEmpty(platformNamesrvList)) {
+            OtherTriggerCommand otherTriggerCommand = new OtherTriggerCommand();
+            otherTriggerCommand.setJobId(Long.valueOf(jobId));
+            for (PlatformNamesrv platformNamesrv : platformNamesrvList) {
+                //向master发送命令
+                if (platformNamesrv.getRole().equals(0)) {
+                    try {
+                        scheduleRpcClient.send(platformNamesrv.getNamesrvIp(), CommandEnum.OTHER_TRIGGER_SCHEDULE_TASK_CMD, otherTriggerCommand);
+                    } catch (Throwable throwable) {
+                        logger.error("send error:", throwable);
+                    }
+                }
+            }
+        }
+    }
 
+    @PreDestroy
+    public void shutdown() {
+        if (this.scheduleRpcClient != null) {
+            this.scheduleRpcClient.shutdown();
+        }
     }
 
 }
