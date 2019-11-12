@@ -91,6 +91,8 @@
     <select id="findPage" parameterType="java.util.HashMap" resultMap="appinfo">
         SELECT <include refid="Base_Column_List" />
         FROM t_platform_appinfo AS t
+        where 1 = 1
+        <include refid="queryCondition"/>
         ORDER BY t.id desc
         limit #{start},#{pageSize}
     </select>
