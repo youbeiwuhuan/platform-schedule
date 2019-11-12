@@ -160,6 +160,34 @@ $(function () {
         });
     };
 
+    toexecuteAtonce = function (jobId) {
+        layer.confirm('您确定立刻执行该任务吗?', {btn: ['确定', '取消'], title: "提示"}, function () {
+            $.post(base_url + "/executeAtOnce", {
+                jobId: jobId,
+                t: new Date().getTime()
+            }, function (data, status) {
+                if (data.code == "200") {
+                    layer.open({
+                        title: '系统提示',
+                        btn: ['确定'],
+                        content: '执行成功',
+                        icon: '1',
+                        end: function (layero, index) {
+
+                        }
+                    });
+                } else {
+                    layer.open({
+                        title: '系统提示',
+                        btn: ['确定'],
+                        content: '执行失败',
+                        icon: '2'
+                    });
+                }
+            });
+        });
+    }
+
     deleteJob = function (jobId) {
         layer.confirm('您确定删除该任务吗?', {btn: ['确定', '取消'], title: "提示"}, function () {
             $.post(base_url + "/deleteJob", {
