@@ -16,9 +16,11 @@ public class ScheduleJobLog {
 
     private Integer triggerStatus;
 
+    private String triggerMessage;
+
     private Integer callbackStatus;
 
-    private String message;
+    private String callbackMessage;
 
     private Date triggerTime;
 
@@ -60,14 +62,6 @@ public class ScheduleJobLog {
         this.appId = appId;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     public Date getTriggerTime() {
         return triggerTime;
     }
@@ -106,6 +100,22 @@ public class ScheduleJobLog {
 
     public void setTriggerStatus(Integer triggerStatus) {
         this.triggerStatus = triggerStatus;
+    }
+
+    public String getCallbackMessage() {
+        return callbackMessage;
+    }
+
+    public void setCallbackMessage(String callbackMessage) {
+        this.callbackMessage = callbackMessage;
+    }
+
+    public String getTriggerMessage() {
+        return triggerMessage;
+    }
+
+    public void setTriggerMessage(String triggerMessage) {
+        this.triggerMessage = triggerMessage;
     }
 
 }

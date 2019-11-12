@@ -31,10 +31,10 @@ public class CallbackResultProcessor implements PlatformNettyRequestProcessor {
         //修改log状态
         Map map = new HashMap<>();
         map.put("id", callbackCommand.getJobLogId());
-        map.put("message", callbackCommand.getHandleMsg());
+        map.put("callbackMessage", callbackCommand.getHandleMsg());
         map.put("callbackTime", callbackCommand.getHandleTime());
         map.put("callbackStatus", callbackCommand.getHandleCode());
-        scheduleJobLogDao.update(map);
+        scheduleJobLogDao.updateCallback(map);
         PlatformRemotingCommand response = new PlatformRemotingCommand();
         return response;
     }

@@ -63,6 +63,7 @@ public class ScheduleTriggerService {
             scheduleJobLog.setTriggerTime(new Date());
             scheduleJobLog.setTriggerStatus(TriggerStatusEnum.INITIALIZE.getId());
 
+            String triggerMessage = StringUtils.EMPTY;
             List<RpcChannelSession> rpcChannelSessionList = rpcChannelManager.getChannelSessionListByAppName(scheduleJobInfo.getAppName());
             if (CollectionUtils.isNotEmpty(rpcChannelSessionList)) {
                 Collections.shuffle(rpcChannelSessionList);
@@ -79,19 +80,17 @@ public class ScheduleTriggerService {
                 PlatformRemotingCommand response = scheduleRpcServer.getNodePlatformRemotingServer().invokeSync(rpcChannelSession.getChannel(), platformRemotingCommand, 5000L);
                 if (response != null && response.getCode() == PlatformRemotingSysResponseCode.SUCCESS) {
                     scheduleJobLog.setTriggerStatus(TriggerStatusEnum.SUCCESS.getId());
-                    logger.info("任务id:" + id + " 任务名:" + scheduleJobInfo.getJobName() + " 触发成功");
+                    triggerMessage = "任务id:" + id + " 日志id:" + id + " 任务名:" + scheduleJobInfo.getJobName() + " 调用远程地址:" + rpcChannelSession.getChannel().remoteAddress() + " 触发成功";
                 } else {
                     scheduleJobLog.setTriggerStatus(TriggerStatusEnum.FAIL.getId());
-                    String message = " 调用client失败,remoteAddr:" + rpcChannelSession.getChannel().remoteAddress().toString();
-                    scheduleJobLog.setMessage(message);
-                    logger.error("任务id:" + id + " 任务名:" + scheduleJobInfo.getJobName() + message);
+                    triggerMessage = " 调用client失败,remoteAddr:" + rpcChannelSession.getChannel().remoteAddress().toString();
                 }
             } else {
-                String message = " 应用没有链接到调度服务中心";
+                triggerMessage = " 应用没有链接到调度服务中心";
                 scheduleJobLog.setTriggerStatus(TriggerStatusEnum.FAIL.getId());
-                scheduleJobLog.setMessage(message);
-                logger.warn("任务:" + scheduleJobInfo.getJobName() + message);
             }
+            logger.info(triggerMessage);
+            scheduleJobLog.setTriggerMessage(triggerMessage);
             scheduleJobLogDao.insert(scheduleJobLog);
         } catch (Exception e) {
             logger.error("doRpcTrigger error:", e);

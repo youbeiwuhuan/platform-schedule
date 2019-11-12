@@ -8,7 +8,9 @@
         <result column="app_id" property="appId" />
         <result column="trigger_status" property="triggerStatus"/>
         <result column="trigger_time" property="triggerTime" />
+        <result column="trigger_message" property="triggerMessage" />
         <result column="callback_status" property="callbackStatus" />
+        <result column="callback_message" property="callbackMessage" />
         <result column="callback_time" property="callbackTime" />
         <result column="message" property="message" />
         <result column="create_time" property="createTime" />
@@ -23,7 +25,8 @@
         `trigger_time`,
         `callback_status`,
         `callback_time`,
-        `message`,
+        `trigger_message`,
+        `callback_message`,
         `create_time`,
         `update_time`
 	</sql>
@@ -70,12 +73,12 @@
         )
     </insert>
 
-    <update id="update" parameterType="map">
+    <update id="updateCallback" parameterType="map">
         update t_schedule_job_log
         set
         callback_time = #{callbackTime} ,
         callback_status = #{callbackStatus},
-        message = #{message},
+        callback_message = #{callbackMessage},
         update_time = now()
         where id = #{id}
     </update>

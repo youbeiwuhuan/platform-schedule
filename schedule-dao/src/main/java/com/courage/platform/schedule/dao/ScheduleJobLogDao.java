@@ -12,7 +12,7 @@ public interface ScheduleJobLogDao {
 
     Integer insert(ScheduleJobLog scheduleJobLog);
 
-    void update(Map map);
+    void updateCallback(Map map);
 
     List<ScheduleJobLog> findPage(Map map);
 
