@@ -37,6 +37,12 @@
         ORDER BY t.id ASC
     </select>
 
+    <select id="findAppinfoById" parameterType="java.lang.String" resultMap="appinfo">
+        SELECT <include refid="Base_Column_List" />
+        FROM t_platform_appinfo AS t
+        WHERE t.id = #{id}
+    </select>
+
     <select id="findAll"  resultMap="appinfo">
         SELECT <include refid="Base_Column_List" />
         FROM t_platform_appinfo AS t

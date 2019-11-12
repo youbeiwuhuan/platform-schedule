@@ -90,7 +90,7 @@ public class AppController {
     @RequestMapping("/applist/updateapppage")
     public String updateapppage(HttpServletRequest httpServletRequest, Model model) {
         String id = httpServletRequest.getParameter("id");
-        Appinfo appinfo = appInfoService.getByAppId(id);
+        Appinfo appinfo = appInfoService.getById(id);
         model.addAttribute("appinfo", appinfo);
         return "appinfo/appupdate";
     }

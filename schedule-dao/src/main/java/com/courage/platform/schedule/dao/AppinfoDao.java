@@ -13,6 +13,8 @@ public interface AppinfoDao {
 
     Appinfo findAppinfoByAppId(@Param("appId") String appId);
 
+    Appinfo findAppinfoById(@Param("id") String id);
+
     List<Appinfo> findAll();
 
     int insertAppInfo(Appinfo appInfo);

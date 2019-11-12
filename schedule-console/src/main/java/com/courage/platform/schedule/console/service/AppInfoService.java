@@ -32,6 +32,10 @@ public class AppInfoService {
         return appinfoDao.findAppinfoByAppId(id);
     }
 
+    public Appinfo getById(String id) {
+        return appinfoDao.findAppinfoById(id);
+    }
+
     public List<Appinfo> getPage(Map param, String start, Integer pageSize) {
         param.put("start", Integer.valueOf(start));
         param.put("pageSize", pageSize);
