@@ -22,7 +22,7 @@
     <bean id="registerProcessor"
           class="com.courage.platform.schedule.server.rpc.processor.RegisterProcessor"></bean>
 
-    <!-- 其他服务触发任务 -->
+    <!-- 控制台调用触发任务 -->
     <bean id="otherTriggerTaskProcessor" class="com.courage.platform.schedule.server.rpc.processor.RegulateProcessor"></bean>
 
     <bean id="channelListener" class="com.courage.platform.schedule.server.rpc.RpcChannelListener">
