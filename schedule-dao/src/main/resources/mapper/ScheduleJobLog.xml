@@ -73,7 +73,7 @@
         )
     </insert>
 
-    <update id="updateCallback" parameterType="map">
+    <update id="updateCallback" parameterType="java.util.HashMap">
         update t_schedule_job_log
         set
         callback_time = #{callbackTime} ,
