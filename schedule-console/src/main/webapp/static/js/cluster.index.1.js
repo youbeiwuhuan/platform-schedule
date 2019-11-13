@@ -122,27 +122,19 @@ $(function () {
             title: '编辑集群',
             maxmin: true,
             shadeClose: false, //点击遮罩关闭层
-            area: ['790px', '550px'],
-            content: base_url + '/applist/updateapppage?id=' + id
+            area: ['400px', '350px'],
+            content: base_url + '/applist/updatepage?id=' + id
         });
-    };
-
-    alertMsg = function () {
-        layer.msg('hello');
-    };
-
-    alertTip = function () {
-        layer.tips('Hello tips!', '#appId');
     };
 
     toAddNamesrvPage = function () {
         layer.open({
             type: 2,
-            title: '添加应用',
+            title: '添加集群',
             maxmin: true,
             shadeClose: false, //点击遮罩关闭层
-            area: ['790px', '550px'],
-            content: base_url + '/applist/addapp'
+            area: ['400px', '350px'],
+            content: base_url + '/cluster/addpage'
         });
     }
 

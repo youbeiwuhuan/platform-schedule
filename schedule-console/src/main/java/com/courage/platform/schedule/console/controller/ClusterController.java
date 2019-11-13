@@ -1,12 +1,12 @@
 package com.courage.platform.schedule.console.controller;
 
 import com.courage.platform.schedule.console.service.PlatformNamesrvService;
-import com.courage.platform.schedule.dao.domain.Appinfo;
 import com.courage.platform.schedule.dao.domain.PlatformNamesrv;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -50,6 +50,53 @@ public class ClusterController {
         maps.put("recordsFiltered", count);        // 总记录数
         maps.put("data", list);                    // 分页列表
         return maps;
+    }
+
+    @RequestMapping("/cluster/addpage")
+    public String addpage() {
+        return "cluster/addpage";
+    }
+
+    @RequestMapping("/cluster/updatepage")
+    public String updatepage(HttpServletRequest request, Model model) {
+        String id = request.getParameter("id");
+        PlatformNamesrv platformNamesrv = platformNamesrvService.getById(Long.valueOf(id));
+        model.addAttribute("platformNamesrv", platformNamesrv);
+        return "cluster/updatepage";
+    }
+
+    @RequestMapping("/cluster/doAdd")
+    @ResponseBody
+    public Map doAdd(HttpServletRequest httpServletRequest) {
+        String namesrvIp = httpServletRequest.getParameter("namesrvIp");
+        String role = httpServletRequest.getParameter("role");
+        Map map = new HashMap();
+        map.put("namesrvIp", namesrvIp);
+        map.put("role", role);
+
+        platformNamesrvService.insert(map);
+
+        Map result = new HashMap();
+        result.put("code", "200");
+        return result;
+    }
+
+    @RequestMapping("/cluster/doUpdate")
+    @ResponseBody
+    public Map doUpdate(HttpServletRequest httpServletRequest) {
+        String namesrvIp = httpServletRequest.getParameter("namesrvIp");
+        String role = httpServletRequest.getParameter("role");
+        String id = httpServletRequest.getParameter("id");
+        Map map = new HashMap();
+        map.put("namesrvIp", namesrvIp);
+        map.put("role", role);
+        map.put("id", id);
+
+        platformNamesrvService.update(map);
+
+        Map result = new HashMap();
+        result.put("code", "200");
+        return result;
     }
 
 }

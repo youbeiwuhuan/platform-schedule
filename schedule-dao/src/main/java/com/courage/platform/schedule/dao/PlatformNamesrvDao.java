@@ -20,4 +20,10 @@ public interface PlatformNamesrvDao {
 
     Integer count(Map map);
 
+    void insert(Map map);
+
+    void update(Map map);
+
+    PlatformNamesrv getById(Long id);
+
 }

@@ -15,7 +15,6 @@
     <sql id="namesrvColumnList">
 		t.id,
 		t.namesrv_ip,
-		t.status,
 		t.type,
 		t.status,
 		t.role,
@@ -51,5 +50,21 @@
         FROM t_platform_namesrv AS t
         where t.type = 0
     </select>
+    
+    <insert id="insert" parameterType="java.util.HashMap">
+        insert into t_platform_namesrv(namesrv_ip , type ,status , role  ,  create_time , update_time ) values (#{namesrvIp} , 0 , 0 , #{role} , now() ,now())
+    </insert>
+
+    <select id="getById" parameterType="java.lang.Long" resultMap="platformNamesrv">
+        SELECT <include refid="namesrvColumnList" />
+        FROM t_platform_namesrv AS t
+        where t.type = 0
+        and
+        t.id = #{id}
+    </select>
+
+    <update id="update" parameterType="java.util.HashMap">
+        update t_platform_namesrv t set t.namesrv_ip = #{namesrvIp} , t.role = #{role}  , t.update_time = now() where id = #{id}
+    </update>
 
 </mapper>

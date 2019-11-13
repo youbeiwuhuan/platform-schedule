@@ -51,4 +51,16 @@ public class PlatformNamesrvService {
         return platformNamesrvDao.count(param);
     }
 
+    public void insert(Map param) {
+        platformNamesrvDao.insert(param);
+    }
+
+    public PlatformNamesrv getById(Long id) {
+        return platformNamesrvDao.getById(id);
+    }
+
+    public void update(Map param) {
+
+    }
+
 }
