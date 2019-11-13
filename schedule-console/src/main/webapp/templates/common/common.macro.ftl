@@ -122,6 +122,10 @@
                     class="fa fa-circle-o text-light-blue"></i><span>集群管理</span></a>
             </li>
 
+            <li class="nav-click <#if pageName == "onlineapp">active</#if>"><a href="${request.contextPath}/onlineapp"><i
+                    class="fa fa-circle-o text-light-blue"></i><span>在线应用</span></a>
+            </li>
+
         </ul>
     </section>
     <!-- /.sidebar -->
