@@ -3,8 +3,10 @@ package com.courage.platform.schedule.console.service;
 import com.courage.platform.schedule.dao.PlatformNamesrvDao;
 import com.courage.platform.schedule.dao.domain.PlatformNamesrv;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 /**
@@ -12,6 +14,8 @@ import java.util.List;
  */
 @Service
 public class PlatformNamesrvService {
+
+    private volatile List<PlatformNamesrv> cache = null;
 
     @Autowired
     private PlatformNamesrvDao platformNamesrvDao;
@@ -24,4 +28,16 @@ public class PlatformNamesrvService {
         return platformNamesrvDao.findAll();
     }
 
+    //每30s加载一次任务信息
+    @Scheduled(initialDelay = 0, fixedRate = 30000)
+    @PostConstruct
+    public void load() {
+        List<PlatformNamesrv> list = platformNamesrvDao.findAll();
+        cache = list;
+    }
+
+    public List<PlatformNamesrv> getCache() {
+        return cache;
+    }
+    
 }

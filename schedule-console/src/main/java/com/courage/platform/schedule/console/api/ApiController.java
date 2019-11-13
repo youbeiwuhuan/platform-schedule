@@ -28,7 +28,7 @@ public class ApiController {
         Map map = new HashMap<>();
         map.put("code", 0);
 
-        List<PlatformNamesrv> data = platformNamesrvService.findAll();
+        List<PlatformNamesrv> data = platformNamesrvService.getCache();
 
         map.put("data", data);
 
