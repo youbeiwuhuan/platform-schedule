@@ -1,6 +1,8 @@
 package com.courage.platform.schedule.client.service;
 
 import com.alibaba.fastjson.JSON;
+import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingCommand;
+import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingSysResponseCode;
 import com.courage.platform.schedule.client.common.ScheduleUtils;
 import com.courage.platform.schedule.client.domain.ScheduleParam;
 import com.courage.platform.schedule.client.domain.ScheduleResult;
@@ -84,7 +86,10 @@ public class CallBackService implements Runnable {
             callbackCommand.setHandleCode(String.valueOf(handleCode));
             callbackCommand.setHandleMsg(handlerMsg);
 
-            scheduleRpcClient.send(remoteAddress, CommandEnum.CALLBACK_SCHEDULE_RESULT_CMD, callbackCommand);
+            PlatformRemotingCommand remotingCommand = scheduleRpcClient.send(remoteAddress, CommandEnum.CALLBACK_SCHEDULE_RESULT_CMD, callbackCommand);
+            if (remotingCommand == null || remotingCommand.getCode() != PlatformRemotingSysResponseCode.SUCCESS) {
+                logger.error("发送回调日志失败:" + JSON.toJSONString(callbackCommand) + " remoteAddress:" + remoteAddress);
+            }
         } catch (Throwable e) {
             logger.error("发送日志信息异常", e);
         }
