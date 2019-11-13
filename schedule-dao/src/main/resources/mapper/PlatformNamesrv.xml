@@ -68,7 +68,7 @@
     </update>
 
     <delete id="delete" parameterType="java.util.HashMap">
-        delete  from t_platform_namesrv t where t.id = #{id}
+        delete from t_platform_namesrv where id = #{id}
     </delete>
 
 </mapper>
