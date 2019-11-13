@@ -119,5 +119,9 @@ public class AppController {
         return map;
     }
 
+    @RequestMapping("/onlineapp")
+    public String onlineapp(HttpServletRequest httpServletRequest) {
+        return "appinfo/onlineapp";
+    }
 
 }

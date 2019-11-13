@@ -21,6 +21,6 @@ public class CommandEnum {
     public static final int REGISTER_CMD = 10003;
 
     //触发调度任务（客户端发起）
-    public static final int OTHER_TRIGGER_SCHEDULE_TASK_CMD = 10004;
+    public static final int CONSOLE_TRIGGER_SCHEDULE_TASK_CMD = 10004;
 
 }
