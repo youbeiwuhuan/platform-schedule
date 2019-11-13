@@ -86,8 +86,16 @@ public class CallBackService implements Runnable {
             callbackCommand.setHandleCode(String.valueOf(handleCode));
             callbackCommand.setHandleMsg(handlerMsg);
 
-            PlatformRemotingCommand remotingCommand = scheduleRpcClient.send(remoteAddress, CommandEnum.CALLBACK_SCHEDULE_RESULT_CMD, callbackCommand);
-            if (remotingCommand == null || remotingCommand.getCode() != PlatformRemotingSysResponseCode.SUCCESS) {
+            boolean success = false;
+            int tryCount = 2;
+            for (int i = 0; i < tryCount; i++) {
+                PlatformRemotingCommand remotingCommand = scheduleRpcClient.send(remoteAddress, CommandEnum.CALLBACK_SCHEDULE_RESULT_CMD, callbackCommand);
+                if (remotingCommand != null || remotingCommand.getCode() == PlatformRemotingSysResponseCode.SUCCESS) {
+                    success = true;
+                    break;
+                }
+            }
+            if (!success) {
                 logger.error("发送回调日志失败:" + JSON.toJSONString(callbackCommand) + " remoteAddress:" + remoteAddress);
             }
         } catch (Throwable e) {
