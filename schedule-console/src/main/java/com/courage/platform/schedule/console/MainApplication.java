@@ -7,9 +7,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @ServletComponentScan
+@EnableScheduling
 @ImportResource(locations = "spring-app.xml")
 public class MainApplication extends SpringBootServletInitializer {
 
