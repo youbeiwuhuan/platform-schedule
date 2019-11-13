@@ -24,7 +24,7 @@ $(function () {
             {
                 "data": 'jobId',
                 "visible": true,
-                "width": '8%',
+                "width": '9%',
                 "render": function (data, type, row) {
                     return data;
                 }
