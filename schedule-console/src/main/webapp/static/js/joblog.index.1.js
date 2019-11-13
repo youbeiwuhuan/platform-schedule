@@ -81,7 +81,7 @@ $(function () {
                 "data": 'message',
                 "visible": true,
                 "render": function (data, type, row) {
-                    var btn = '<button class="btn btn-warning btn-xs" type="button" onclick="logMessage(' + row.id + ')">查看</button> ';
+                    var btn = '<button class="btn btn-warning btn-xs" _triggerMessage="' + row.triggerMessage + '"' +  ' _callbackMessage="' + row.callbackMessage +  '" type="button" onclick="logMessage(this)">查看</button> ';
                     return btn;
                 }
             }
@@ -117,12 +117,15 @@ $(function () {
         joblogTable.fnDraw();
     });
 
-    logMessage = function (id) {
+    logMessage = function (obj) {
+        var current = obj;
+        var triggerMessage = obj.getAttribute("_triggerMessage");
+        var callbackMessage = obj.getAttribute("_callbackMessage");
         layer.open({
             type: 1,
             skin: 'layui-layer-rim', //加上边框
-            area: ['420px', '240px'], //宽高
-            content: 'html内容'
+            area: ['350px', '240px'], //宽高
+            content: '触发信息:' + triggerMessage + " <br/>" + "执行信息:" + callbackMessage
         });
     }
 
