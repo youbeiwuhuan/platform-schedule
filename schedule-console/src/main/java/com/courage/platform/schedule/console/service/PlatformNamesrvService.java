@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zhangyong on 2019/11/12.
@@ -39,5 +40,15 @@ public class PlatformNamesrvService {
     public List<PlatformNamesrv> getCache() {
         return cache;
     }
-    
+
+    public List<PlatformNamesrv> getPage(Map param, String start, Integer pageSize) {
+        param.put("start", Integer.valueOf(start));
+        param.put("pageSize", pageSize);
+        return platformNamesrvDao.findPage(param);
+    }
+
+    public Integer count(Map param) {
+        return platformNamesrvDao.count(param);
+    }
+
 }

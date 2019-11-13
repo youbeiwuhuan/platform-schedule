@@ -4,6 +4,7 @@ package com.courage.platform.schedule.dao;
 import com.courage.platform.schedule.dao.domain.PlatformNamesrv;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 任务调度名字服务
@@ -14,5 +15,9 @@ public interface PlatformNamesrvDao {
     List<PlatformNamesrv> findAll();
 
     PlatformNamesrv getPlatformNamesrvByNamesrvIp(String namesrvIp);
+
+    List<PlatformNamesrv> findPage(Map map);
+
+    Integer count(Map map);
 
 }

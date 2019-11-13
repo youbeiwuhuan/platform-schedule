@@ -38,4 +38,18 @@
         namesrv_ip = #{namesrv_ip}
     </select>
 
+    <select id="findPage" parameterType="java.util.HashMap" resultMap="platformNamesrv">
+        SELECT <include refid="namesrvColumnList" />
+        FROM t_platform_namesrv AS t
+        where t.type = 0
+        ORDER BY t.id desc
+        limit #{start},#{pageSize}
+    </select>
+
+    <select id="count" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+        SELECT  count(1)
+        FROM t_platform_namesrv AS t
+        where t.type = 0
+    </select>
+
 </mapper>
