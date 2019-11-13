@@ -60,7 +60,7 @@ public class PlatformNamesrvService {
     }
 
     public void update(Map param) {
-
+        platformNamesrvDao.update(param);
     }
 
 }

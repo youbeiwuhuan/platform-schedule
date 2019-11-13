@@ -70,7 +70,7 @@
 <script src="${request.contextPath}/static/plugins/layer/layer.js?t=20181226"></script>
 
 <!-- custom -->
-<script src="${request.contextPath}/static/js/cluster.index.1.js?a=aaa123332xx"></script>
+<script src="${request.contextPath}/static/js/cluster.index.1.js?a=aaa123332xxyourrsss"></script>
 
 </body>
 </html>

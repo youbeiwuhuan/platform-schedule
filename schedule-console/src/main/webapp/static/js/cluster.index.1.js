@@ -85,7 +85,7 @@ $(function () {
                 "data": 'id',
                 "visible": true,
                 "render": function (data, type, row) {
-                    var btn = '<button class="btn btn-warning btn-xs" type="button" onclick="toUpdateAppPage(' + data + ')">编辑</button> ';
+                    var btn = '<button class="btn btn-warning btn-xs" type="button" onclick="toUpdateNamesrvPage(' + data + ')">编辑</button> ';
                     return btn;
                 }
             }
@@ -123,7 +123,7 @@ $(function () {
             maxmin: true,
             shadeClose: false, //点击遮罩关闭层
             area: ['400px', '350px'],
-            content: base_url + '/applist/updatepage?id=' + id
+            content: base_url + '/cluster/updatepage?id=' + id
         });
     };
 
