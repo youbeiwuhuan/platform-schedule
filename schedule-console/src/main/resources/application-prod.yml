@@ -4,7 +4,7 @@ server:
 mysql:
   datasource:
     ip: 127.0.0.1
-    port: 3306
+    port: 3307
     database: tech_platform
     username: root
-    password: ilxw
+    password: ilxw19841201@mysql
