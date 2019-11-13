@@ -63,4 +63,8 @@ public class PlatformNamesrvService {
         platformNamesrvDao.update(param);
     }
 
+    public void delete(Map param) {
+        platformNamesrvDao.delete(param);
+    }
+
 }

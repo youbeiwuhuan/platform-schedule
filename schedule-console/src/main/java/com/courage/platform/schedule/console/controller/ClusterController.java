@@ -99,4 +99,19 @@ public class ClusterController {
         return result;
     }
 
+    @RequestMapping("/cluster/delete")
+    @ResponseBody
+    public Map delete(HttpServletRequest httpServletRequest) {
+        String id = httpServletRequest.getParameter("id");
+        Map map = new HashMap();
+        map.put("id", id);
+
+        platformNamesrvService.delete(map);
+
+        Map result = new HashMap();
+        result.put("code", "200");
+        return result;
+    }
+
+
 }

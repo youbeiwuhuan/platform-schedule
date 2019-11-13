@@ -76,7 +76,7 @@ public class ScheduleJobInfoService {
                 //向master发送命令
                 if (platformNamesrv.getRole().equals(0)) {
                     try {
-                        scheduleRpcClient.send(platformNamesrv.getNamesrvIp(), CommandEnum.OTHER_TRIGGER_SCHEDULE_TASK_CMD, regulateCommand);
+                        scheduleRpcClient.send(platformNamesrv.getNamesrvIp(), CommandEnum.CONSOLE_TRIGGER_SCHEDULE_TASK_CMD, regulateCommand);
                     } catch (Throwable throwable) {
                         logger.error("send error:", throwable);
                         flag = false;

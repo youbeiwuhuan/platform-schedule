@@ -67,4 +67,8 @@
         update t_platform_namesrv t set t.namesrv_ip = #{namesrvIp} , t.role = #{role}  , t.update_time = now() where id = #{id}
     </update>
 
+    <delete id="delete" parameterType="java.util.HashMap">
+        delete  from t_platform_namesrv t where t.id = #{id}
+    </delete>
+
 </mapper>

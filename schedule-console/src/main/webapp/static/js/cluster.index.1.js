@@ -86,7 +86,8 @@ $(function () {
                 "visible": true,
                 "render": function (data, type, row) {
                     var btn = '<button class="btn btn-warning btn-xs" type="button" onclick="toUpdateNamesrvPage(' + data + ')">编辑</button> ';
-                    return btn;
+                    var tipBtn = '<button class="btn btn-danger btn-xs" type="button" onclick="deleteNamesrv(' + data + ')">删除</button> ';
+                    return btn + tipBtn;
                 }
             }
         ],
@@ -137,5 +138,35 @@ $(function () {
             content: base_url + '/cluster/addpage'
         });
     }
+
+    deleteNamesrv = function (id) {
+        layer.confirm('您确定删除该集群吗?', {btn: ['确定', '取消'], title: "提示"}, function () {
+            $.post(base_url + "/cluster/delete", {
+                id: id,
+                t: new Date().getTime()
+            }, function (data, status) {
+                if (data.code == "200") {
+                    layer.open({
+                        title: '系统提示',
+                        btn: ['确定'],
+                        content: '删除成功',
+                        icon: '1',
+                        end: function (layero, index) {
+                            window.parent.location.reload();
+                        }
+                    });
+                } else {
+                    layer.open({
+                        title: '系统提示',
+                        btn: ['确定'],
+                        content: '删除失败',
+                        icon: '2'
+                    });
+                }
+            });
+        });
+    }
+
+
 
 });

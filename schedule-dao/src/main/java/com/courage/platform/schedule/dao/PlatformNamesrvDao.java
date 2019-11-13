@@ -24,6 +24,8 @@ public interface PlatformNamesrvDao {
 
     void update(Map map);
 
+    void delete(Map map);
+
     PlatformNamesrv getById(Long id);
 
 }
