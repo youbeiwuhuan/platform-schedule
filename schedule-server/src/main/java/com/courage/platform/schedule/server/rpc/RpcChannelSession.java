@@ -22,6 +22,8 @@ public class RpcChannelSession {
 
     private long createTime = System.currentTimeMillis();
 
+    private long updateTime = System.currentTimeMillis();
+
     public RpcChannelSession(String channelId, Channel channel, String appName, String clientId) {
         this.channelId = channelId;
         this.channel = channel;
@@ -75,6 +77,14 @@ public class RpcChannelSession {
 
     public void setAuth(boolean auth) {
         this.auth = auth;
+    }
+
+    public long getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(long updateTime) {
+        this.updateTime = updateTime;
     }
 
 }
