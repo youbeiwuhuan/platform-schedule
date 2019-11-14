@@ -13,5 +13,4 @@ public class DelayStore {
 
     private final static Logger logger = LoggerFactory.getLogger(DelayStore.class);
 
-
 }

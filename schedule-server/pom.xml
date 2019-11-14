@@ -54,6 +54,14 @@
             <version>${commons-collections4.version}</version>
         </dependency>
 
+        <!-- 实例化存储 start -->
+        <dependency>
+            <groupId>org.rocksdb</groupId>
+            <artifactId>rocksdbjni</artifactId>
+            <version>5.7.2</version>
+        </dependency>
+        <!-- 实例化存储 end -->
+
         <dependency>
             <groupId>com.courage</groupId>
             <artifactId>schedule-rpc</artifactId>
@@ -78,6 +86,8 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+
+
 
     </dependencies>
 
