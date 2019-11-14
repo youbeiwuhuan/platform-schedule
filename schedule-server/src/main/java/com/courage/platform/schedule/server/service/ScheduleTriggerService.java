@@ -80,7 +80,7 @@ public class ScheduleTriggerService {
                 PlatformRemotingCommand response = scheduleRpcServer.getNodePlatformRemotingServer().invokeSync(rpcChannelSession.getChannel(), platformRemotingCommand, 5000L);
                 if (response != null && response.getCode() == PlatformRemotingSysResponseCode.SUCCESS) {
                     scheduleJobLog.setTriggerStatus(TriggerStatusEnum.SUCCESS.getId());
-                    triggerMessage = "任务id:" + id + " 日志id:" + id + " 任务名:" + scheduleJobInfo.getJobName() + " 调用远程地址:" + rpcChannelSession.getChannel().remoteAddress() + " 触发成功";
+                    triggerMessage = "任务id:" + scheduleJobInfo.getId() + " 日志id:" + id + " 任务名:" + scheduleJobInfo.getJobName() + " 调用远程地址:" + rpcChannelSession.getChannel().remoteAddress() + " 触发成功";
                 } else {
                     scheduleJobLog.setTriggerStatus(TriggerStatusEnum.FAIL.getId());
                     triggerMessage = " 调用client失败,remoteAddr:" + rpcChannelSession.getChannel().remoteAddress().toString();
