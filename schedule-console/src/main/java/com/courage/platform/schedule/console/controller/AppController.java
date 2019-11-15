@@ -1,6 +1,7 @@
 package com.courage.platform.schedule.console.controller;
 
 import com.courage.platform.schedule.console.service.AppInfoService;
+import com.courage.platform.schedule.console.service.ScheduleJobInfoService;
 import com.courage.platform.schedule.console.util.Md5Util;
 import com.courage.platform.schedule.dao.domain.Appinfo;
 import org.slf4j.Logger;
@@ -24,6 +25,9 @@ public class AppController {
 
     @Autowired
     private AppInfoService appInfoService;
+
+    @Autowired
+    private ScheduleJobInfoService scheduleJobInfoService;
 
     @RequestMapping("/")
     public String index() {
@@ -123,5 +127,30 @@ public class AppController {
     public String onlineapp(HttpServletRequest httpServletRequest) {
         return "appinfo/onlineapp";
     }
+
+    @RequestMapping("/onlineapp/pageList")
+    @ResponseBody
+    public Map<String, Object> onlinepageList(HttpServletRequest httpServletRequest) {
+        String start = httpServletRequest.getParameter("start");
+        String length = httpServletRequest.getParameter("length"); //类似请求pageSize
+        String appName = httpServletRequest.getParameter("appName");
+        String namvesrvIp = httpServletRequest.getParameter("namvesrvIp");
+
+        Map<String, String> param = new HashMap<>();
+        param.put("start", start);
+        param.put("length", length);
+        param.put("appName", appName);
+        param.put("namvesrvIp", namvesrvIp);
+        logger.info("onlineapp param:" + param);
+
+        Map map = scheduleJobInfoService.onlineApp(namvesrvIp, appName, start, length);
+
+        Map<String, Object> maps = new HashMap<String, Object>();
+        maps.put("recordsTotal", map.get("totalCount"));        // 总记录数
+        maps.put("recordsFiltered", map.get("totalCount"));        // 总记录数
+        maps.put("data", map.get("data"));                    // 分页列表
+        return maps;
+    }
+
 
 }

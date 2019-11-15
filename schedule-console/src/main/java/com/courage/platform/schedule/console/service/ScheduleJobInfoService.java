@@ -1,12 +1,17 @@
 package com.courage.platform.schedule.console.service;
 
+import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingCommand;
+import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingSerializable;
+import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingSysResponseCode;
 import com.courage.platform.schedule.dao.ScheduleJobInfoDao;
 import com.courage.platform.schedule.dao.domain.PlatformNamesrv;
 import com.courage.platform.schedule.dao.domain.ScheduleJobInfo;
 import com.courage.platform.schedule.rpc.ScheduleRpcClient;
 import com.courage.platform.schedule.rpc.protocol.CommandEnum;
+import com.courage.platform.schedule.rpc.protocol.ConsoleOnlineAppCommand;
 import com.courage.platform.schedule.rpc.protocol.ConsoleTriggerCommand;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +19,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -89,6 +96,27 @@ public class ScheduleJobInfoService {
 
     public List<ScheduleJobInfo> findAll() {
         return scheduleJobInfoDao.findAll();
+    }
+
+    public Map onlineApp(String namesrvIp, String appName, String start, String length) {
+        try {
+            ConsoleOnlineAppCommand consoleOnlineAppCommand = new ConsoleOnlineAppCommand();
+            consoleOnlineAppCommand.setAppName(StringUtils.trimToEmpty(appName));
+            consoleOnlineAppCommand.setPageSize(Integer.valueOf(length));
+            consoleOnlineAppCommand.setStart(Integer.valueOf(start));
+            PlatformRemotingCommand response = scheduleRpcClient.send(namesrvIp, CommandEnum.CONSOLE_ONLINE_APP_CMD, consoleOnlineAppCommand);
+            if (response != null && response.getCode() == PlatformRemotingSysResponseCode.SUCCESS) {
+                byte[] body = response.getBody();
+                Map map = PlatformRemotingSerializable.decode(body, Map.class);
+                return map;
+            }
+        } catch (Throwable e) {
+            logger.error("onlineapp error:", e);
+            Map map = new HashMap();
+            map.put("data", Collections.EMPTY_LIST);
+            map.put("totalCount", 0);
+            return map;
+        }
     }
 
     @PreDestroy
