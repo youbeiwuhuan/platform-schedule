@@ -2,7 +2,6 @@ package com.courage.platform.schedule.server.rpc;
 
 import io.netty.channel.Channel;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.MapUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -51,13 +50,41 @@ public class RpcChannelManager {
     }
 
     public Map<String, Object> searchOnlineApp(int start, int pageSize) {
+        List<RpcChannelSession> rpcChannelSessionList = new ArrayList<>();
         readWriteLock.readLock().lock();
         try {
-
+            Iterator<Map.Entry<String, Set<String>>> iterator = appNameChannelIdMapping.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<String, Set<String>> entry = (Map.Entry) iterator.next();
+                Set<String> channelIdSet = entry.getValue();
+                for (String channelId : channelIdSet) {
+                    RpcChannelSession rpcChannelSession = sessionHashMap.get(channelId);
+                    rpcChannelSessionList.add(rpcChannelSession);
+                }
+            }
         } finally {
             readWriteLock.readLock().unlock();
         }
-        return MapUtils.EMPTY_SORTED_MAP;
+        
+        //按照 update_time 然后按照appName 来排序
+        Collections.sort(rpcChannelSessionList, new Comparator<RpcChannelSession>() {
+            @Override
+            public int compare(RpcChannelSession o1, RpcChannelSession o2) {
+                if (o1.getUpdateTime() > o2.getUpdateTime()) {
+                    return 1;
+                }
+                if (o1.getUpdateTime() < o2.getUpdateTime()) {
+                    return -1;
+                }
+                return 0;
+            }
+        });
+
+        rpcChannelSessionList = rpcChannelSessionList.subList(start, start + pageSize);
+        Map<String, Object> map = new HashMap<>();
+        map.put("totalCount", rpcChannelSessionList.size());
+        map.put("data", rpcChannelSessionList);
+        return map;
     }
 
     public void bindChannelId(Channel channel) {
