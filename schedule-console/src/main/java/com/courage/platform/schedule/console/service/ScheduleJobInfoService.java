@@ -112,11 +112,11 @@ public class ScheduleJobInfoService {
             }
         } catch (Throwable e) {
             logger.error("onlineapp error:", e);
-            Map map = new HashMap();
-            map.put("data", Collections.EMPTY_LIST);
-            map.put("totalCount", 0);
-            return map;
         }
+        Map map = new HashMap();
+        map.put("data", Collections.EMPTY_LIST);
+        map.put("totalCount", 0);
+        return map;
     }
 
     @PreDestroy
