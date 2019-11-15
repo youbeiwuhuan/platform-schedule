@@ -1,5 +1,6 @@
 package com.courage.platform.schedule.server.rpc;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import io.netty.channel.Channel;
 
 /**
@@ -16,6 +17,7 @@ public class RpcChannelSession {
 
     private String channelId;
 
+    @JSONField(serialize = false)
     private Channel channel;
 
     private boolean auth;

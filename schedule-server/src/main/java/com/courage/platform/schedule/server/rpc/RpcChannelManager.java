@@ -2,6 +2,7 @@ package com.courage.platform.schedule.server.rpc;
 
 import io.netty.channel.Channel;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.MapUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -49,6 +50,16 @@ public class RpcChannelManager {
         }
     }
 
+    public Map<String, Object> searchOnlineApp(int start, int pageSize) {
+        readWriteLock.readLock().lock();
+        try {
+
+        } finally {
+            readWriteLock.readLock().unlock();
+        }
+        return MapUtils.EMPTY_SORTED_MAP;
+    }
+
     public void bindChannelId(Channel channel) {
         Long channelId = ChannelUtils.getChannelId();
         ChannelUtils.putAttr(CHANNEL_ID_KEY, String.valueOf(channelId), channel);
@@ -58,14 +69,20 @@ public class RpcChannelManager {
         readWriteLock.writeLock().lock();
         try {
             String channelId = (String) ChannelUtils.getAttr(CHANNEL_ID_KEY, channel);
-            RpcChannelSession rpcChannelSession = new RpcChannelSession(channelId, channel, appName, clientId);
-            sessionHashMap.put(channelId, rpcChannelSession);
-            Set<String> channelIdSet = appNameChannelIdMapping.get(appName);
-            if (channelIdSet == null) {
-                channelIdSet = new HashSet<>();
-                appNameChannelIdMapping.put(appName, channelIdSet);
+            RpcChannelSession rpcChannelSession = sessionHashMap.get(channelId);
+            if (rpcChannelSession == null) {
+                rpcChannelSession = new RpcChannelSession(channelId, channel, appName, clientId);
+                sessionHashMap.put(channelId, rpcChannelSession);
+                Set<String> channelIdSet = appNameChannelIdMapping.get(appName);
+                if (channelIdSet == null) {
+                    channelIdSet = new HashSet<>();
+                    appNameChannelIdMapping.put(appName, channelIdSet);
+                }
+                channelIdSet.add(channelId);
+            } else {
+                //修改心跳信息
+                rpcChannelSession.setUpdateTime(System.currentTimeMillis());
             }
-            channelIdSet.add(channelId);
             return rpcChannelSession;
         } finally {
             readWriteLock.writeLock().unlock();
