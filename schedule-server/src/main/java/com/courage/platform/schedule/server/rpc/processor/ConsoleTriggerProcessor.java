@@ -3,7 +3,7 @@ package com.courage.platform.schedule.server.rpc.processor;
 import com.alibaba.fastjson.JSON;
 import com.courage.platform.rpc.remoting.netty.codec.PlatformNettyRequestProcessor;
 import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingCommand;
-import com.courage.platform.schedule.rpc.protocol.RegulateCommand;
+import com.courage.platform.schedule.rpc.protocol.ConsoleTriggerCommand;
 import com.courage.platform.schedule.server.service.ScheduleTriggerService;
 import io.netty.channel.ChannelHandlerContext;
 import org.slf4j.Logger;
@@ -24,8 +24,8 @@ public class ConsoleTriggerProcessor implements PlatformNettyRequestProcessor {
     @Override
     public PlatformRemotingCommand processRequest(ChannelHandlerContext ctx, PlatformRemotingCommand request) throws Exception {
         byte[] bytes = request.getBody();
-        RegulateCommand regulateCommand = JSON.parseObject(bytes, RegulateCommand.class);
-        scheduleTriggerService.doRpcTrigger(regulateCommand.getJobId());
+        ConsoleTriggerCommand consoleTriggerCommand = JSON.parseObject(bytes, ConsoleTriggerCommand.class);
+        scheduleTriggerService.doRpcTrigger(consoleTriggerCommand.getJobId());
         PlatformRemotingCommand response = new PlatformRemotingCommand();
         return response;
     }

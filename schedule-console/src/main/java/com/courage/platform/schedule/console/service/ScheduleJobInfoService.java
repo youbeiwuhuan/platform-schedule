@@ -5,7 +5,7 @@ import com.courage.platform.schedule.dao.domain.PlatformNamesrv;
 import com.courage.platform.schedule.dao.domain.ScheduleJobInfo;
 import com.courage.platform.schedule.rpc.ScheduleRpcClient;
 import com.courage.platform.schedule.rpc.protocol.CommandEnum;
-import com.courage.platform.schedule.rpc.protocol.RegulateCommand;
+import com.courage.platform.schedule.rpc.protocol.ConsoleTriggerCommand;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,13 +70,13 @@ public class ScheduleJobInfoService {
         logger.info("立刻执行任务id:" + jobId);
         List<PlatformNamesrv> platformNamesrvList = platformNamesrvService.findAll();
         if (CollectionUtils.isNotEmpty(platformNamesrvList)) {
-            RegulateCommand regulateCommand = new RegulateCommand();
-            regulateCommand.setJobId(Long.valueOf(jobId));
+            ConsoleTriggerCommand consoleTriggerCommand = new ConsoleTriggerCommand();
+            consoleTriggerCommand.setJobId(Long.valueOf(jobId));
             for (PlatformNamesrv platformNamesrv : platformNamesrvList) {
                 //向master发送命令
                 if (platformNamesrv.getRole().equals(0)) {
                     try {
-                        scheduleRpcClient.send(platformNamesrv.getNamesrvIp(), CommandEnum.CONSOLE_TRIGGER_SCHEDULE_TASK_CMD, regulateCommand);
+                        scheduleRpcClient.send(platformNamesrv.getNamesrvIp(), CommandEnum.CONSOLE_TRIGGER_SCHEDULE_TASK_CMD, consoleTriggerCommand);
                     } catch (Throwable throwable) {
                         logger.error("send error:", throwable);
                         flag = false;
