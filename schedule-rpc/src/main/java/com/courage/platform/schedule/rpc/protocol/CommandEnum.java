@@ -20,7 +20,10 @@ public class CommandEnum {
     //注册命令
     public static final int REGISTER_CMD = 10003;
 
-    //触发调度任务（客户端发起）
+    //触发调度任务（控制台发起）
     public static final int CONSOLE_TRIGGER_SCHEDULE_TASK_CMD = 10004;
+
+    //查询在线应用（控制台发起）
+    public static final int CONSOLE_ONLINE_APP_CMD = 10005;
 
 }
