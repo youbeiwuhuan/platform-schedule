@@ -73,7 +73,7 @@
 <script src="${request.contextPath}/static/plugins/layer/layer.js?t=20181226"></script>
 
 <!-- custom -->
-<script src="${request.contextPath}/static/js/onlineapp.index.1.js?t=20191115"></script>
+<script src="${request.contextPath}/static/js/onlineapp.index.1.js?t=201911152871"></script>
 
 </body>
 </html>

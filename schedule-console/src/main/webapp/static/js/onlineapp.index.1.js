@@ -23,7 +23,7 @@ $(function () {
             {
                 "data": 'appName',
                 "visible": true,
-                "width": '20%',
+                "width": '17%',
                 "render": function (data, type, row) {
                     return data;
                 }
@@ -31,13 +31,12 @@ $(function () {
             {
                 "data": 'clientId',
                 "visible": true,
-                "width": '20%',
                 "render": function (data, type, row) {
                     return data;
                 }
             },
             {
-                "width": '13%',
+                "width": '15%',
                 "data": 'createTime',
                 "visible": true,
                 "render": function (data, type, row) {
@@ -45,7 +44,7 @@ $(function () {
                 }
             },
             {
-                "width": '13%',
+                "width": '15%',
                 "data": 'updateTime',
                 "visible": true,
                 "render": function (data, type, row) {
