@@ -81,8 +81,9 @@ public class RpcChannelManager {
         });
 
         int size = rpcChannelSessionList.size();
-        int startIndex = (start > size - 1) ? (size - 1) : start;
-        int endIndex = start + pageSize > size - 1 ? size - 1 : start + pageSize;
+        int maxIndex = size - 1 < 0 ? 0 : size - 1;
+        int startIndex = (start > maxIndex) ? maxIndex : start;
+        int endIndex = start + pageSize > maxIndex ? maxIndex : start + pageSize;
         rpcChannelSessionList = rpcChannelSessionList.subList(startIndex, endIndex);
         Map<String, Object> map = new HashMap<>();
         map.put("totalCount", rpcChannelSessionList.size());
