@@ -6,19 +6,11 @@ package com.courage.platform.schedule.rpc.protocol;
  */
 public class ConsoleOnlineAppCommand extends BaseCommand {
 
-    private String namesrvIp;
+    private String appName = "";
 
-    private int start;
+    private int start = 0;
 
-    private int pageSize;
-
-    public String getNamesrvIp() {
-        return namesrvIp;
-    }
-
-    public void setNamesrvIp(String namesrvIp) {
-        this.namesrvIp = namesrvIp;
-    }
+    private int pageSize = 10;
 
     public int getStart() {
         return start;
@@ -34,6 +26,14 @@ public class ConsoleOnlineAppCommand extends BaseCommand {
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
+    }
+
+    public String getAppName() {
+        return appName;
+    }
+
+    public void setAppName(String appName) {
+        this.appName = appName;
     }
 
 }
