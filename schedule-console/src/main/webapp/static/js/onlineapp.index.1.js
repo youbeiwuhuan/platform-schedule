@@ -1,7 +1,7 @@
 $(function () {
 
     //init date tables
-    var appListTable = $("#onlineListTable").dataTable({
+    var onlineListTable = $("#onlineListTable").dataTable({
         "deferRender": true,
         "processing": true,
         "serverSide": true,
@@ -21,12 +21,6 @@ $(function () {
         //"scrollX": true,	// scroll x，close self-adaption
         "columns": [
             {
-                "data": 'appId',
-                "bSortable": false,
-                "visible": true,
-                "width": '8%'
-            },
-            {
                 "data": 'appName',
                 "visible": true,
                 "width": '20%',
@@ -35,30 +29,12 @@ $(function () {
                 }
             },
             {
-                "data": 'status',
+                "data": 'clientId',
                 "visible": true,
-                "width": '8%',
+                "width": '20%',
                 "render": function (data, type, row) {
-                    var html = data;
-                    if (data == 0) {
-                        html = '<span style="color: green">' + '正常' + '</span>';
-                    } else if (data == 1) {
-                        html = '<span style="color: grey">' + '失效' + '</span>';
-                    } else {
-                        html = '';
-                    }
-                    return html;
+                    return data;
                 }
-            },
-            {
-                "data": 'appKey',
-                "visible": true,
-                "width": '15%'
-            },
-            {
-                "data": 'remark',
-                "visible": true,
-                "width": '20%'
             },
             {
                 "width": '13%',
@@ -69,11 +45,11 @@ $(function () {
                 }
             },
             {
-                "data": 'id',
+                "width": '13%',
+                "data": 'updateTime',
                 "visible": true,
                 "render": function (data, type, row) {
-                    var btn = '<button class="btn btn-warning btn-xs" type="button" onclick="toUpdateAppPage(' + data + ')">编辑</button> ';
-                    return btn;
+                    return data ? moment(new Date(data)).format("YYYY-MM-DD HH:mm:ss") : "";
                 }
             }
         ],
@@ -105,38 +81,7 @@ $(function () {
 
     //点查询按钮触发查询事件
     $('#searchBtn').on('click', function () {
-        appListTable.fnDraw();
+        onlineListTable.fnDraw();
     });
-
-    //编辑应用页面
-    toAddAppPage = function () {
-        layer.open({
-            type: 2,
-            title: '添加应用',
-            maxmin: true,
-            shadeClose: false, //点击遮罩关闭层
-            area: ['790px', '550px'],
-            content: base_url + '/applist/addapp'
-        });
-    };
-
-    toUpdateAppPage = function (id) {
-        layer.open({
-            type: 2,
-            title: '编辑应用',
-            maxmin: true,
-            shadeClose: false, //点击遮罩关闭层
-            area: ['790px', '550px'],
-            content: base_url + '/applist/updateapppage?id=' + id
-        });
-    };
-
-    alertMsg = function () {
-        layer.msg('hello');
-    };
-
-    alertTip = function () {
-        layer.tips('Hello tips!', '#appId');
-    };
 
 });
