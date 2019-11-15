@@ -65,8 +65,8 @@ public class RpcChannelManager {
         } finally {
             readWriteLock.readLock().unlock();
         }
-        
-        //按照 update_time 然后按照appName 来排序
+
+        //按照 update_time 来排序
         Collections.sort(rpcChannelSessionList, new Comparator<RpcChannelSession>() {
             @Override
             public int compare(RpcChannelSession o1, RpcChannelSession o2) {
@@ -80,7 +80,10 @@ public class RpcChannelManager {
             }
         });
 
-        rpcChannelSessionList = rpcChannelSessionList.subList(start, start + pageSize);
+        int size = rpcChannelSessionList.size();
+        int startIndex = (start > size - 1) ? (size - 1) : start;
+        int endIndex = start + pageSize > size - 1 ? size - 1 : start + pageSize;
+        rpcChannelSessionList = rpcChannelSessionList.subList(startIndex, endIndex);
         Map<String, Object> map = new HashMap<>();
         map.put("totalCount", rpcChannelSessionList.size());
         map.put("data", rpcChannelSessionList);
