@@ -23,7 +23,7 @@ $(function () {
             {
                 "data": 'appName',
                 "visible": true,
-                "width": '17%',
+                "width": '20%',
                 "render": function (data, type, row) {
                     return data;
                 }
