@@ -81,7 +81,7 @@ public class RpcChannelManager {
         });
 
         int size = rpcChannelSessionList.size();
-        int maxIndex = size - 1 < 0 ? 0 : size - 1;
+        int maxIndex = size - 1 < 0 ? 0 : size;
         int startIndex = (start > maxIndex) ? maxIndex : start;
         int endIndex = start + pageSize > maxIndex ? maxIndex : start + pageSize;
         rpcChannelSessionList = rpcChannelSessionList.subList(startIndex, endIndex);
@@ -135,6 +135,13 @@ public class RpcChannelManager {
         } finally {
             readWriteLock.writeLock().unlock();
         }
+    }
+
+    public static void main(String[] args) {
+        ArrayList arr = new ArrayList();
+        arr.add(1);
+        List list = arr.subList(0, 1);
+        System.out.println(list);
     }
 
 }
