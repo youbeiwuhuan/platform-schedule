@@ -26,7 +26,7 @@
                 <div class="col-xs-4">
                     <div class="input-group">
                         <span class="input-group-addon">选择调度服务器</span>
-                        <select class="form-control" id="logStatus">
+                        <select class="form-control" id="namvesrvIp">
                          <#list platformNamesrvList as platformNamesrv>
                                 <option value="${platformNamesrv.namesrvIp}" <#if 0==platformNamesrv.role>selected</#if> >${platformNamesrv.namesrvIp}</option>
                             </#list>
