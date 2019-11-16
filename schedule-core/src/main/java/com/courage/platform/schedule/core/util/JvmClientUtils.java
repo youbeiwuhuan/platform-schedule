@@ -158,7 +158,7 @@ public class JvmClientUtils {
     }
 
     public static String getJmvClientId() {
-        return LOCAL_IP + "@" + getPID() + "@" + UUID.randomUUID().toString();
+        return IpUtil.getIp() + "@" + getPID() + "@" + UUID.randomUUID().toString();
     }
 
 }
