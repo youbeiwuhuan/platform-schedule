@@ -34,6 +34,7 @@ public class CallbackResultProcessor implements PlatformNettyRequestProcessor {
         //本地缓存中还有数据 则说明 insert并未结束 则需要用延迟存储来实现
         ScheduleJobLog scheduleJobLog = (ScheduleJobLog) DelayLruCache.get(jobLogId);
         if (scheduleJobLog != null) {
+            logger.info("日志id:" + scheduleJobLog.getId() + "没有入库,通过延迟队列来处理");
             //修改log状态
             Map map = new HashMap<>();
             map.put("id", jobLogId);
