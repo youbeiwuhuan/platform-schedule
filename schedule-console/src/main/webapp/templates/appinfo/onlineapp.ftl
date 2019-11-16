@@ -26,7 +26,7 @@
                 <div class="col-xs-4">
                     <div class="input-group">
                         <span class="input-group-addon">选择调度服务器</span>
-                        <select class="form-control" id="namvesrvIp">
+                        <select class="form-control" id="namesrvIp" name="namesrvIp">
                          <#list platformNamesrvList as platformNamesrv>
                                 <option value="${platformNamesrv.namesrvIp}" <#if 0==platformNamesrv.role>selected</#if> >${platformNamesrv.namesrvIp}</option>
                             </#list>
@@ -83,7 +83,7 @@
 <script src="${request.contextPath}/static/plugins/layer/layer.js?t=20181226"></script>
 
 <!-- custom -->
-<script src="${request.contextPath}/static/js/onlineapp.index.1.js?t=2019bbm776ssa29871"></script>
+<script src="${request.contextPath}/static/js/onlineapp.index.1.js?t=2019n71"></script>
 
 </body>
 </html>

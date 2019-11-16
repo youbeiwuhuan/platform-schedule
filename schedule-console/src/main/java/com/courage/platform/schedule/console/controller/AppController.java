@@ -141,16 +141,16 @@ public class AppController {
         String start = httpServletRequest.getParameter("start");
         String length = httpServletRequest.getParameter("length"); //类似请求pageSize
         String appName = httpServletRequest.getParameter("appName");
-        String namvesrvIp = httpServletRequest.getParameter("namvesrvIp");
+        String namesrvIp = httpServletRequest.getParameter("namesrvIp");
 
         Map<String, String> param = new HashMap<>();
         param.put("start", start);
         param.put("length", length);
         param.put("appName", appName);
-        param.put("namvesrvIp", namvesrvIp);
+        param.put("namesrvIp", namesrvIp);
         logger.info("onlineapp param:" + param);
 
-        Map map = scheduleJobInfoService.onlineApp(namvesrvIp, appName, start, length);
+        Map map = scheduleJobInfoService.onlineApp(namesrvIp, appName, start, length);
 
         Map<String, Object> maps = new HashMap<String, Object>();
         maps.put("recordsTotal", map.get("totalCount"));        // 总记录数
