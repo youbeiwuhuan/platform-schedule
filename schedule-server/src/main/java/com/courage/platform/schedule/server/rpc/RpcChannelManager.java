@@ -137,11 +137,4 @@ public class RpcChannelManager {
         }
     }
 
-    public static void main(String[] args) {
-        ArrayList arr = new ArrayList();
-        arr.add(1);
-        List list = arr.subList(0, 1);
-        System.out.println(list);
-    }
-
 }
