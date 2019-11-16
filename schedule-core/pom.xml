@@ -23,13 +23,6 @@
             <version>${slf4j-api.version}</version>
         </dependency>
 
-        <!-- hessian -->
-        <dependency>
-            <groupId>com.caucho</groupId>
-            <artifactId>hessian</artifactId>
-            <version>${hessian.version}</version>
-        </dependency>
-
         <!-- groovy-all -->
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
@@ -42,13 +35,6 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-exec</artifactId>
             <version>${commons-exec.version}</version>
-        </dependency>
-
-        <!-- jackson -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
         </dependency>
 
         <!-- httpclient -->
