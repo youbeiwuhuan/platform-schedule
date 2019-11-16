@@ -1,7 +1,10 @@
 package com.courage.platform.schedule.server.service.delaystore;
 
+import com.courage.platform.schedule.server.service.delaystore.file.DefaultMmapFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.File;
 
 /**
  * 延迟存储容器
@@ -11,7 +14,15 @@ public class DelayStore {
 
     private final static Logger logger = LoggerFactory.getLogger(DelayStore.class);
 
-    public final String baseDir = System.getProperty("user.home");
+    private final String PLATFORM = "platform";
 
-    
+    private final String SCHEDULE = "schedule";
+
+    private final String baseDir = System.getProperty("user.home") + File.separator + PLATFORM + File.separator + SCHEDULE;
+
+    public DelayStore() {
+        DefaultMmapFile.ensureDirOK(baseDir);
+    }
+
+
 }
