@@ -1,9 +1,11 @@
 package com.courage.platform.schedule.console.controller;
 
 import com.courage.platform.schedule.console.service.AppInfoService;
+import com.courage.platform.schedule.console.service.PlatformNamesrvService;
 import com.courage.platform.schedule.console.service.ScheduleJobInfoService;
 import com.courage.platform.schedule.console.util.Md5Util;
 import com.courage.platform.schedule.dao.domain.Appinfo;
+import com.courage.platform.schedule.dao.domain.PlatformNamesrv;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class AppController {
 
     @Autowired
     private AppInfoService appInfoService;
+
+    @Autowired
+    private PlatformNamesrvService platformNamesrvService;
 
     @Autowired
     private ScheduleJobInfoService scheduleJobInfoService;
@@ -124,7 +129,9 @@ public class AppController {
     }
 
     @RequestMapping("/onlineapp")
-    public String onlineapp(HttpServletRequest httpServletRequest) {
+    public String onlineapp(HttpServletRequest httpServletRequest, Model model) {
+        List<PlatformNamesrv> platformNamesrvList = platformNamesrvService.findAll();
+        model.addAttribute("platformNamesrvList", platformNamesrvList);
         return "appinfo/onlineapp";
     }
 

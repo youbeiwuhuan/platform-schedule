@@ -11,6 +11,7 @@ $(function () {
             data: function (d) {
                 var obj = {};
                 obj.appName = $('#appName').val();
+                obj.namesrvIp = $('#namesrvIp').val();
                 obj.start = d.start;
                 obj.length = d.length;
                 return obj;

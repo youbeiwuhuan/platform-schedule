@@ -23,6 +23,16 @@
         <!-- Main content -->
         <section class="content">
             <div class="row">
+                <div class="col-xs-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">选择调度服务器</span>
+                        <select class="form-control" id="logStatus">
+                         <#list platformNamesrvList as platformNamesrv>
+                                <option value="${platformNamesrv.namesrvIp}" <#if 0==platformNamesrv.role>selected</#if> >${platformNamesrv.namesrvIp}</option>
+                            </#list>
+                        </select>
+                    </div>
+                </div>
                 <div class="col-xs-3">
                     <div class="input-group">
                         <span class="input-group-addon">应用名称</span>
@@ -73,7 +83,7 @@
 <script src="${request.contextPath}/static/plugins/layer/layer.js?t=20181226"></script>
 
 <!-- custom -->
-<script src="${request.contextPath}/static/js/onlineapp.index.1.js?t=2019bbma29871"></script>
+<script src="${request.contextPath}/static/js/onlineapp.index.1.js?t=2019bbm776ssa29871"></script>
 
 </body>
 </html>
