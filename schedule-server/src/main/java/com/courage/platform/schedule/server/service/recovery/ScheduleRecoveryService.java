@@ -59,6 +59,7 @@ public class ScheduleRecoveryService {
     }
 
     public void recoveryMessage(RecoveryMessage recoveryMessage) {
+        logger.info("recoveryMessage:" + JSON.toJSONString(recoveryMessage));
         boolean isSuccess = false;
         try {
             isSuccess = scheduleLogRecoveryAction.doAction(recoveryMessage);

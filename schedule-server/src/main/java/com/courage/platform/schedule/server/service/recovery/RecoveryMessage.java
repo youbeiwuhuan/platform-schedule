@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 恢复数据
  * Created by zhangyong on 2019/11/14.
  */
-public class RecoveryMessage<T> {
+public class RecoveryMessage {
 
     private Integer cmd;
 
@@ -14,15 +14,15 @@ public class RecoveryMessage<T> {
 
     private Long createTime = System.currentTimeMillis();
 
-    private T t;
+    private String json;
 
     //恢复次数，默认恢复十次失败 则删除消息
     private AtomicInteger recoveryCount = new AtomicInteger(0);
 
-    public RecoveryMessage(String key, Integer cmd, T t) {
+    public RecoveryMessage(String key, Integer cmd, String json) {
         this.key = key;
         this.cmd = cmd;
-        this.t = t;
+        this.json = json;
     }
 
     public Integer getCmd() {
@@ -49,12 +49,12 @@ public class RecoveryMessage<T> {
         this.key = key;
     }
 
-    public T getT() {
-        return t;
-    }
-
     public int incrementRecoveryCount() {
         return recoveryCount.incrementAndGet();
     }
 
+    public String getJson() {
+        return json;
+    }
+    
 }

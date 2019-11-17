@@ -26,15 +26,11 @@ public class CallbackResultProcessor implements PlatformNettyRequestProcessor {
     @Override
     public PlatformRemotingCommand processRequest(ChannelHandlerContext channelHandlerContext, PlatformRemotingCommand platformRemotingCommand) throws Exception {
         byte[] bytes = platformRemotingCommand.getBody();
-        CallbackCommand callbackCommand = JSON.parseObject(bytes, CallbackCommand.class);
-        logger.info("callbackCommand:" + PlatformRemotingSerializable.toJson(callbackCommand, true));
+        CallbackCommand callbackCommand = PlatformRemotingSerializable.decode(bytes, CallbackCommand.class);
+        logger.info("callbackCommand:" + JSON.toJSONString(callbackCommand));
 
         //因为有可能数据没有准备好,所以先放入recoveryMessage使用
-        RecoveryMessage<CallbackCommand> recoveryMessage = new RecoveryMessage<>
-                (       callbackCommand.getJobLogId(),
-                        RecoveryCmdEnum.LOG_RECOVERY,
-                        callbackCommand
-                );
+        RecoveryMessage recoveryMessage = new RecoveryMessage(callbackCommand.getJobLogId(), RecoveryCmdEnum.LOG_RECOVERY, JSON.toJSONString(callbackCommand));
         scheduleRecoveryService.doInsertRecoveryStore(recoveryMessage);
 
         PlatformRemotingCommand response = new PlatformRemotingCommand();

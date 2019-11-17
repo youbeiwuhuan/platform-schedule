@@ -1,5 +1,6 @@
 package com.courage.platform.schedule.server.service.recovery;
 
+import com.alibaba.fastjson.JSON;
 import com.courage.platform.schedule.dao.ScheduleJobLogDao;
 import com.courage.platform.schedule.dao.domain.ScheduleJobLog;
 import com.courage.platform.schedule.rpc.protocol.CallbackCommand;
@@ -21,7 +22,7 @@ public class ScheduleLogRecoveryAction implements RecoveryAction {
 
     @Override
     public boolean doAction(RecoveryMessage recoveryMessage) {
-        CallbackCommand callbackCommand = (CallbackCommand) recoveryMessage.getT();
+        CallbackCommand callbackCommand = JSON.parseObject(recoveryMessage.getJson(), CallbackCommand.class);
         Long jobLogId = Long.valueOf(callbackCommand.getJobLogId());
         //本地缓存中还有数据 则说明 insert并未结束 则需要用延迟存储来实现
         ScheduleJobLog scheduleJobLog = (ScheduleJobLog) RecoveryLruCache.get(jobLogId);
