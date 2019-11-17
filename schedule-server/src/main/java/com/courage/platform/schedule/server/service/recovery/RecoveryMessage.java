@@ -47,6 +47,14 @@ public class RecoveryMessage {
         this.key = key;
     }
 
+    public int getRecoveryCount() {
+        return recoveryCount;
+    }
+
+    public void setRecoveryCount(int recoveryCount) {
+        this.recoveryCount = recoveryCount;
+    }
+
     public int incrementRecoveryCount() {
         return recoveryCount++;
     }
