@@ -1,17 +1,21 @@
 package com.courage.platform.schedule.server.service.recovery;
 
+import com.alibaba.fastjson.JSON;
 import com.courage.platform.schedule.server.service.recovery.delegerfile.DefaultMmapFile;
 import org.rocksdb.Options;
 import org.rocksdb.RocksDB;
 import org.rocksdb.RocksDBException;
+import org.rocksdb.RocksIterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * 延迟存储容器
+ * 恢复数据存储容器
  * Created by zhangyong on 2019/11/14.
  */
 public class RecoveryStore {
@@ -47,12 +51,24 @@ public class RecoveryStore {
         this.inited = true;
     }
 
-    public void put(String key, byte[] value) throws RocksDBException, UnsupportedEncodingException {
+    public void put(String key, RecoveryMessage recoveryMessage) throws UnsupportedEncodingException, RocksDBException {
+        put(key, JSON.toJSONBytes(recoveryMessage));
+    }
+
+    public RecoveryMessage get(String key) throws UnsupportedEncodingException, RocksDBException {
+        byte[] value = getRawValue(key);
+        if (value == null) {
+            return null;
+        }
+        return JSON.parseObject(value, RecoveryMessage.class);
+    }
+
+    private void put(String key, byte[] value) throws RocksDBException, UnsupportedEncodingException {
         checkKey(key);
         rocksDB.put(encode(key), value);
     }
 
-    public byte[] get(String key) throws UnsupportedEncodingException, RocksDBException {
+    private byte[] getRawValue(String key) throws UnsupportedEncodingException, RocksDBException {
         checkKey(key);
         byte[] value = this.rocksDB.get(encode(key));
         return value;
@@ -61,6 +77,25 @@ public class RecoveryStore {
     public void delete(String key) throws UnsupportedEncodingException, RocksDBException {
         checkKey(key);
         this.rocksDB.delete(encode(key));
+    }
+
+    public List<RecoveryMessage> queryList(int count) {
+        List<RecoveryMessage> recoveryMessageList = new ArrayList<>(count);
+        RocksIterator iterator = this.rocksDB.newIterator();
+        iterator.seekToFirst();
+        while (iterator.isValid()) {
+            byte[] value = iterator.value();
+            RecoveryMessage recoveryMessage = JSON.parseObject(value, RecoveryMessage.class);
+            recoveryMessageList.add(recoveryMessage);
+            iterator.next();
+        }
+        return recoveryMessageList;
+    }
+
+    public void iterator() {
+        RocksIterator iterator = this.rocksDB.newIterator();
+        iterator.seekToFirst();
+        System.out.println(new String(iterator.value()));
     }
 
     private void checkKey(String key) {

@@ -32,7 +32,4 @@
     <!-- 数据源 -->
     <import resource="spring-datasource.xml"/>
 
-    <!-- 数据恢复 -->
-    <import resource="spring-recovery.xml"/>
-
 </beans>

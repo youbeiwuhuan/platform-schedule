@@ -1,11 +1,10 @@
 package com.courage.platform.schedule.server.service.recovery;
 
 /**
- * 恢复行动
  * Created by zhangyong on 2019/11/17.
  */
-public interface RecoveryAction {
+public class RecoveryCmdEnum {
 
-    boolean doAction(RecoveryMessage recoveryMessage);
-    
+    public final static int LOG_RECOVERY = 1000;
+
 }
