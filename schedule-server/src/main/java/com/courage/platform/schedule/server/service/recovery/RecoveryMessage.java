@@ -1,7 +1,5 @@
 package com.courage.platform.schedule.server.service.recovery;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 /**
  * 恢复数据
  * Created by zhangyong on 2019/11/14.
@@ -17,7 +15,7 @@ public class RecoveryMessage {
     private String json;
 
     //恢复次数，默认恢复十次失败 则删除消息
-    private AtomicInteger recoveryCount = new AtomicInteger(0);
+    private int recoveryCount = 0;
 
     public RecoveryMessage(String key, Integer cmd, String json) {
         this.key = key;
@@ -50,11 +48,15 @@ public class RecoveryMessage {
     }
 
     public int incrementRecoveryCount() {
-        return recoveryCount.incrementAndGet();
+        return recoveryCount++;
+    }
+
+    public void setJson(String json) {
+        this.json = json;
     }
 
     public String getJson() {
         return json;
     }
-    
+
 }
