@@ -49,9 +49,5 @@ public class DelayStore {
         }
     }
 
-    public static void main(String[] args) throws InterruptedException {
-        DelayStore delayStore = new DelayStore();
-        delayStore.start();
-    }
 
 }
