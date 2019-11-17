@@ -1,6 +1,6 @@
 package com.courage.platform.schedule.server.test.timer;
 
-import com.courage.platform.schedule.server.service.delaystore.DelayStore;
+import com.courage.platform.schedule.server.service.recovery.RecoveryStore;
 import org.junit.Test;
 
 /**
@@ -10,10 +10,10 @@ public class FileUnitTest {
 
     @Test
     public void testAddFile() throws InterruptedException {
-        DelayStore delayStore = new DelayStore();
-        delayStore.start();
+        RecoveryStore recoveryStore = new RecoveryStore();
+        recoveryStore.start();
 
-        delayStore.append("hello".getBytes());
+        recoveryStore.append("hello".getBytes());
         Thread.sleep(1000000);
     }
 

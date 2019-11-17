@@ -1,7 +1,7 @@
-package com.courage.platform.schedule.server.service.delaystore;
+package com.courage.platform.schedule.server.service.recovery;
 
-import com.courage.platform.schedule.server.service.delaystore.file.DefaultMmapFile;
-import com.courage.platform.schedule.server.service.delaystore.file.MmapFileList;
+import com.courage.platform.schedule.server.service.recovery.file.DefaultMmapFile;
+import com.courage.platform.schedule.server.service.recovery.file.MmapFileList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,9 +11,9 @@ import java.io.File;
  * 延迟存储容器
  * Created by zhangyong on 2019/11/14.
  */
-public class DelayStore {
+public class RecoveryStore {
 
-    private final static Logger logger = LoggerFactory.getLogger(DelayStore.class);
+    private final static Logger logger = LoggerFactory.getLogger(RecoveryStore.class);
 
     //每一个映射文件的大小
     private final Integer DEFAULT_MAPPED_FILE_SIZE = 50 * 1024 * 1024;
@@ -28,7 +28,7 @@ public class DelayStore {
 
     private MmapFileList mmapFileList;
 
-    public DelayStore() {
+    public RecoveryStore() {
         DefaultMmapFile.ensureDirOK(baseDir);
         logger.info("延迟存储目录:" + baseDir);
     }
