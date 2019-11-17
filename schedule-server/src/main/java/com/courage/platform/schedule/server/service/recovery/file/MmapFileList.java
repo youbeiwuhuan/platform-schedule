@@ -1,6 +1,6 @@
 package com.courage.platform.schedule.server.service.recovery.file;
 
-import com.courage.platform.schedule.server.service.recovery.DelayUtils;
+import com.courage.platform.schedule.server.service.recovery.RecoveryUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -116,7 +116,7 @@ public class MmapFileList {
                 if (mmapFile.destroy(10 * 1000)) {
                     break;
                 }
-                DelayUtils.sleep(1000);
+                RecoveryUtils.sleep(1000);
             }
         }
     }
@@ -300,7 +300,7 @@ public class MmapFileList {
         }
 
         if (createOffset != -1 && needCreate) {
-            String nextFilePath = this.storePath + File.separator + DelayUtils.offset2FileName(createOffset);
+            String nextFilePath = this.storePath + File.separator + RecoveryUtils.offset2FileName(createOffset);
             MmapFile mappedFile = null;
             try {
                 mappedFile = new DefaultMmapFile(nextFilePath, this.mappedFileSize);

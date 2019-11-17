@@ -6,7 +6,7 @@ import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingCommand;
 import com.courage.platform.schedule.dao.ScheduleJobLogDao;
 import com.courage.platform.schedule.dao.domain.ScheduleJobLog;
 import com.courage.platform.schedule.rpc.protocol.CallbackCommand;
-import com.courage.platform.schedule.server.service.recovery.DelayLruCache;
+import com.courage.platform.schedule.server.service.recovery.RecoveryLruCache;
 import io.netty.channel.ChannelHandlerContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +32,7 @@ public class CallbackResultProcessor implements PlatformNettyRequestProcessor {
 
         Long jobLogId = Long.valueOf(callbackCommand.getJobLogId());
         //本地缓存中还有数据 则说明 insert并未结束 则需要用延迟存储来实现
-        ScheduleJobLog scheduleJobLog = (ScheduleJobLog) DelayLruCache.get(jobLogId);
+        ScheduleJobLog scheduleJobLog = (ScheduleJobLog) RecoveryLruCache.get(jobLogId);
         if (scheduleJobLog != null) {
             logger.info("日志id:" + scheduleJobLog.getId() + "没有入库,通过延迟队列来处理");
             //修改log状态

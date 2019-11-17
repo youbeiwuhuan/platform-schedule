@@ -14,7 +14,7 @@ import com.courage.platform.schedule.rpc.protocol.CommandEnum;
 import com.courage.platform.schedule.rpc.protocol.TriggerCommand;
 import com.courage.platform.schedule.server.rpc.RpcChannelManager;
 import com.courage.platform.schedule.server.rpc.RpcChannelSession;
-import com.courage.platform.schedule.server.service.recovery.DelayLruCache;
+import com.courage.platform.schedule.server.service.recovery.RecoveryLruCache;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -70,7 +70,7 @@ public class ScheduleTriggerService {
                 Collections.shuffle(rpcChannelSessionList);
                 RpcChannelSession rpcChannelSession = rpcChannelSessionList.get(0);
 
-                DelayLruCache.put(id, scheduleJobLog); //添加标记
+                RecoveryLruCache.put(id, scheduleJobLog); //添加标记
                 PlatformRemotingCommand platformRemotingCommand = new PlatformRemotingCommand();
                 platformRemotingCommand.setRequestCmd(CommandEnum.TRIGGER_SCHEDULE_TASK_CMD);
                 TriggerCommand triggerCommand = new TriggerCommand();
@@ -97,7 +97,7 @@ public class ScheduleTriggerService {
             //添加调度日志
             scheduleJobLogDao.insert(scheduleJobLog);
             //添加成功后，删除标记
-            DelayLruCache.remove(id);
+            RecoveryLruCache.remove(id);
         } catch (Exception e) {
             logger.error("doRpcTrigger error:", e);
         }

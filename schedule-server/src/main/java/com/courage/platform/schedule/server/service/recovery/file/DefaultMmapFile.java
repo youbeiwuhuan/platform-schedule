@@ -1,6 +1,6 @@
 package com.courage.platform.schedule.server.service.recovery.file;
 
-import com.courage.platform.schedule.server.service.recovery.DelayUtils;
+import com.courage.platform.schedule.server.service.recovery.RecoveryUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -339,7 +339,7 @@ public class DefaultMmapFile extends ReferenceResource implements MmapFile {
 
                 long beginTime = System.currentTimeMillis();
                 boolean result = this.file.delete();
-                logger.info("delete file[REF:" + this.getRefCount() + "] " + this.fileName + (result ? " OK, " : " Failed, ") + "W:" + this.getWrotePosition() + " M:" + this.getFlushedPosition() + ", " + DelayUtils.computeEclipseTimeMilliseconds(beginTime));
+                logger.info("delete file[REF:" + this.getRefCount() + "] " + this.fileName + (result ? " OK, " : " Failed, ") + "W:" + this.getWrotePosition() + " M:" + this.getFlushedPosition() + ", " + RecoveryUtils.computeEclipseTimeMilliseconds(beginTime));
                 Thread.sleep(10);
             } catch (Exception e) {
                 logger.warn("close file channel " + this.fileName + " Failed. ", e);

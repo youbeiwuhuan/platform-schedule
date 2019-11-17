@@ -7,7 +7,7 @@ import com.google.common.cache.CacheBuilder;
  * 延迟处理缓存 处理触发了 还未入库的数据
  * Created by zhangyong on 2019/11/14.
  */
-public class DelayLruCache {
+public class RecoveryLruCache {
 
     private static Cache loadingCache = CacheBuilder.newBuilder().maximumSize(10000).initialCapacity(5).build();
 

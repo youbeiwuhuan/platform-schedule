@@ -21,7 +21,7 @@ import java.util.zip.CRC32;
 import java.util.zip.DeflaterOutputStream;
 import java.util.zip.InflaterInputStream;
 
-public class DelayUtils {
+public class RecoveryUtils {
 
     public static final String YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
 
@@ -31,7 +31,7 @@ public class DelayUtils {
 
     final static char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();
 
-    private static final Logger log = LoggerFactory.getLogger(DelayUtils.class);
+    private static final Logger log = LoggerFactory.getLogger(RecoveryUtils.class);
 
     public static void sleep(long sleepMs) {
         try {
