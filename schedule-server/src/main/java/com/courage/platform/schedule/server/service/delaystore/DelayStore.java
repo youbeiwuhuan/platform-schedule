@@ -24,17 +24,24 @@ public class DelayStore {
 
     private final String baseDir = System.getProperty("user.home") + File.separator + PLATFORM + File.separator + SCHEDULE;
 
+    private volatile boolean inited = false;
+
     private MmapFileList mmapFileList;
 
     public DelayStore() {
         DefaultMmapFile.ensureDirOK(baseDir);
+        logger.info("延迟存储目录:" + baseDir);
     }
 
     public void start() {
         this.mmapFileList = new MmapFileList(baseDir, DEFAULT_MAPPED_FILE_SIZE);
         this.mmapFileList.load();
+        this.inited = true;
     }
 
+    public Long append(byte[] data) {
+        return this.mmapFileList.append(data);
+    }
 
     public void shutdown() {
         if (this.mmapFileList != null) {
