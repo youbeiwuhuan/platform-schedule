@@ -1,4 +1,4 @@
-package com.courage.platform.schedule.server.service.recovery.file;
+package com.courage.platform.schedule.server.service.recovery.delegerfile;
 
 import com.courage.platform.schedule.server.service.recovery.RecoveryUtils;
 import org.slf4j.Logger;

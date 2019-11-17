@@ -1,11 +1,14 @@
 package com.courage.platform.schedule.server.service.recovery;
 
-import com.courage.platform.schedule.server.service.recovery.file.DefaultMmapFile;
-import com.courage.platform.schedule.server.service.recovery.file.MmapFileList;
+import com.courage.platform.schedule.server.service.recovery.delegerfile.DefaultMmapFile;
+import org.rocksdb.Options;
+import org.rocksdb.RocksDB;
+import org.rocksdb.RocksDBException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 
 /**
  * 延迟存储容器
@@ -15,9 +18,6 @@ public class RecoveryStore {
 
     private final static Logger logger = LoggerFactory.getLogger(RecoveryStore.class);
 
-    //每一个映射文件的大小
-    private final Integer DEFAULT_MAPPED_FILE_SIZE = 50 * 1024 * 1024;
-
     private final String PLATFORM = "platform";
 
     private final String SCHEDULE = "schedule";
@@ -26,28 +26,57 @@ public class RecoveryStore {
 
     private volatile boolean inited = false;
 
-    private MmapFileList mmapFileList;
+    static {
+        RocksDB.loadLibrary();
+    }
+
+    private RocksDB rocksDB;
 
     public RecoveryStore() {
         DefaultMmapFile.ensureDirOK(baseDir);
-        logger.info("延迟存储目录:" + baseDir);
+        logger.info("recovery目录:" + baseDir);
     }
 
-    public void start() {
-        this.mmapFileList = new MmapFileList(baseDir, DEFAULT_MAPPED_FILE_SIZE);
-        this.mmapFileList.load();
+    public synchronized void start() throws Exception {
+        if (this.inited) {
+            return;
+        }
+        Options options = new Options();
+        options.setCreateIfMissing(true);
+        rocksDB = RocksDB.open(options, baseDir);
         this.inited = true;
     }
 
-    public Long append(byte[] data) {
-        return this.mmapFileList.append(data);
+    public void put(String key, byte[] value) throws RocksDBException, UnsupportedEncodingException {
+        checkKey(key);
+        rocksDB.put(encode(key), value);
     }
 
-    public void shutdown() {
-        if (this.mmapFileList != null) {
-            this.mmapFileList.shutdown(10000);
+    public byte[] get(String key) throws UnsupportedEncodingException, RocksDBException {
+        checkKey(key);
+        byte[] value = this.rocksDB.get(encode(key));
+        return value;
+    }
+
+    public void delete(String key) throws UnsupportedEncodingException, RocksDBException {
+        checkKey(key);
+        this.rocksDB.delete(encode(key));
+    }
+
+    private void checkKey(String key) {
+        if (key == null) {
+            throw new IllegalArgumentException("key 不能为空");
         }
     }
 
+    private byte[] encode(String key) throws UnsupportedEncodingException {
+        return key.getBytes("UTF-8");
+    }
+
+    public void shutdown() {
+        if (this.rocksDB != null) {
+            this.rocksDB.close();
+        }
+    }
 
 }

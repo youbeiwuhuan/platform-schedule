@@ -9,11 +9,14 @@ import org.junit.Test;
 public class FileUnitTest {
 
     @Test
-    public void testAddFile() throws InterruptedException {
+    public void testAddFile() throws Exception {
         RecoveryStore recoveryStore = new RecoveryStore();
         recoveryStore.start();
 
-        recoveryStore.append("hello".getBytes());
+        recoveryStore.delete("hello");
+        Thread.sleep(1000);
+        byte[] bytes = recoveryStore.get("hello");
+        System.out.println(new String(bytes));
         Thread.sleep(1000000);
     }
 
