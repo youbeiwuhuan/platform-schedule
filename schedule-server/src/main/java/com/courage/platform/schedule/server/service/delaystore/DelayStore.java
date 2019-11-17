@@ -15,6 +15,9 @@ public class DelayStore {
 
     private final static Logger logger = LoggerFactory.getLogger(DelayStore.class);
 
+    //每一个映射文件的大小
+    private final Integer DEFAULT_MAPPED_FILE_SIZE = 50 * 1024 * 1024;
+
     private final String PLATFORM = "platform";
 
     private final String SCHEDULE = "schedule";
@@ -28,9 +31,10 @@ public class DelayStore {
     }
 
     public void start() {
-        this.mmapFileList = new MmapFileList(baseDir, 100 * 1024 * 1024);
+        this.mmapFileList = new MmapFileList(baseDir, DEFAULT_MAPPED_FILE_SIZE);
         this.mmapFileList.load();
     }
+
 
     public void shutdown() {
         if (this.mmapFileList != null) {
@@ -38,8 +42,9 @@ public class DelayStore {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         DelayStore delayStore = new DelayStore();
+        delayStore.start();
     }
 
 }
