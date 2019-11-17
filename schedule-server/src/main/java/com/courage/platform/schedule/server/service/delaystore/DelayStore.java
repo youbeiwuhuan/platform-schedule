@@ -25,8 +25,17 @@ public class DelayStore {
 
     public DelayStore() {
         DefaultMmapFile.ensureDirOK(baseDir);
+    }
+
+    public void start() {
         this.mmapFileList = new MmapFileList(baseDir, 100 * 1024 * 1024);
         this.mmapFileList.load();
+    }
+
+    public void shutdown() {
+        if (this.mmapFileList != null) {
+            this.mmapFileList.shutdown(10000);
+        }
     }
 
     public static void main(String[] args) {
