@@ -38,7 +38,7 @@ public class ScheduleLogRecoveryAction implements RecoveryAction {
         map.put("callbackStatus", callbackCommand.getHandleCode());
         logger.info("callbackmap :" + map);
         scheduleJobLogDao.updateCallback(map);
-        return false;
+        return true;
     }
 
 
