@@ -38,7 +38,7 @@
                                     <th name="id">编号</th>
                                     <th name="namesrvIp">ip信息</th>
                                     <th name="status">状态</th>
-                                    <th name="role">角色(master or slave)</th>
+                                    <th name="role">角色</th>
                                     <th name="createTime">创建时间</th>
                                     <th name="updateTime">修改时间</th>
                                     <th>操作</th>
