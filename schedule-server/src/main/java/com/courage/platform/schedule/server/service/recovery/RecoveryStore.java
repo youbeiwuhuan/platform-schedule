@@ -1,7 +1,6 @@
 package com.courage.platform.schedule.server.service.recovery;
 
 import com.alibaba.fastjson.JSON;
-import com.courage.platform.schedule.server.service.recovery.delegerfile.DefaultMmapFile;
 import org.rocksdb.Options;
 import org.rocksdb.RocksDB;
 import org.rocksdb.RocksDBException;
@@ -37,7 +36,7 @@ public class RecoveryStore {
     private RocksDB rocksDB;
 
     public RecoveryStore() {
-        DefaultMmapFile.ensureDirOK(baseDir);
+        ensureDirOK(baseDir);
         logger.info("recovery目录:" + baseDir);
     }
 
@@ -111,6 +110,16 @@ public class RecoveryStore {
     public void shutdown() {
         if (this.rocksDB != null) {
             this.rocksDB.close();
+        }
+    }
+
+    public static void ensureDirOK(final String dirName) {
+        if (dirName != null) {
+            File f = new File(dirName);
+            if (!f.exists()) {
+                boolean result = f.mkdirs();
+                logger.info(dirName + " mkdir " + (result ? "OK" : "Failed"));
+            }
         }
     }
 
