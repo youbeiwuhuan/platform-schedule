@@ -11,6 +11,9 @@
     <version>1.0.0-SNAPSHOT</version>
 
     <modules>
+        <!-- springboot 支持 -->
+        <module>schedule-springboot-client</module>
+        <!-- spring支持client -->
         <module>schedule-client</module>
         <module>schedule-server</module>
         <module>schedule-remoting</module>
@@ -18,6 +21,7 @@
         <module>schedule-console</module>
         <module>schedule-core</module>
         <module>schedule-dao</module>
+        <!-- 例子 -->
         <module>schedule-example</module>
     </modules>
 
