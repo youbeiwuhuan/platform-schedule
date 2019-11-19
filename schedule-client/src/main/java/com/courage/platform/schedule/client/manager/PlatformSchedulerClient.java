@@ -71,7 +71,7 @@ public class PlatformSchedulerClient {
                     logger.error("scheduleAtFixedRate flush exception", e);
                 }
             }
-        }, 5000, 45000);
+        }, 1000, 20000);
     }
 
     public void destroy() {
