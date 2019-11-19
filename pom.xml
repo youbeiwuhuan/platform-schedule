@@ -11,8 +11,6 @@
     <version>1.0.0-SNAPSHOT</version>
 
     <modules>
-        <!-- springboot 支持 -->
-        <module>schedule-springboot-client</module>
         <!-- spring支持client -->
         <module>schedule-client</module>
         <module>schedule-server</module>
