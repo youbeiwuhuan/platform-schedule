@@ -7,6 +7,7 @@ import com.courage.platform.schedule.rpc.ScheduleRpcServer;
 import com.courage.platform.schedule.server.service.PlatformNamesrvService;
 import com.courage.platform.schedule.server.service.ScheduleJobExecutor;
 import com.courage.platform.schedule.server.service.ScheduleJobInfoService;
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -57,14 +59,26 @@ public class DatabaseDistribute implements DistributeMode {
     }
 
     private boolean isCurrentHostMasterRole() {
+        //当前设置的master的数目, 若master数目>1 则设置有误 也不能启动调度 否则会多次调用
+        int masterCount = 0;
+        boolean isSetMaster = false;
         String currentHost = IpUtil.getIpPort(scheduleRpcServer.localListenPort());
-        PlatformNamesrv platformNamesrv = platformNamesrvService.getPlatformNamesrvByNamesrvIp(currentHost);
-        if (platformNamesrv == null || platformNamesrv.getRole() == 1) {
-            logger.warn("当前host:" + currentHost + " 没有被设置为master role");
-            return false;
+        List<PlatformNamesrv> platformNamesrvList = platformNamesrvService.findAll();
+        if (CollectionUtils.isNotEmpty(platformNamesrvList)) {
+            for (PlatformNamesrv platformNamesrv : platformNamesrvList) {
+                if (platformNamesrv.getRole() == 0) {
+                    masterCount++;
+                    if (currentHost.equals(platformNamesrv.getNamesrvIp())) {
+                        isSetMaster = true;
+                    }
+                }
+            }
         }
-        logger.warn("当前host:" + currentHost + " 被设置为master role");
-        return true;
+        if (isSetMaster && masterCount == 1) {
+            logger.warn("当前host:" + currentHost + " 被设置为master role ");
+            return true;
+        }
+        return false;
     }
 
     @Override
