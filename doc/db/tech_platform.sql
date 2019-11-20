@@ -92,4 +92,8 @@ CREATE TABLE `t_schedule_job_log` (
   KEY `normal_create_time_key` (`create_time`) USING BTREE COMMENT '创建时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+BEGIN;
+INSERT INTO `t_schedule_job_lock` VALUES ('schedule_lock');
+COMMIT;
+
 SET FOREIGN_KEY_CHECKS = 1;
