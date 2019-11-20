@@ -21,6 +21,7 @@
         <module>schedule-dao</module>
         <!-- 例子 -->
         <module>schedule-demo</module>
+        <module>schedule-boot-starter</module>
     </modules>
 
     <properties>

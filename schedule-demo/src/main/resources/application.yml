@@ -1,0 +1,25 @@
+#########################################本地开发环境#########################################
+spring:
+  application:
+  name: "scheduledemo"
+  http:
+    encoding:
+      charset: "UTF-8"
+      enabled: true
+      force: true
+  profiles: "default"
+server:
+  port: 8085
+  servlet:
+    context-path: /
+
+logging:
+  config: "classpath:logback.xml"
+
+
+platform:
+  appKey: xxx
+  consoleAddress: http://localhost:8080/address
+
+
+
