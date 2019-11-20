@@ -7,7 +7,8 @@ spring:
       charset: "UTF-8"
       enabled: true
       force: true
-  profiles: "default"
+  profiles:
+    active: dev
 server:
   port: 8085
   servlet:
