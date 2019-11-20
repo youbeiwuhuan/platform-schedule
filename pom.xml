@@ -20,7 +20,7 @@
         <module>schedule-core</module>
         <module>schedule-dao</module>
         <!-- 例子 -->
-        <module>schedule-example</module>
+        <module>schedule-demo</module>
     </modules>
 
     <properties>
