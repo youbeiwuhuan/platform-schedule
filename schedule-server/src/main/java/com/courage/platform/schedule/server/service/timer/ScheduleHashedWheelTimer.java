@@ -556,15 +556,15 @@ public class ScheduleHashedWheelTimer implements ScheduleTimer {
         /**
          * Add {@link HashedWheelScheduleTimeout} to this bucket.
          */
-        public void addScheduleTimeout(HashedWheelScheduleTimeout ScheduleTimeout) {
-            assert ScheduleTimeout.bucket == null;
-            ScheduleTimeout.bucket = this;
+        public void addScheduleTimeout(HashedWheelScheduleTimeout scheduleTimeout) {
+            assert scheduleTimeout.bucket == null;
+            scheduleTimeout.bucket = this;
             if (head == null) {
-                head = tail = ScheduleTimeout;
+                head = tail = scheduleTimeout;
             } else {
-                tail.next = ScheduleTimeout;
-                ScheduleTimeout.prev = tail;
-                tail = ScheduleTimeout;
+                tail.next = scheduleTimeout;
+                scheduleTimeout.prev = tail;
+                tail = scheduleTimeout;
             }
         }
 
