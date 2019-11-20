@@ -26,4 +26,7 @@ public class CommandEnum {
     //查询在线应用（控制台发起）
     public static final int CONSOLE_ONLINE_APP_CMD = 10005;
 
+    //心跳（控制台发起）
+    public static final int CONSOLE_HEARTBEAT_CMD = 10006;
+
 }
