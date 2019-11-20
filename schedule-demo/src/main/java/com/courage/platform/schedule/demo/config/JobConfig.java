@@ -22,7 +22,7 @@ public class JobConfig {
     private String appKey;
 
     @Bean(initMethod = "start", destroyMethod = "destroy")
-    public SpringPlatformSchedulerClient xxlJobExecutor() {
+    public SpringPlatformSchedulerClient schedulerClient() {
         SpringPlatformSchedulerClient springPlatformSchedulerClient = new SpringPlatformSchedulerClient();
         springPlatformSchedulerClient.setConsoleAddress(consoleAddress);
         springPlatformSchedulerClient.setAppName(appName);
