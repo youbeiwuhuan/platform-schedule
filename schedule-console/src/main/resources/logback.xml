@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration>
+<configuration>r
 
     <!-- 控制台 -->
     <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
@@ -9,6 +9,12 @@
             <charset class="java.nio.charset.Charset">UTF-8</charset>
         </encoder>
     </appender>
+
+    <!--
+    <logger name="com.courage.platform.schedule.dao" level="debug" additivity="false">
+        <appender-ref ref="stdout"/>
+    </logger>
+    -->
 
     <root>
         <level value="INFO"/>
