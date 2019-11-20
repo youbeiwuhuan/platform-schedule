@@ -336,24 +336,24 @@ public class ScheduleHashedWheelTimer implements ScheduleTimer {
             // transfer only max. 100000 scheduleTimeouts per tick to prevent a thread to stale the workerThread when it just
             // adds new scheduleTimeouts in a loop.
             for (int i = 0; i < 100000; i++) {
-                HashedWheelScheduleTimeout ScheduleTimeout = scheduleTimeouts.poll();
-                if (ScheduleTimeout == null) {
+                HashedWheelScheduleTimeout scheduleTimeout = scheduleTimeouts.poll();
+                if (scheduleTimeout == null) {
                     // all processed
                     break;
                 }
-                if (ScheduleTimeout.state() == HashedWheelScheduleTimeout.ST_CANCELLED) {
+                if (scheduleTimeout.state() == HashedWheelScheduleTimeout.ST_CANCELLED) {
                     // Was cancelled in the meantime.
                     continue;
                 }
 
-                long calculated = ScheduleTimeout.deadline / tickDuration;
-                ScheduleTimeout.remainingRounds = (calculated - tick) / wheel.length;
+                long calculated = scheduleTimeout.deadline / tickDuration;
+                scheduleTimeout.remainingRounds = (calculated - tick) / wheel.length;
 
                 final long ticks = Math.max(calculated, tick); // Ensure we don't schedule for past.
                 int stopIndex = (int) (ticks & mask);
 
                 HashedWheelBucket bucket = wheel[stopIndex];
-                bucket.addScheduleTimeout(ScheduleTimeout);
+                bucket.addScheduleTimeout(scheduleTimeout);
             }
         }
 
