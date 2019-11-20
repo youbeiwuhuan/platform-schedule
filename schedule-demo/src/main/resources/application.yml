@@ -17,9 +17,3 @@ logging:
   config: "classpath:logback.xml"
 
 
-platform:
-  appKey: xxx
-  consoleAddress: http://localhost:8081/address
-
-
-
