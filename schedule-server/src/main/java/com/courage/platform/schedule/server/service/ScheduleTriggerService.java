@@ -78,6 +78,7 @@ public class ScheduleTriggerService {
                 triggerCommand.setJobId(scheduleJobLog.getJobId());
                 triggerCommand.setJobLogId(String.valueOf(id));
                 triggerCommand.setServiceId(scheduleJobInfo.getJobHandler());
+                triggerCommand.setCreateMillisTime(System.currentTimeMillis());
                 platformRemotingCommand.setBody(JSON.toJSONBytes(triggerCommand));
                 //同步调用发送给client客户端命令
                 PlatformRemotingCommand response = scheduleRpcServer.getNodePlatformRemotingServer().invokeSync(rpcChannelSession.getChannel(), platformRemotingCommand, 5000L);
