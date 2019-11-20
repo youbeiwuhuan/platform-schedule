@@ -19,7 +19,7 @@ logging:
 
 platform:
   appKey: xxx
-  consoleAddress: http://localhost:8080/address
+  consoleAddress: http://localhost:8081/address
 
 
 
