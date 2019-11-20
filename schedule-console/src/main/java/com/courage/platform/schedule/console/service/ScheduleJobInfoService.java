@@ -7,6 +7,7 @@ import com.courage.platform.schedule.dao.ScheduleJobInfoDao;
 import com.courage.platform.schedule.dao.domain.PlatformNamesrv;
 import com.courage.platform.schedule.dao.domain.ScheduleJobInfo;
 import com.courage.platform.schedule.rpc.ScheduleRpcClient;
+import com.courage.platform.schedule.rpc.protocol.BaseCommand;
 import com.courage.platform.schedule.rpc.protocol.CommandEnum;
 import com.courage.platform.schedule.rpc.protocol.ConsoleOnlineAppCommand;
 import com.courage.platform.schedule.rpc.protocol.ConsoleTriggerCommand;
@@ -117,6 +118,20 @@ public class ScheduleJobInfoService {
         map.put("data", Collections.EMPTY_LIST);
         map.put("totalCount", 0);
         return map;
+    }
+
+    public boolean heartbeat(String namesrvIp) {
+        try {
+            BaseCommand baseCommand = new BaseCommand() {
+            };
+            PlatformRemotingCommand response = scheduleRpcClient.send(namesrvIp, CommandEnum.CONSOLE_ONLINE_APP_CMD, baseCommand);
+            if (response != null && response.getCode() == PlatformRemotingSysResponseCode.SUCCESS) {
+                return true;
+            }
+        } catch (Throwable e) {
+            logger.error("heartbeat error:", e);
+        }
+        return false;
     }
 
     @PreDestroy

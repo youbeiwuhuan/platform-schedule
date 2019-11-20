@@ -28,4 +28,6 @@ public interface PlatformNamesrvDao {
 
     PlatformNamesrv getById(Long id);
 
+    void updateRole(Map map);
+
 }

@@ -10,11 +10,9 @@
         </encoder>
     </appender>
 
-    <!--
     <logger name="com.courage.platform.schedule.dao" level="debug" additivity="false">
         <appender-ref ref="stdout"/>
     </logger>
-    -->
 
     <root>
         <level value="INFO"/>
