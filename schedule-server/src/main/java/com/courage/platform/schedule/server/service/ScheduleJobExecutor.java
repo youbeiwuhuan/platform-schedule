@@ -60,31 +60,36 @@ public class ScheduleJobExecutor {
             removeJobById(jobId);
             return;
         }
-        boolean checkExecuted = false;
+
+        boolean addWheelTimer = false;
         JobMarker jobMarker = currentRunningJobs.get(jobId);
         if (jobMarker == null) {
             jobMarker = new JobMarker(scheduleJobInfo.getId(), scheduleJobInfo.getJobCron());
             currentRunningJobs.put(jobId, jobMarker);
-            checkExecuted = true;
+            addWheelTimer = true;
         } else {
             if (!jobMarker.getJobCron().equals(scheduleJobInfo.getJobCron())) {
                 logger.warn("job编号:" + jobId + " jobName:" + scheduleJobInfo.getJobName() + "cron表达式修改,原cron:" + jobMarker.getJobCron() + " 新:" + scheduleJobInfo.getJobCron());
                 jobMarker.setJobCron(scheduleJobInfo.getJobCron());
-                ScheduleTimeout scheduleTimeout = jobMarker.getScheduleTimeout();
-                if (scheduleTimeout != null) {
-                    scheduleTimeout.cancel();
-                    checkExecuted = true;
-                }
+                addWheelTimer = true;
+            }
+            if (!jobMarker.getJobAvailable().getId().equals(scheduleJobInfo.getStatus())) {
+                logger.warn("job编号:" + jobId + " jobName:" + scheduleJobInfo.getJobName() + "状态修改,原状态:" + jobMarker.getJobAvailable().getId() + " 新:" + scheduleJobInfo.getStatus());
+                addWheelTimer = true;
             }
         }
+
         if (NumberUtils.INTEGER_ZERO.equals(scheduleJobInfo.getStatus())) {
             jobMarker.setJobAvailable(JobAvailable.VALID);
         } else {
             jobMarker.setJobAvailable(JobAvailable.UNVALID);
         }
 
-        //若内存中无该任务，或者该任务的表达式已经发生变化 则开始调度
-        if (checkExecuted) {
+        if (addWheelTimer) {
+            ScheduleTimeout scheduleTimeout = jobMarker.getScheduleTimeout();
+            if (scheduleTimeout != null) {
+                scheduleTimeout.cancel();
+            }
             logger.warn("调度job编号:" + jobId + " jobName:" + scheduleJobInfo.getJobName());
             boolean result = executeJob(jobId);
             if (!result) {
