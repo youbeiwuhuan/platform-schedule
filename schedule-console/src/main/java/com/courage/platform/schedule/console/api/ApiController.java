@@ -1,5 +1,6 @@
 package com.courage.platform.schedule.console.api;
 
+import com.courage.platform.schedule.console.mvc.PermissionLimit;
 import com.courage.platform.schedule.console.service.PlatformNamesrvService;
 import com.courage.platform.schedule.dao.domain.PlatformNamesrv;
 import org.slf4j.Logger;
@@ -24,6 +25,7 @@ public class ApiController {
     private PlatformNamesrvService platformNamesrvService;
 
     @RequestMapping("/address")
+    @PermissionLimit(limit = false)
     public Object scheduleserver() {
         Map map = new HashMap<>();
         map.put("code", 0);

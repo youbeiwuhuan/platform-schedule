@@ -1,5 +1,6 @@
 package com.courage.platform.schedule.console.controller;
 
+import com.courage.platform.schedule.console.mvc.PermissionLimit;
 import com.courage.platform.schedule.console.service.AppInfoService;
 import com.courage.platform.schedule.console.service.PlatformNamesrvService;
 import com.courage.platform.schedule.console.service.ScheduleJobInfoService;
@@ -129,6 +130,7 @@ public class AppController {
     }
 
     @RequestMapping("/onlineapp")
+    @PermissionLimit(limit = true)
     public String onlineapp(HttpServletRequest httpServletRequest, Model model) {
         List<PlatformNamesrv> platformNamesrvList = platformNamesrvService.findAll();
         model.addAttribute("platformNamesrvList", platformNamesrvList);
@@ -136,6 +138,7 @@ public class AppController {
     }
 
     @RequestMapping("/onlineapp/pageList")
+    @PermissionLimit(limit = true)
     @ResponseBody
     public Map<String, Object> onlinepageList(HttpServletRequest httpServletRequest) {
         String start = httpServletRequest.getParameter("start");

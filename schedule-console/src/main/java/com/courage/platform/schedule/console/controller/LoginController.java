@@ -1,5 +1,6 @@
 package com.courage.platform.schedule.console.controller;
 
+import com.courage.platform.schedule.console.mvc.PermissionLimit;
 import com.courage.platform.schedule.console.service.LoginService;
 import com.courage.platform.schedule.console.util.CookieUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -34,12 +35,14 @@ public class LoginController {
     @Value("${console.password}")
     private String configPassword;
 
+    @PermissionLimit(limit = false)
     @RequestMapping("/toLogin")
     public String toLogin() {
         return "login";
     }
 
     @RequestMapping("/login")
+    @PermissionLimit(limit = false)
     @ResponseBody
     public Map login(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
         String userName = httpServletRequest.getParameter("userName");
