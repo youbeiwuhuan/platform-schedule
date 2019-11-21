@@ -54,9 +54,9 @@ $(function () {
                     }, 500);
                 } else {
                     layer.open({
-                        title: I18n.system_tips,
-                        btn: [I18n.system_ok],
-                        content: (data.msg || I18n.login_fail),
+                        title: '提示',
+                        btn: '确定',
+                        content: (data.msg || '登录失败'),
                         icon: '2'
                     });
                 }

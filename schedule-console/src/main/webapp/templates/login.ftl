@@ -39,7 +39,7 @@
 
 <script src="${request.contextPath}/static/plugins/jquery/jquery.validate.min.js"></script>
 <script src="${request.contextPath}/static/adminlte/plugins/iCheck/icheck.min.js"></script>
-<script src="${request.contextPath}/static/js/login.1.js?t=20191121"></script>
+<script src="${request.contextPath}/static/js/login.1.js?t=20191122sssxx1"></script>
 
 </body>
 </html>

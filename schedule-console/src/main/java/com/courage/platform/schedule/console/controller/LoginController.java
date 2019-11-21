@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * 登录
  * Created by zhangyong on 2019/11/21.
@@ -16,6 +18,12 @@ public class LoginController {
 
     @RequestMapping("/toLogin")
     public String toLogin() {
+        return "login";
+    }
+
+    @RequestMapping("/login")
+    public String login(HttpServletRequest httpServletRequest) {
+        
         return "login";
     }
 
