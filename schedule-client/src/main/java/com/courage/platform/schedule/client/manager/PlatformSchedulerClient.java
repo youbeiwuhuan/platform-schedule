@@ -78,6 +78,9 @@ public class PlatformSchedulerClient {
         if (this.scheduleClientController != null) {
             this.scheduleClientController.close();
         }
+        if (this.timer != null) {
+            this.timer.cancel();
+        }
     }
 
     //======================================================================  set method   ======================================================
