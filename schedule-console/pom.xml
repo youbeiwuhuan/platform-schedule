@@ -215,7 +215,7 @@
                     <!--fork:  如果没有该项配置，肯呢个devtools不会起作用，即应用不会restart-->
                     <fork>true</fork>
                     <jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>
-                    <mainClass>com.courage.platform.schedule.console.com.courage.platform.schedule.demo.MainApplication</mainClass>
+                    <mainClass>com.courage.platform.schedule.console.MainApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
