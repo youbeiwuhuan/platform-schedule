@@ -1,6 +1,7 @@
 package com.courage.platform.schedule.console.controller;
 
 import com.courage.platform.schedule.console.service.LoginService;
+import com.courage.platform.schedule.console.util.CookieUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,6 +48,9 @@ public class LoginController {
             Map map = new HashMap<>();
             map.put("code", 200);
             map.put("msg", "登录成功");
+            String token = loginService.createToken(userName);
+            CookieUtil.set(httpServletResponse, "platformToken", token, true);
+            CookieUtil.set(httpServletResponse, "platformUsername", userName, true);
             return map;
         } else {
             Map map = new HashMap<>();

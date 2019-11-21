@@ -38,7 +38,7 @@ public class CookieUtil {
      * @param value
      * @param maxAge
      */
-    private static void set(HttpServletResponse response, String key, String value, String domain, String path, int maxAge, boolean isHttpOnly) {
+    public static void set(HttpServletResponse response, String key, String value, String domain, String path, int maxAge, boolean isHttpOnly) {
         Cookie cookie = new Cookie(key, value);
         if (domain != null) {
             cookie.setDomain(domain);

@@ -1,5 +1,6 @@
 package com.courage.platform.schedule.console.service;
 
+import com.courage.platform.schedule.console.util.Md5Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -12,12 +13,10 @@ import org.springframework.stereotype.Service;
 public class LoginService {
 
     private final static Logger logger = LoggerFactory.getLogger(LoginService.class);
-
-    private final static String LOGIN_IDENTITY_KEY = "scheduleToken";
-
+    
     public String createToken(String username) {
-        //aes128(username + : password)
-        return null;
+        String md5 = Md5Util.getMd5Code(username);
+        return md5;
     }
 
 }
