@@ -50,7 +50,7 @@ $(function () {
                 if (data.code == "200") {
                     layer.msg('登录成功');
                     setTimeout(function () {
-                        window.location.href = base_url;
+                        window.location.href = '/' + base_url;
                     }, 500);
                 } else {
                     layer.open({
