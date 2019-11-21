@@ -13,6 +13,11 @@ public class LoginService {
 
     private final static Logger logger = LoggerFactory.getLogger(LoginService.class);
 
+    private final static String LOGIN_IDENTITY_KEY = "scheduleToken";
 
+    public String createToken(String username) {
+        //aes128(username + : password)
+        return null;
+    }
 
 }
