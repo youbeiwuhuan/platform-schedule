@@ -8,3 +8,8 @@ mysql:
     database: tech_platform
     username: root
     password: test11
+
+console:
+  username: admin
+  password: 123456789
+

@@ -8,3 +8,7 @@ mysql:
     database: tech_platform
     username: root
     password: ilxw
+
+console:
+  username: admin
+  password: 123456789
