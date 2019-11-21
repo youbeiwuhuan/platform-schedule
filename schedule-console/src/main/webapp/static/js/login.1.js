@@ -49,6 +49,7 @@ $(function () {
             $.post(base_url + "/login", $("#loginForm").serialize(), function (data, status) {
                 if (data.code == "200") {
                     layer.msg('登录成功');
+                    //登录信息
                     setTimeout(function () {
                         window.location.href = '/' + base_url;
                     }, 500);
