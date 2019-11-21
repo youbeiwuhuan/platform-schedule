@@ -9,7 +9,7 @@ import com.google.common.cache.CacheBuilder;
  */
 public class RecoveryLruCache {
 
-    private static Cache loadingCache = CacheBuilder.newBuilder().maximumSize(10000).initialCapacity(5).build();
+    private static Cache loadingCache = CacheBuilder.newBuilder().maximumSize(50000).initialCapacity(5).build();
 
     public static void put(Long key, Object object) {
         loadingCache.put(key, object);
