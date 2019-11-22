@@ -4,7 +4,7 @@
 
   它为您提供秒级，分布式的定时（基于 Cron 表达式）任务调度服务。
   特点:
-  1  采用rocketmq remoting通讯协议(做了些许改动 ，去掉)
+  1  采用rocketmq remoting通讯协议(做了些许改动 ，去掉了nameserver相关的代码)
   2  没有使用quartz,而使用hashedwheeltimer来实现调度
   3  当前支持master slave模式,后续会实现raft自动选主的功能
 
