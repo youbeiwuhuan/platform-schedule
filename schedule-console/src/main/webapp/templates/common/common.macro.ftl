@@ -90,8 +90,8 @@
                     </button>
                     <span class="caret" style="color: white;margin-left: -10px; margin-right: 15px;"></span>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="menu2">
-                        <li role="presentation"><a role="menuitem" id="logoutBtn" tabindex="-1"
-                                                   href="${request.contextPath}/logout">退出</a></li>
+                        <li role="presentation">
+                            <a role="menuitem" id="logoutBtn" tabindex="-1" href="${request.contextPath}/logout">退出</a></li>
                     </ul>
                 </li>
             </ul>
