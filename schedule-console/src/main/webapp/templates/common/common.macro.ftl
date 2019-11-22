@@ -86,12 +86,12 @@
                     <button type="button" class="btn  btn-lg" id="menu2" data-toggle="dropdown" aria-expanded="true"
                             style="font-size:16px;margin-top: 2px;background-color: rgba(101, 0, 0, 0);color: #fff;">
                         <span class="glyphicon glyphicon-user"></span>
-                        ${username}
+                       欢迎 ${username}
                     </button>
                     <span class="caret" style="color: white;margin-left: -10px; margin-right: 15px;"></span>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="menu2">
                         <li role="presentation"><a role="menuitem" id="logoutBtn" tabindex="-1"
-                                                   href="#">${I18n.logout_btn}</a></li>
+                                                   href="#">退出</a></li>
                     </ul>
                 </li>
             </ul>
