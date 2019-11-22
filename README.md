@@ -12,7 +12,7 @@
 
 Schedule有三个组件，schedule-console、schedule-server 和 schedule-client。
 
-![](http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/pic/43136/cn_zh/1543826328302/edas-schedulerX-archit.png)
+   ![](doc/images/yuanli.png)
 
   schedule-console 是 Schedule 的控制台，用于创建、管理定时任务。负责数据的创建、修改和查询。在产品内部与 schedule server 交互。
   schedule-server 是 Schedule 的服务端，是 Scheduler的核心组件。负责客户端任务的调度触发以及任务执行状态的监测。
