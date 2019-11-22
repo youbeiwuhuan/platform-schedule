@@ -2,51 +2,19 @@
 
 ## 简介
 
-![](https://img-blog.csdnimg.cn/20191104101735947.png)
-
-**canal [kə'næl]**，译意为水道/管道/沟渠，主要用途是基于 MySQL 数据库增量日志解析，提供增量数据订阅和消费
-
-早期阿里巴巴因为杭州和美国双机房部署，存在跨机房同步的业务需求，实现方式主要是基于业务 trigger 获取增量变更。从 2010 年开始，业务逐步尝试数据库日志解析获取增量变更进行同步，由此衍生出了大量的数据库增量订阅和消费业务。
-
-基于日志增量订阅和消费的业务包括
-- 数据库镜像
-- 数据库实时备份
-- 索引构建和实时维护(拆分异构索引、倒排索引等)
-- 业务 cache 刷新
-- 带业务逻辑的增量数据处理
-
-当前的 canal 支持源端 MySQL 版本包括 5.1.x , 5.5.x , 5.6.x , 5.7.x , 8.0.x
-
+它为您提供秒级、精准、高可靠、高可用的定时（基于 Cron 表达式）任务调度服务。同时提供分布式的任务执行模型，如网格任务。网格任务支持海量子任务均匀分配到所有 Worker（schedule-client）上执行。
 ## 工作原理
 
-#### MySQL主备复制原理
-![](http://dl.iteye.com/upload/attachment/0080/3086/468c1a14-e7ad-3290-9d3d-44ac501a7227.jpg)
+Schedule有三个组件，schedule-console、schedule-server 和 schedule-client。
 
-- MySQL master 将数据变更写入二进制日志( binary log, 其中记录叫做二进制日志事件binary log events，可以通过 show binlog events 进行查看)
-- MySQL slave 将 master 的 binary log events 拷贝到它的中继日志(relay log)
-- MySQL slave 重放 relay log 中事件，将数据变更反映它自己的数据
+![](http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/pic/43136/cn_zh/1543826328302/edas-schedulerX-archit.png)
 
-#### canal 工作原理
-
-- canal 模拟 MySQL slave 的交互协议，伪装自己为 MySQL slave ，向 MySQL master 发送dump 协议
-- MySQL master 收到 dump 请求，开始推送 binary log 给 slave (即 canal )
-- canal 解析 binary log 对象(原始为 byte 流)
-
-## 重要版本更新说明
-
-1. canal 1.1.x 版本（[release_note](https://github.com/alibaba/canal/releases)）,性能与功能层面有较大的突破,重要提升包括:
-
-- 整体性能测试&优化,提升了150%. #726 参考: [Performance](https://github.com/alibaba/canal/wiki/Performance)
-- 原生支持prometheus监控 #765 [Prometheus QuickStart](https://github.com/alibaba/canal/wiki/Prometheus-QuickStart)
-- 原生支持kafka消息投递 #695 [Canal Kafka/RocketMQ QuickStart](https://github.com/alibaba/canal/wiki/Canal-Kafka-RocketMQ-QuickStart)
-- 原生支持aliyun rds的binlog订阅 (解决自动主备切换/oss binlog离线解析) 参考: [Aliyun RDS QuickStart](https://github.com/alibaba/canal/wiki/aliyun-RDS-QuickStart)
-- 原生支持docker镜像 #801 参考: [Docker QuickStart](https://github.com/alibaba/canal/wiki/Docker-QuickStart)
-
-2.  canal 1.1.4版本，迎来最重要的WebUI能力，引入canal-admin工程，支持面向WebUI的canal动态管理能力，支持配置、任务、日志等在线白屏运维能力，具体文档：[Canal Admin Guide](https://github.com/alibaba/canal/wiki/Canal-Admin-Guide)
+schedule-console 是 Schedule 的控制台，用于创建、管理定时任务。负责数据的创建、修改和查询。在产品内部与 schedule server 交互。
+schedule-server 是 Schedule 的服务端，是 Scheduler的核心组件。负责客户端任务的调度触发以及任务执行状态的监测。
+schedule-client 是 Schedule 的客户端。每个接入客户端的应用进程就是一个的 Worker。Worker 负责与 schedule-server 建立通信，让 schedule-server 发现客户端的机器。并向 schedulerx-server 注册当前应用所在的分组，这样 schedulerx-server 才能向客户端定时触发任务。
 
 ## 文档
-
-- [Home](https://github.com/alibaba/canal/wiki/Home)
+- [Home](https://github.com/makemyownlife/canal/wiki/Home)
 - [Introduction](https://github.com/alibaba/canal/wiki/Introduction)
 - [QuickStart](https://github.com/alibaba/canal/wiki/QuickStart)
   - [Docker QuickStart](https://github.com/alibaba/canal/wiki/Docker-QuickStart)
@@ -69,25 +37,3 @@
 - [ReleaseNotes](http://alibaba.github.com/canal/release.html)
 - [Download](https://github.com/alibaba/canal/releases)
 - [FAQ](https://github.com/alibaba/canal/wiki/FAQ)
-
-## 多语言
-
-canal 特别设计了 client-server 模式，交互协议使用 protobuf 3.0 , client 端可采用不同语言实现不同的消费逻辑，欢迎大家提交 pull request
-
-- canal java 客户端: [https://github.com/alibaba/canal/wiki/ClientExample](https://github.com/alibaba/canal/wiki/ClientExample)
-- canal c# 客户端: [https://github.com/dotnetcore/CanalSharp](https://github.com/dotnetcore/CanalSharp)
-- canal go客户端: [https://github.com/CanalClient/canal-go](https://github.com/CanalClient/canal-go)
-- canal php客户端: [https://github.com/xingwenge/canal-php](https://github.com/xingwenge/canal-php)
-- canal Python客户端：[https://github.com/haozi3156666/canal-python](https://github.com/haozi3156666/canal-python)
-
-canal 作为 MySQL binlog 增量获取和解析工具，可将变更记录投递到 MQ 系统中，比如 Kafka/RocketMQ，可以借助于 MQ 的多语言能力
-
-- 参考文档: [Canal Kafka/RocketMQ QuickStart](https://github.com/alibaba/canal/wiki/Canal-Kafka-RocketMQ-QuickStart)
-
-## 相关开源
-
-- [canal 消费端开源项目: Otter](http://github.com/alibaba/otter)
-- [阿里巴巴去 Oracle 数据迁移同步工具: yugong](http://github.com/alibaba/yugong)
-
-## 问题反馈
-- 报告 issue: [github issues](https://github.com/alibaba/canal/issues)
