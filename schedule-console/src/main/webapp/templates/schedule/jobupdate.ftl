@@ -34,7 +34,9 @@
                 <div class="col-sm-4">
                     <select class="form-control glueType" name="routeMode">
                         <option value="0" <#if 0==scheduleJobInfo.routeMode>selected</#if> >随机</option>
+                        <!--
                         <option value="1" <#if 1==scheduleJobInfo.routeMode>selected</#if> >广播</option>
+                        -->
                     </select>
                 </div>
                 <label for="lastname" class="col-sm-2 control-label">Cron<font color="red">*</font></label>
