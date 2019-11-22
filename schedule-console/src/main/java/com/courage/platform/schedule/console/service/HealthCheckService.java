@@ -34,6 +34,7 @@ public class HealthCheckService {
     private ScheduleJobInfoService scheduleJobInfoService;
 
     @Transactional
+    @Scheduled(initialDelay = 0, fixedRate = 20000)
     public void healthCheck() {
         HashSet<Integer> slaveAvailable = new HashSet<>();
         try {
