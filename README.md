@@ -51,6 +51,19 @@ Schedule有三个组件，schedule-console、schedule-server 和 schedule-client
    ![](doc/images/jobadd.png)
 
 ## 接入调度系统
-   
+ 1 参看 schedule-demo
+   jar包依赖:
+```
+ <dependency>
+        <artifactId>schedule-client</artifactId>
+        <groupId>com.courage</groupId>
+        <version>${parent.version}</version>
+ </dependency>
+```
+
+   ![](doc/images/jieru.png)
+
+
+2  注解添加执行服务
 
 
