@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 public class DemoService {
 
     private final static Logger logger = LoggerFactory.getLogger(DemoService.class);
-
+    
     @RSAnnotation(value = "demo.doTestJob")
     public ScheduleResult doTestJob(ScheduleParam scheduleParam) {
         logger.info("doTestJob:" + JSON.toJSONString(scheduleParam));

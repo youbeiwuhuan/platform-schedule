@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,6 +62,15 @@ public class LoginController {
             map.put("msg", "登录失败,账号或者密码错误!");
             return map;
         }
+    }
+
+    @RequestMapping("/logout")
+    @PermissionLimit(limit = false)
+    public String logout(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
+        CookieUtil.remove(httpServletRequest, httpServletResponse, "platformToken");
+        CookieUtil.remove(httpServletRequest, httpServletResponse, "platformUsername");
+        httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/toLogin");
+        return null;
     }
 
 }
