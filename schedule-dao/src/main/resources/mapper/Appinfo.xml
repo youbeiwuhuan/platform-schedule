@@ -4,8 +4,8 @@
 
     <resultMap id="appinfo" type="com.courage.platform.schedule.dao.domain.Appinfo" >
         <result column="id" property="id" />
-        <result column="app_id" property="appId" />
         <result column="app_key" property="appKey" />
+        <result column="app_secret" property="appSecret" />
         <result column="app_name" property="appName"/>
         <result column="status" property="status" />
         <result column="remark" property="remark" />

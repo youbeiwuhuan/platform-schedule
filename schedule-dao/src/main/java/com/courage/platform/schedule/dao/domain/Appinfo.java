@@ -10,7 +10,7 @@ public class Appinfo {
 
     private int id;
 
-    private String appId;
+    private String appSecret;
 
     private String appKey;
 
@@ -32,14 +32,6 @@ public class Appinfo {
         this.id = id;
     }
 
-    public String getAppId() {
-        return appId;
-    }
-
-    public void setAppId(String appId) {
-        this.appId = appId;
-    }
-
     public String getAppKey() {
         return appKey;
     }
@@ -58,6 +50,14 @@ public class Appinfo {
 
     public int getStatus() {
         return status;
+    }
+
+    public String getAppSecret() {
+        return appSecret;
+    }
+
+    public void setAppSecret(String appSecret) {
+        this.appSecret = appSecret;
     }
 
     public void setStatus(int status) {
@@ -87,4 +87,5 @@ public class Appinfo {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
 }
