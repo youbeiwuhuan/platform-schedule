@@ -16,9 +16,9 @@
                 <label for="firstname" class="col-sm-2 control-label">app应用<font color="red">*</font></label>
                 <div class="col-sm-4">
                     <select class="form-control ignore" name="appId">
-          		            	<#list appinfoList as appinfo>
-                                    <option value="${appinfo.appId}">${appinfo.appName}</option>
-                                </#list>
+                            <#list appinfoList as appinfo>
+                                    <option value="${appinfo.id}">${appinfo.appName}</option>
+                            </#list>
                     </select>
                 </div>
                 <label for="lastname" class="col-sm-2 control-label">任务名<font color="red">*</font></label>

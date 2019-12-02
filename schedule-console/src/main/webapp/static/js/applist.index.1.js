@@ -22,7 +22,7 @@ $(function () {
         //"scrollX": true,	// scroll x，close self-adaption
         "columns": [
             {
-                "data": 'appId',
+                "data": 'appKey',
                 "bSortable": false,
                 "visible": true,
                 "width": '8%'
@@ -52,7 +52,7 @@ $(function () {
                 }
             },
             {
-                "data": 'appKey',
+                "data": 'appSecret',
                 "visible": true,
                 "width": '15%'
             },

@@ -93,6 +93,7 @@ public class AppController {
             map.put("code", "200");
             return map;
         } catch (Exception e) {
+            logger.error("doAdd error:", e);
             Map map = new HashMap();
             map.put("code", "500");
             return map;

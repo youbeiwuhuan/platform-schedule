@@ -20,13 +20,13 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="lastname" class="col-sm-2 control-label">应用编号</label>
-                <div class="col-sm-10"><input type="text" class="form-control required" name="appId" autocomplete="off" value="${appinfo.appId}" disabled
+                <label for="lastname" class="col-sm-2 control-label">appKey</label>
+                <div class="col-sm-10"><input type="text" class="form-control required" name="appId" autocomplete="off" value="${appinfo.appKey}" disabled
                                               placeholder="" style="width: 500px;"></div>
             </div>
             <div class="form-group">
-                <label for="lastname" class="col-sm-2 control-label">appKey</label>
-                <div class="col-sm-10"><input type="text" class="form-control required" name="appId" autocomplete="off" value="${appinfo.appKey}" disabled
+                <label for="lastname" class="col-sm-2 control-label">appSecret</label>
+                <div class="col-sm-10"><input type="text" class="form-control required" name="appId" autocomplete="off" value="${appinfo.appSecret}" disabled
                                               placeholder="" style="width: 500px;"></div>
             </div>
             <div class="form-group">

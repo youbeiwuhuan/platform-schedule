@@ -27,6 +27,8 @@ public class PlatformSchedulerClient {
 
     private String appKey;
 
+    private String appSecret;
+
     private String consoleAddress;
 
     public void start() {
@@ -94,6 +96,14 @@ public class PlatformSchedulerClient {
 
     public void setConsoleAddress(String consoleAddress) {
         this.consoleAddress = consoleAddress;
+    }
+
+    public String getAppSecret() {
+        return appSecret;
+    }
+
+    public void setAppSecret(String appSecret) {
+        this.appSecret = appSecret;
     }
 
 }

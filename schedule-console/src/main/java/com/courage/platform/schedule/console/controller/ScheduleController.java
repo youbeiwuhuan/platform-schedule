@@ -108,7 +108,7 @@ public class ScheduleController {
             map.put("msg", "请检查cron表达式");
             return map;
         }
-        Appinfo appinfo = appInfoService.getByAppId((String) params.get("appId"));
+        Appinfo appinfo = appInfoService.getById((String) params.get("appId"));
         params.put("appName", appinfo.getAppName());
         params.put("status", 0);
         scheduleJobInfoService.insert(params);
@@ -128,7 +128,7 @@ public class ScheduleController {
             map.put("msg", "请检查cron表达式");
             return map;
         }
-        Appinfo appinfo = appInfoService.getByAppId((String) params.get("appId"));
+        Appinfo appinfo = appInfoService.getById((String) params.get("appId"));
         params.put("appName", appinfo.getAppName());
         scheduleJobInfoService.update(params);
         Map map = new HashMap();

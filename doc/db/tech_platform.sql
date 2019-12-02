@@ -77,7 +77,7 @@ DROP TABLE IF EXISTS `t_schedule_job_log`;
 CREATE TABLE `t_schedule_job_log` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `job_id` bigint(20) NOT NULL COMMENT '任务id',
-  `app_id` bigint(20) DEFAULT NULL COMMENT '应用id',
+  `app_id` bigint(20) DEFAULT NULL COMMENT '应用id 应用表主键',
   `trigger_status` tinyint(4) NOT NULL DEFAULT '-1' COMMENT '-1: 待触发\n0: 触发成功\n1: 触发失败',
   `trigger_time` datetime DEFAULT NULL COMMENT '触发时间',
   `trigger_message` varchar(255) COLLATE utf8_bin DEFAULT '' COMMENT '触发内容',

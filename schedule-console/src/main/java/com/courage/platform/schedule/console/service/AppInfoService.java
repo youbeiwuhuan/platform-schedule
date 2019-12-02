@@ -1,5 +1,6 @@
 package com.courage.platform.schedule.console.service;
 
+import com.courage.platform.schedule.console.util.Md5Util;
 import com.courage.platform.schedule.dao.AppinfoDao;
 import com.courage.platform.schedule.dao.domain.Appinfo;
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by zhangyong on 2019/11/5.
@@ -19,7 +21,7 @@ public class AppInfoService {
 
     private static final Logger logger = LoggerFactory.getLogger(AppInfoService.class);
 
-    private static final int APP_ID_STEP = 1000;
+    private static final int APP_ID_STEP = 1400000;
 
     @Autowired
     private AppinfoDao appinfoDao;
@@ -28,8 +30,8 @@ public class AppInfoService {
         return appinfoDao.findAll();
     }
 
-    public Appinfo getByAppId(String id) {
-        return appinfoDao.findAppinfoByAppId(id);
+    public Appinfo getByAppKey(String appKey) {
+        return appinfoDao.findAppinfoByAppKey(appKey);
     }
 
     public Appinfo getById(String id) {
@@ -46,16 +48,17 @@ public class AppInfoService {
         return appinfoDao.count(param);
     }
 
-    public Integer getMaxAppId() {
-        Integer maxAppId = appinfoDao.getMaxAppId();
-        if (maxAppId == null) {
+    public Integer getMaxAppKey() {
+        Integer maxAppKey = appinfoDao.getMaxAppKey();
+        if (maxAppKey == null) {
             return APP_ID_STEP + 1;
         }
-        return maxAppId + 1;
+        return maxAppKey + 1;
     }
 
     public void addAppInfo(Appinfo appinfo) {
-        appinfo.setAppId(String.valueOf(getMaxAppId()));
+        appinfo.setAppKey(String.valueOf(getMaxAppKey()));
+        appinfo.setAppSecret(Md5Util.getMd5Code(appinfo.getAppName() + UUID.randomUUID().toString()));
         appinfo.setCreateTime(new Date());
         appinfo.setUpdateTime(new Date());
         appinfoDao.insertAppInfo(appinfo);

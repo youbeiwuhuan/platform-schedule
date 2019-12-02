@@ -15,8 +15,8 @@
 
     <sql id="Base_Column_List">
 		t.id,
-		t.app_id,
 		t.app_key,
+		t.app_secret,
 		t.app_name,
 		t.status,
 		t.remark,
@@ -30,10 +30,10 @@
         </if>
     </sql>
 
-    <select id="findAppinfoByAppId" parameterType="java.lang.String" resultMap="appinfo">
+    <select id="findAppinfoByAppKey" parameterType="java.lang.String" resultMap="appinfo">
         SELECT <include refid="Base_Column_List" />
         FROM t_platform_appinfo AS t
-        WHERE t.app_id = #{appId}
+        WHERE t.app_key = #{appKey}
         ORDER BY t.id ASC
     </select>
 
@@ -50,17 +50,20 @@
     </select>
 
     <insert id="insertAppInfo" parameterType="com.courage.platform.schedule.dao.domain.Appinfo" useGeneratedKeys="true" keyProperty="id">
-        insert into t_platform_appinfo(
-        <if test="appId != null and appId != ''">app_id,</if>
+        insert into t_platform_appinfo
+        (
         <if test="appKey != null and appKey != ''">app_key,</if>
+        <if test="appSecret != null and appSecret != ''">app_secret,</if>
         <if test="appName != null and appName != ''">app_name,</if>
         <if test=" status != -1">status,</if>
         <if test="remark != null and remark != ''">remark ,</if>
         create_time,
         update_time
-        )values(
-        <if test="appId != null and appId != ''">#{appId},</if>
+        )
+        values
+        (
         <if test="appKey != null and appKey != ''">#{appKey},</if>
+        <if test="appSecret != null and appSecret != ''">#{appSecret},</if>
         <if test="appName != null and appName != ''">#{appName},</if>
         <if test=" status != -1">#{status},</if>
         <if test="remark != null and remark != ''">#{remark} ,</if>
@@ -110,8 +113,8 @@
         <include refid="queryCondition"/>
     </select>
 
-    <select id="getMaxAppId" resultType="java.lang.Integer">
-        select  max(app_id)  from t_platform_appinfo
+    <select id="getMaxAppKey" resultType="java.lang.Integer">
+        select  max(app_key)  from t_platform_appinfo
     </select>
 
     <update id="update2" parameterType="com.courage.platform.schedule.dao.domain.Appinfo">

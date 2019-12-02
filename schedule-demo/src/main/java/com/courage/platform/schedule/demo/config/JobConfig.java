@@ -12,13 +12,13 @@ public class JobConfig {
 
     private static Logger logger = LoggerFactory.getLogger(JobConfig.class);
 
-    @Value("${platform.consoleAddress}")
+    @Value("${platform.schedule.consoleAddress}")
     private String consoleAddress;
 
     @Value("${spring.name}")
     private String appName;
 
-    @Value("${platform.appKey}")
+    @Value("${platform.schedule.appKey}")
     private String appKey;
 
     @Bean(initMethod = "start", destroyMethod = "destroy")

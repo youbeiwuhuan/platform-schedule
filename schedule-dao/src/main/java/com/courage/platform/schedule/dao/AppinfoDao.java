@@ -11,7 +11,7 @@ import java.util.Map;
 @Repository
 public interface AppinfoDao {
 
-    Appinfo findAppinfoByAppId(@Param("appId") String appId);
+    Appinfo findAppinfoByAppKey(@Param("appKey") String appKey);
 
     Appinfo findAppinfoById(@Param("id") String id);
 
@@ -29,6 +29,6 @@ public interface AppinfoDao {
 
     Integer count(Map map);
 
-    Integer getMaxAppId();
+    Integer getMaxAppKey();
 
 }
