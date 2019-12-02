@@ -6,9 +6,9 @@ SET NAMES utf8mb4;
 DROP TABLE IF EXISTS `t_platform_appinfo`;
 CREATE TABLE `t_platform_appinfo` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `app_id` varchar(20) NOT NULL,
   `app_name` varchar(50) NOT NULL COMMENT '应用名称',
-  `app_key` varchar(100) NOT NULL,
+  `app_key` varchar(50) NOT NULL,
+  `app_secret` varchar(50) NOT NULL,
   `status` tinyint(4) DEFAULT '0' COMMENT '0 : 有效  /  1: 无效',
   `remark` varchar(255) DEFAULT '',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
