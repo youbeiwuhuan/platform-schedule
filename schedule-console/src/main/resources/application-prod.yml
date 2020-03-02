@@ -12,4 +12,5 @@ mysql:
 console:
   username: admin
   password: 123456789
+  healthCheck: false
 
