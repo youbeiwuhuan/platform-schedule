@@ -34,12 +34,15 @@ public class HealthCheckService {
     @Autowired
     private ScheduleJobInfoService scheduleJobInfoService;
 
-    @Value("${console.healthCheck:true}")
+    @Value("${console.healthCheck:false}")
     private boolean healthCheck;
 
     @Transactional
     @Scheduled(initialDelay = 0, fixedRate = 20000)
     public void healthCheck() {
+        if (!healthCheck) {
+            return;
+        }
         HashSet<Integer> slaveAvailable = new HashSet<>();
         try {
             scheduleJobLockDao.selectLockForUpdate();
