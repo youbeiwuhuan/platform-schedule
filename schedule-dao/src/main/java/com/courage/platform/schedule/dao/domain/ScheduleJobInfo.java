@@ -26,6 +26,11 @@ public class ScheduleJobInfo {
 
     private Integer routeMode;
 
+    /*
+     失败尝试次数
+     */
+    private Integer failRetryTime;
+
     private Integer status;
 
     private String author;
@@ -177,4 +182,13 @@ public class ScheduleJobInfo {
     public void setJobHandler(String jobHandler) {
         this.jobHandler = jobHandler;
     }
+
+    public Integer getFailRetryTime() {
+        return failRetryTime;
+    }
+
+    public void setFailRetryTime(Integer failRetryTime) {
+        this.failRetryTime = failRetryTime;
+    }
+
 }
