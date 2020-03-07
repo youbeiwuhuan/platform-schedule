@@ -58,6 +58,17 @@
                                              maxlength="100"></div>
             </div>
             <div class="form-group">
+                <label for="firstname" class="col-sm-2 control-label">失败尝试次数<font
+                            color="red">*</font></label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" name="failRetryCount"
+                           value="${scheduleJobInfo.failRetryCount}" maxlength="100">
+                </div>
+                <label for="firstname" class="col-sm-2 control-label">执行超时时间<font color="red">*</font></label>
+                <div class="col-sm-4"><input type="text" class="form-control" name="executeTimeout"
+                                             value="${scheduleJobInfo.executeTimeout}" maxlength="100"></div>
+            </div>
+            <div class="form-group">
                 <label for="firstname" class="col-sm-2 control-label">负责人<font
                         color="red">*</font></label>
                 <div class="col-sm-4"><input type="text" class="form-control" name="author"

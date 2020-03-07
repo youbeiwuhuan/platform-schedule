@@ -60,7 +60,7 @@
                            value="2" maxlength="100">
                 </div>
                 <label for="firstname" class="col-sm-2 control-label">执行超时时间<font color="red">*</font></label>
-                <div class="col-sm-4"><input type="text" class="form-control" name="executeTimeOut"
+                <div class="col-sm-4"><input type="text" class="form-control" name="executeTimeout"
                                             value="0" maxlength="100"></div>
             </div>
             <div class="form-group">
