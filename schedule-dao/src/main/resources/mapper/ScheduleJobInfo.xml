@@ -14,7 +14,7 @@
         <result column="job_handler" property="jobHandler" />
         <result column="route_mode" property="routeMode" />
         <!-- 失败尝试次数 -->
-        <result column="fail_retry_time" property="failRetryTime" />
+        <result column="fail_retry_count" property="failRetryCount" />
         <result column="status" property="status" />
         <result column="author" property="author" />
         <result column="alarm_email" property="alarmEmail" />

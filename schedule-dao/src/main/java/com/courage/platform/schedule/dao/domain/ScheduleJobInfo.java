@@ -27,9 +27,14 @@ public class ScheduleJobInfo {
     private Integer routeMode;
 
     /*
+    失败尝试次数
+    */
+    private Integer executeTimeout;
+
+    /*
      失败尝试次数
      */
-    private Integer failRetryTime;
+    private Integer failRetryCount;
 
     private Integer status;
 
@@ -183,12 +188,20 @@ public class ScheduleJobInfo {
         this.jobHandler = jobHandler;
     }
 
-    public Integer getFailRetryTime() {
-        return failRetryTime;
+    public Integer getFailRetryCount() {
+        return failRetryCount;
     }
 
-    public void setFailRetryTime(Integer failRetryTime) {
-        this.failRetryTime = failRetryTime;
+    public void setFailRetryCount(Integer failRetryCount) {
+        this.failRetryCount = failRetryCount;
+    }
+
+    public Integer getExecuteTimeout() {
+        return executeTimeout;
+    }
+
+    public void setExecuteTimeout(Integer executeTimeout) {
+        this.executeTimeout = executeTimeout;
     }
 
 }
