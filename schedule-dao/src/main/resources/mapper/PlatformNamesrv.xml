@@ -7,7 +7,6 @@
         <result column="namesrv_ip" property="namesrvIp" />
         <result column="status" property="status" />
         <result column="type" property="type" />
-        <result column="role" property="role" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
     </resultMap>
@@ -64,7 +63,7 @@
     </select>
 
     <update id="update" parameterType="java.util.HashMap">
-        update t_platform_namesrv t set t.namesrv_ip = #{namesrvIp} , t.role = #{role}  , t.update_time = now() where id = #{id}
+        update t_platform_namesrv t set t.namesrv_ip = #{namesrvIp} , t.status = #{status}  , t.update_time = now() where id = #{id}
     </update>
 
     <delete id="delete" parameterType="java.util.HashMap">

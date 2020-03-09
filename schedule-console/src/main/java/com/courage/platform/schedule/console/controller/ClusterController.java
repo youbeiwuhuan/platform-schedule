@@ -85,11 +85,11 @@ public class ClusterController {
     @ResponseBody
     public Map doUpdate(HttpServletRequest httpServletRequest) {
         String namesrvIp = httpServletRequest.getParameter("namesrvIp");
-        String role = httpServletRequest.getParameter("role");
+        String status = httpServletRequest.getParameter("status");
         String id = httpServletRequest.getParameter("id");
         Map map = new HashMap();
         map.put("namesrvIp", namesrvIp);
-        map.put("role", role);
+        map.put("status", status);
         map.put("id", id);
 
         platformNamesrvService.update(map);

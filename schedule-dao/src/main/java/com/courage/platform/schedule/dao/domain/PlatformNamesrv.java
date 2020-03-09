@@ -16,8 +16,6 @@ public class PlatformNamesrv {
 
     private Integer type;
 
-    private Integer role;
-
     private Date createTime;
 
     private Date updateTime;
@@ -52,14 +50,6 @@ public class PlatformNamesrv {
 
     public void setType(Integer type) {
         this.type = type;
-    }
-
-    public Integer getRole() {
-        return role;
-    }
-
-    public void setRole(Integer role) {
-        this.role = role;
     }
 
     public Date getCreateTime() {

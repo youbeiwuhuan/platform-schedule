@@ -81,14 +81,11 @@ public class ScheduleJobInfoService {
             ConsoleTriggerCommand consoleTriggerCommand = new ConsoleTriggerCommand();
             consoleTriggerCommand.setJobId(Long.valueOf(jobId));
             for (PlatformNamesrv platformNamesrv : platformNamesrvList) {
-                //向master发送命令
-                if (platformNamesrv.getRole().equals(0)) {
-                    try {
-                        scheduleRpcClient.send(platformNamesrv.getNamesrvIp(), CommandEnum.CONSOLE_TRIGGER_SCHEDULE_TASK_CMD, consoleTriggerCommand);
-                    } catch (Throwable throwable) {
-                        logger.error("send error:", throwable);
-                        flag = false;
-                    }
+                try {
+                    scheduleRpcClient.send(platformNamesrv.getNamesrvIp(), CommandEnum.CONSOLE_TRIGGER_SCHEDULE_TASK_CMD, consoleTriggerCommand);
+                } catch (Throwable throwable) {
+                    logger.error("send error:", throwable);
+                    flag = false;
                 }
             }
         }
