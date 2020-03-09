@@ -28,6 +28,8 @@ public class ZookeeperDistribute implements DistributeMode {
 
     @Override
     public void start() {
+        //核心思路是: 在zk /platform/schedule/servers 节点添加 127.0.0.1
+        //在/platform/schedule/servers/leader 节点下添加 若leader目录下存在节点 则监听节点 ，当前server状态是standby 若无节点，则做为leader ，作为任务分配的服务器
         long start = System.currentTimeMillis();
         logger.warn("开始启动zk任务分发器");
         logger.warn("结束启动zk任务分发器,耗时:" + (System.currentTimeMillis() - start) + "ms");
