@@ -26,7 +26,6 @@ CREATE TABLE `t_platform_namesrv` (
   `namesrv_ip` varchar(80) NOT NULL COMMENT 'namesrv ip ;分隔',
   `status` tinyint(4) NOT NULL COMMENT '状态 0：有效 1：无效',
   `type` tinyint(4) DEFAULT NULL COMMENT '0: 任务调度 ',
-  `role` tinyint(4) DEFAULT '0' COMMENT '0: master 1: slave',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NOT NULL,
   PRIMARY KEY (`id`),

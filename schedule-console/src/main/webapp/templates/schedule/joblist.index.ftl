@@ -59,7 +59,7 @@
                                     <th name="id">任务ID</th>
                                     <th name="jobName">任务名</th>
                                     <th name="appName">应用名</th>
-                                    <th name="jobType">任务类型</th>
+                                    <th name="jobType">类型</th>
                                     <th name="jobHandler">jobHandler</th>
                                     <th name="remark">cron表达式</th>
                                     <th name="status">状态</th>

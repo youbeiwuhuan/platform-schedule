@@ -52,7 +52,7 @@
     </select>
     
     <insert id="insert" parameterType="java.util.HashMap">
-        insert into t_platform_namesrv(namesrv_ip , type ,status , role  ,  create_time , update_time ) values (#{namesrvIp} , 0 , 0 , #{role} , now() ,now())
+        insert into t_platform_namesrv(namesrv_ip , type ,status   ,  create_time , update_time ) values (#{namesrvIp} , 0  , #{status} , now() ,now())
     </insert>
 
     <select id="getById" parameterType="java.lang.Long" resultMap="platformNamesrv">

@@ -20,11 +20,11 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="lastname" class="col-sm-2 control-label">角色<font color="red">*</font></label>
+                <label for="lastname" class="col-sm-2 control-label">状态<font color="red">*</font></label>
                 <div class="col-sm-10">
-                    <select class="form-control ignore" name="role" style="width: 250px;">
-                        <option value="0">master</option>
-                        <option value="1">slave</option>
+                    <select class="form-control ignore" name="status" style="width: 250px;">
+                        <option value="0">running</option>
+                        <option value="1">stoped</option>
                     </select>
                 </div>
             </div>
