@@ -1,7 +1,6 @@
 server:
   port: 8082
 
-
 mysql:
   datasource:
     ip: 127.0.0.1
@@ -13,4 +12,3 @@ mysql:
 console:
   username: admin
   password: 123456789
-  healthCheck: true
