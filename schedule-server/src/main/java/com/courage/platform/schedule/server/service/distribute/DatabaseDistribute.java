@@ -66,11 +66,9 @@ public class DatabaseDistribute implements DistributeMode {
         List<PlatformNamesrv> platformNamesrvList = platformNamesrvService.findAll();
         if (CollectionUtils.isNotEmpty(platformNamesrvList)) {
             for (PlatformNamesrv platformNamesrv : platformNamesrvList) {
-                if (platformNamesrv.getRole() == 0) {
-                    masterCount++;
-                    if (currentHost.equals(platformNamesrv.getNamesrvIp())) {
-                        isSetMaster = true;
-                    }
+                masterCount++;
+                if (currentHost.equals(platformNamesrv.getNamesrvIp())) {
+                    isSetMaster = true;
                 }
             }
         }

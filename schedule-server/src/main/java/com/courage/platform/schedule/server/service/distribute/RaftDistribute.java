@@ -11,7 +11,6 @@ public class RaftDistribute implements DistributeMode {
 
     @Override
     public void start() {
-
     }
 
     @Override
