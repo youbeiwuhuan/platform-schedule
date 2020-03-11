@@ -1,0 +1,1 @@
+package com.courage.platform.schedule.common;

@@ -68,6 +68,12 @@
 
         <dependency>
             <groupId>com.courage</groupId>
+            <artifactId>schedule-common</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.courage</groupId>
             <artifactId>schedule-core</artifactId>
             <version>${parent.version}</version>
         </dependency>
