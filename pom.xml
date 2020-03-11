@@ -13,6 +13,8 @@
     <modules>
         <!-- spring支持client -->
         <module>schedule-client</module>
+        <!-- common包 包含zk的相关的操作 -->
+        <module>schedule-common</module>
         <module>schedule-server</module>
         <module>schedule-remoting</module>
         <module>schedule-rpc</module>
