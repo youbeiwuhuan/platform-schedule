@@ -32,4 +32,7 @@
     <!-- 数据源 -->
     <import resource="spring-datasource.xml"/>
 
+    <!-- 任务分发 -->
+    <import resource="spring-distribute.xml"/>
+
 </beans>
