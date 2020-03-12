@@ -22,6 +22,6 @@ public class ZookeeperPathUtils {
 
     public static final String SCHEDULE_SERVER_NODE = SCHEDULE_NODE + ZOOKEEPER_SEPARATOR + "server";
 
-    public static final String LEADER_NODE = SCHEDULE_NODE + ZOOKEEPER_SEPARATOR + "leader";
+    public static final String SCHEDULE_LEADER_NODE = SCHEDULE_NODE + ZOOKEEPER_SEPARATOR + "leader";
 
 }
