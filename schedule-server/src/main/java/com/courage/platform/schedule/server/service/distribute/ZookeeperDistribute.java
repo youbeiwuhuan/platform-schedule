@@ -3,18 +3,15 @@ package com.courage.platform.schedule.server.service.distribute;
 import com.courage.platform.schedule.common.zookeeper.ZkClientx;
 import com.courage.platform.schedule.common.zookeeper.ZookeeperPathUtils;
 import com.courage.platform.schedule.core.util.IpUtil;
-import com.courage.platform.schedule.core.util.StringUtils;
 import com.courage.platform.schedule.rpc.ScheduleRpcServer;
 import com.courage.platform.schedule.server.service.PlatformNamesrvService;
 import com.courage.platform.schedule.server.service.ScheduleJobExecutor;
 import com.courage.platform.schedule.server.service.ScheduleJobInfoService;
-import org.apache.commons.collections.CollectionUtils;
+import org.I0Itec.zkclient.IZkDataListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class ZookeeperDistribute implements DistributeMode {
@@ -56,10 +53,10 @@ public class ZookeeperDistribute implements DistributeMode {
                     try {
                         startZkService();
                     } catch (Throwable e) {
-                        logger.error("start zk service:" , e);
+                        logger.error("start zk service:", e);
                     }
                     try {
-                        Thread.sleep(30000);
+                        Thread.sleep(10000);
                     } catch (Exception e) {
                     }
                 }
@@ -82,7 +79,16 @@ public class ZookeeperDistribute implements DistributeMode {
         if (!zkClientx.exists(hostPath)) {
             zkClientx.createEphemeral(hostPath, IpUtil.getIpPort(scheduleRpcServer.localListenPort()));
         }
-        zkClientx.createEphemeralSequential(ZookeeperPathUtils.SCHEDULE_LEADER_NODE + ZookeeperPathUtils.ZOOKEEPER_SEPARATOR, hostIp);
+        zkClientx.subscribeDataChanges(ZookeeperPathUtils.SCHEDULE_LEADER_NODE, new IZkDataListener() {
+            @Override
+            public void handleDataChange(String s, Object data) throws Exception {
+
+            }
+
+            @Override
+            public void handleDataDeleted(String s) throws Exception {
+            }
+        });
     }
 
     @Override

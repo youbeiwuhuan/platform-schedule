@@ -1,6 +1,5 @@
 package com.courage.platform.schedule.server.service;
 
-import com.courage.platform.schedule.server.service.distribute.DatabaseDistribute;
 import com.courage.platform.schedule.server.service.distribute.RaftDistribute;
 import com.courage.platform.schedule.server.service.distribute.ZookeeperDistribute;
 import org.slf4j.Logger;
@@ -18,8 +17,6 @@ import javax.annotation.PreDestroy;
  */
 @Service
 public class ScheduleDistributeService {
-
-    private final static Logger logger = LoggerFactory.getLogger(ScheduleDistributeService.class);
 
     @Autowired
     private ZookeeperDistribute zookeeperDistribute;
