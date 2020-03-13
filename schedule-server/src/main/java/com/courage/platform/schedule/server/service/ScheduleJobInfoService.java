@@ -31,7 +31,7 @@ public class ScheduleJobInfoService {
     @PostConstruct
     public void loadCache() {
         long start = System.currentTimeMillis();
-        logger.info("开始加载任务");
+        logger.info("开始加载任务信息");
         try {
             List<ScheduleJobInfo> appinfoList = scheduleJobInfoDao.findAll();
             for (ScheduleJobInfo scheduleJobInfo : appinfoList) {
@@ -40,7 +40,7 @@ public class ScheduleJobInfoService {
         } catch (Exception e) {
             logger.error("loadCache error: ", e);
         }
-        logger.info("结束加载任务,耗时:" + (System.currentTimeMillis() - start) + "ms");
+        logger.info("结束加载任务信息,耗时:" + (System.currentTimeMillis() - start) + "ms");
     }
 
     public ScheduleJobInfo getById(Long id) {
