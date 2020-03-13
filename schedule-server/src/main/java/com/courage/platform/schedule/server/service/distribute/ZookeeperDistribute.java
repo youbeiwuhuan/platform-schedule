@@ -75,6 +75,7 @@ public class ZookeeperDistribute implements DistributeMode {
             zkClientx.createPersistent(ZookeeperPathUtils.SCHEDULE_LEADER_NODE, true);
         }
         String hostPath = ZookeeperPathUtils.SCHEDULE_SERVER_NODE + ZookeeperPathUtils.ZOOKEEPER_SEPARATOR + IpUtil.getIpPort(scheduleRpcServer.localListenPort());
+        logger.info("hostPath:" + hostPath);
         //在server上配置相关信息
         if (!zkClientx.exists(hostPath)) {
             zkClientx.createEphemeral(hostPath, IpUtil.getIpPort(scheduleRpcServer.localListenPort()));
