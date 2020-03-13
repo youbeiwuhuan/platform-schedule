@@ -67,30 +67,29 @@ public class ZookeeperDistribute implements DistributeMode {
     }
 
     private void startZkService() {
-        String hostIp = IpUtil.getIpPort(scheduleRpcServer.localListenPort());
-        if (!zkClientx.exists(ZookeeperPathUtils.SCHEDULE_SERVER_NODE)) {
-            zkClientx.createPersistent(ZookeeperPathUtils.SCHEDULE_SERVER_NODE, true);
-        }
-        if (!zkClientx.exists(ZookeeperPathUtils.SCHEDULE_LEADER_NODE)) {
-            zkClientx.createPersistent(ZookeeperPathUtils.SCHEDULE_LEADER_NODE, true);
-        }
+        // String hostIp = IpUtil.getIpPort(scheduleRpcServer.localListenPort());
+        //创建持久化节点
+        preparePersisitNode();
+        //创建临时节点
+
         String hostPath = ZookeeperPathUtils.SCHEDULE_SERVER_NODE + ZookeeperPathUtils.ZOOKEEPER_SEPARATOR + IpUtil.getIpPort(scheduleRpcServer.localListenPort());
-        logger.info("hostPath:" + hostPath);
         //在server上配置相关信息
         if (!zkClientx.exists(hostPath)) {
             zkClientx.createEphemeral(hostPath, IpUtil.getIpPort(scheduleRpcServer.localListenPort()));
         }
-        zkClientx.subscribeDataChanges(ZookeeperPathUtils.SCHEDULE_LEADER_NODE, new IZkDataListener() {
-            @Override
-            public void handleDataChange(String s, Object data) throws Exception {
-
-            }
-
-            @Override
-            public void handleDataDeleted(String s) throws Exception {
-            }
-        });
     }
+
+    private void preparePersisitNode() {
+        //server永久节点
+        if (!zkClientx.exists(ZookeeperPathUtils.SCHEDULE_SERVER_NODE)) {
+            zkClientx.createPersistent(ZookeeperPathUtils.SCHEDULE_SERVER_NODE, true);
+        }
+        //leader永久节点
+        if (!zkClientx.exists(ZookeeperPathUtils.SCHEDULE_LEADER_NODE)) {
+            zkClientx.createPersistent(ZookeeperPathUtils.SCHEDULE_LEADER_NODE, true);
+        }
+    }
+
 
     @Override
     public void shutdown() {
