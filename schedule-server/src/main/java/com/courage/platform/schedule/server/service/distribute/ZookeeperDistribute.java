@@ -82,8 +82,10 @@ public class ZookeeperDistribute extends BaseDistribute implements DistributeSer
         preparePersistentNode();
         //创建临时节点
         tryEphemeralNode();
+        //监听leader节点下子节点事件
+        listenLeaderNodeChange();
         //争取成为leader
-        becomeZkLeader();
+        tryBecomeZkLeader();
     }
 
     private void preparePersistentNode() {
@@ -110,7 +112,7 @@ public class ZookeeperDistribute extends BaseDistribute implements DistributeSer
         }
     }
 
-    private boolean becomeZkLeader() {
+    private boolean tryBecomeZkLeader() {
         try {
             if (StringUtils.isEmpty(ownPath)) {
                 logger.error("没有创建ownPath,请查看");
@@ -135,14 +137,6 @@ public class ZookeeperDistribute extends BaseDistribute implements DistributeSer
                         logger.warn("hostIp:" + hostIp + " 若当前值比最小值还小,清空ownPath");
                         this.ownPath = null;
                         return false;
-                    } else {
-                        //当没有成为leader时，监听子节点事件 当前没有考虑事件风暴的问题（服务器数量少的情况下 可以忽略）
-                        zkClientx.subscribeChildChanges(ZookeeperPathUtils.SCHEDULE_LEADER_NODE, new IZkChildListener() {
-                            @Override
-                            public void handleChildChange(String parentPath, List<String> currentChilds) throws Exception {
-
-                            }
-                        });
                     }
                 }
             }
@@ -150,6 +144,16 @@ public class ZookeeperDistribute extends BaseDistribute implements DistributeSer
             logger.error("becomeLeader error:", e);
         }
         return false;
+    }
+
+    private void listenLeaderNodeChange() {
+        //当没有成为leader时，监听子节点事件 当前没有考虑事件风暴的问题（服务器数量少的情况下 可以忽略）
+        zkClientx.subscribeChildChanges(ZookeeperPathUtils.SCHEDULE_LEADER_NODE, new IZkChildListener() {
+            @Override
+            public void handleChildChange(String parentPath, List<String> currentChilds) throws Exception {
+                logger.info(parentPath + "change currentChilds:" + currentChilds);
+            }
+        });
     }
 
     @Override
