@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
  * Created by zhangyong on 2019/11/4.
  */
 @Service
-public class RaftDistribute implements DistributeMode {
+public class RaftDistribute implements DistributeService {
 
     @Override
     public void start() {

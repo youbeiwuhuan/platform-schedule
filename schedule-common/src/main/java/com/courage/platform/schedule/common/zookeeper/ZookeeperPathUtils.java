@@ -1,5 +1,7 @@
 package com.courage.platform.schedule.common.zookeeper;
 
+import java.text.MessageFormat;
+
 /**
  * 存储结构：
  *
@@ -7,9 +9,9 @@ package com.courage.platform.schedule.common.zookeeper;
  * /platform
  *     schedule
  *        servers
- *           running (EPHEMERAL)
+ *            172.20.10.9:12999 (EPHEMERAL)
  *        leader
- *           running (EPHEMERAL)
+ *            0000000024 (EPHEMERAL)
  * </pre>
  */
 public class ZookeeperPathUtils {
@@ -23,5 +25,11 @@ public class ZookeeperPathUtils {
     public static final String SCHEDULE_SERVER_NODE = SCHEDULE_NODE + ZOOKEEPER_SEPARATOR + "server";
 
     public static final String SCHEDULE_LEADER_NODE = SCHEDULE_NODE + ZOOKEEPER_SEPARATOR + "leader";
+
+    public static final String LEADER_CHILD_FORMAT = SCHEDULE_LEADER_NODE + ZOOKEEPER_SEPARATOR + "{0}";
+
+    public static String getLeaderChildPath(String childId) {
+        return MessageFormat.format(LEADER_CHILD_FORMAT, childId);
+    }
 
 }
