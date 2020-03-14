@@ -97,6 +97,12 @@ public class ScheduleJobInfoService {
     }
 
     public Map onlineApp(String namesrvIp, String appName, String start, String length) {
+        if (StringUtils.isEmpty(namesrvIp)) {
+            Map map = new HashMap();
+            map.put("data", Collections.EMPTY_LIST);
+            map.put("totalCount", 0);
+            return map;
+        }
         try {
             ConsoleOnlineAppCommand consoleOnlineAppCommand = new ConsoleOnlineAppCommand();
             consoleOnlineAppCommand.setAppName(StringUtils.trimToEmpty(appName));
