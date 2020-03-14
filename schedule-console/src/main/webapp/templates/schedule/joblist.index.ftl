@@ -56,7 +56,7 @@
                             <table id="jobListTable" class="table table-bordered table-striped" width="100%">
                                 <thead>
                                 <tr>
-                                    <th name="id">任务ID</th>
+                                    <th name="id">ID</th>
                                     <th name="jobName">任务名</th>
                                     <th name="appName">应用名</th>
                                     <th name="jobType">类型</th>
