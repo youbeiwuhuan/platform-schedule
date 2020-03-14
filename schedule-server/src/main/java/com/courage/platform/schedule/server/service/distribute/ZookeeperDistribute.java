@@ -5,9 +5,6 @@ import com.courage.platform.schedule.common.zookeeper.ZookeeperPathUtils;
 import com.courage.platform.schedule.core.util.IpUtil;
 import com.courage.platform.schedule.core.util.StringUtils;
 import com.courage.platform.schedule.rpc.ScheduleRpcServer;
-import com.courage.platform.schedule.server.service.PlatformNamesrvService;
-import com.courage.platform.schedule.server.service.ScheduleJobExecutor;
-import com.courage.platform.schedule.server.service.ScheduleJobInfoService;
 import org.I0Itec.zkclient.IZkChildListener;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
@@ -22,15 +19,6 @@ import java.util.List;
 public class ZookeeperDistribute extends BaseDistribute implements DistributeService {
 
     private final static Logger logger = LoggerFactory.getLogger(ZookeeperDistribute.class);
-
-    @Autowired
-    private ScheduleJobInfoService scheduleJobInfoService;
-
-    @Autowired
-    private PlatformNamesrvService platformNamesrvService;
-
-    @Autowired
-    private ScheduleJobExecutor scheduleJobExecutor;
 
     @Autowired
     private ScheduleRpcServer scheduleRpcServer;
@@ -67,7 +55,7 @@ public class ZookeeperDistribute extends BaseDistribute implements DistributeSer
                         logger.error("start zk service:", e);
                     }
                     try {
-                        Thread.sleep(30000);
+                        Thread.sleep(60000);
                     } catch (Exception e) {
                     }
                 }
@@ -82,10 +70,23 @@ public class ZookeeperDistribute extends BaseDistribute implements DistributeSer
         preparePersistentNode();
         //创建临时节点
         tryEphemeralNode();
+        //争取成为leader ，并启动任务
+        leaderAction();
         //监听leader节点下子节点事件
         listenLeaderNodeChange();
+    }
+
+    private void leaderAction() {
         //争取成为leader
-        tryBecomeZkLeader();
+        boolean result = tryBecomeZkLeader();
+        if (isLeader() != result) {
+            setLeader(result);
+            if (result) {
+                startJobs();
+            } else {
+                destroyJobs();
+            }
+        }
     }
 
     private void preparePersistentNode() {
@@ -151,7 +152,11 @@ public class ZookeeperDistribute extends BaseDistribute implements DistributeSer
         zkClientx.subscribeChildChanges(ZookeeperPathUtils.SCHEDULE_LEADER_NODE, new IZkChildListener() {
             @Override
             public void handleChildChange(String parentPath, List<String> currentChilds) throws Exception {
-                logger.info(parentPath + "change currentChilds:" + currentChilds);
+                try {
+                    leaderAction();
+                } catch (Throwable e) {
+                    logger.error("handleChildChange parentPath:" + parentPath, e);
+                }
             }
         });
     }
