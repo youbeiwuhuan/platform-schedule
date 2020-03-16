@@ -53,7 +53,9 @@ public class ScheduleTriggerService {
         try {
             ScheduleJobInfo scheduleJobInfo = scheduleJobInfoService.getById(jobId);
             scheduleJobInfo.setTriggerLastTime(new Date());
-            logger.info("执行任务:" + scheduleJobInfo.getJobName() + " param:" + scheduleJobInfo.getJobParam());
+            //失败尝试次数
+            int failRetryCount = scheduleJobInfo.getFailRetryCount();
+            logger.info("执行任务:" + JSON.toJSONString(scheduleJobInfo));
 
             ScheduleJobLog scheduleJobLog = new ScheduleJobLog();
             Long id = IdGenerator.getUniqueIdAutoSeq(workerId);
