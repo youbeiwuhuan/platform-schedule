@@ -27,6 +27,10 @@ public class FreemarkerConfig {
         this.configuration.setDefaultEncoding("utf-8");
         this.configuration.setClassLoaderForTemplateLoading(ClassLoader.getSystemClassLoader(), "template");
         this.configuration.setDateTimeFormat("yyyy-MM-dd HH:mm:ss");
+        this.configuration.setNumberFormat("0.##########");
+        this.configuration.setDateFormat("yyyy-MM-dd");
+        this.configuration.setTimeFormat("HH:mm:ss");
+        this.configuration.setClassicCompatible(true);
     }
 
     public String doTemplate(String templateName, Map<String, Object> param) {
