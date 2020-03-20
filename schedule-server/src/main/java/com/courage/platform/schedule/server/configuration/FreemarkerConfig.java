@@ -2,6 +2,7 @@ package com.courage.platform.schedule.server.configuration;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
+import freemarker.template.TemplateException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +34,7 @@ public class FreemarkerConfig {
         this.configuration.setClassicCompatible(true);
     }
 
-    public String doTemplate(String templateName, Map<String, Object> param) {
+    public String doTemplate(String templateName, Map<String, Object> param, boolean ignoreException) throws Exception {
         StringWriter writer = new StringWriter();
         try {
             Template template = this.configuration.getTemplate(templateName);
@@ -41,11 +42,19 @@ public class FreemarkerConfig {
             return writer.toString();
         } catch (Exception e) {
             logger.error("doTemplate error:", e);
+            if (!ignoreException) {
+                throw e;
+            }
+            return StringUtils.EMPTY;
         }
-        return StringUtils.EMPTY;
     }
 
-    public static void main(String[] args) throws IOException {
+
+    public String doTemplate(String templateName, Map<String, Object> param) throws Exception {
+        return doTemplate(templateName, param, true);
+    }
+
+    public static void main(String[] args) throws Exception {
         FreemarkerConfig freemarkerConfig = new FreemarkerConfig();
         String rtn = freemarkerConfig.doTemplate("alarmMail.ftl", new HashMap<>());
         System.out.println(rtn);
