@@ -47,7 +47,7 @@ public class ScheduleJobExecutor {
         scheduleHashedWheelTimer = new ScheduleHashedWheelTimer(new ThreadFactory() {
             @Override
             public Thread newThread(Runnable r) {
-                return new Thread(r, "HashedWheelTimer");
+                return new Thread(r, "ScheduleHashedWheelTimer");
             }
         });
         scheduleHashedWheelTimer.start();

@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class HashTimerWheelUnitTest {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         ScheduleHashedWheelTimer scheduleHashedWheelTimer = new ScheduleHashedWheelTimer(1, TimeUnit.SECONDS, 3600);
         ScheduleTimeout scheduleTimeout1 = scheduleHashedWheelTimer.newTimeout(new ScheduleTimerTask() {
             @Override
@@ -28,6 +28,7 @@ public class HashTimerWheelUnitTest {
         }, 5, TimeUnit.SECONDS);
 
         scheduleHashedWheelTimer.start();
+        Thread.sleep(20000);
         //可以取消任务
         scheduleTimeout1.cancel();
     }
