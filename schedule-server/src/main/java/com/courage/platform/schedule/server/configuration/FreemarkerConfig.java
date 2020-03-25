@@ -49,13 +49,13 @@ public class FreemarkerConfig {
     }
 
 
-    public String doTemplate(String templateName, Map<String, Object> param) throws Exception {
+    public String doRenderTemplate(String templateName, Map<String, Object> param) throws Exception {
         return doTemplate(templateName, param, true);
     }
 
     public static void main(String[] args) throws Exception {
         FreemarkerConfig freemarkerConfig = new FreemarkerConfig();
-        String rtn = freemarkerConfig.doTemplate("alarmMail.ftl", new HashMap<>());
+        String rtn = freemarkerConfig.doRenderTemplate("alarmMail.ftl", new HashMap<>());
         System.out.println(rtn);
     }
 
