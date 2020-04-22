@@ -29,7 +29,7 @@ public class ChannelUtils {
                 Attribute<Object> attr = channel.attr(attrKey);
                 return attr.get();
             } catch (Exception e) {
-                logger.error("获取Channel.Attribute失败", e);
+                logger.error("获取Channel.getAttr失败:", e);
             }
         }
         return null;
@@ -42,7 +42,7 @@ public class ChannelUtils {
                 Attribute<Object> attr = channel.attr(attrKey);
                 attr.set(value);
             } catch (Exception e) {
-                logger.error("添加Channel.Attribute失败", e);
+                logger.error("添加Channel.Attribute失败:", e);
             }
         }
     }
@@ -54,7 +54,7 @@ public class ChannelUtils {
                 Attribute<Object> attr = channel.attr(attrKey);
                 attr.set(value);
             } catch (Exception e) {
-                logger.error("添加Channel.Attribute失败", e);
+                logger.error("添加Channel. putAttr失败:", e);
             }
         }
     }
