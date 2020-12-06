@@ -88,7 +88,7 @@
         <dependency>
             <groupId>org.rocksdb</groupId>
             <artifactId>rocksdbjni</artifactId>
-            <version>6.3.6</version>
+            <version>5.18.4</version>
         </dependency>
 
         <dependency>
