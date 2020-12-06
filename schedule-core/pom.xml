@@ -23,13 +23,6 @@
             <version>${slf4j-api.version}</version>
         </dependency>
 
-        <!-- groovy-all -->
-        <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
-            <version>${groovy-all.version}</version>
-        </dependency>
-
         <!-- commons-exec -->
         <dependency>
             <groupId>org.apache.commons</groupId>
