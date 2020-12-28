@@ -18,10 +18,21 @@
             <groupId>com.alipay.sofa</groupId>
             <artifactId>jraft-core</artifactId>
             <version>1.3.5</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.netty</groupId>
+                    <artifactId>netty-all</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>4.1.44.Final</version>
         </dependency>
 
     </dependencies>
-
 
 
 </project>
