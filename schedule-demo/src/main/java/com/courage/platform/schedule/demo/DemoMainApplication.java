@@ -11,10 +11,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication(scanBasePackages = "com.courage.platform.schedule")
 @ServletComponentScan
 @EnableScheduling
-public class MainApplication {
+public class DemoMainApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MainApplication.class, args);
+        SpringApplication.run(DemoMainApplication.class, args);
     }
 
 }

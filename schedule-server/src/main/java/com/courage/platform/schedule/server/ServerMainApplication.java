@@ -8,9 +8,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * 任务调度主函数
  * Created by zhangyong on 2019/10/1
  */
-public class MainApplication {
+public class ServerMainApplication {
 
-    private final static Logger logger = LoggerFactory.getLogger(MainApplication.class);
+    private final static Logger logger = LoggerFactory.getLogger(ServerMainApplication.class);
 
     public static void main(String[] args) {
         long start = System.currentTimeMillis();

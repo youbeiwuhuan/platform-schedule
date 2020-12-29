@@ -12,14 +12,14 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @ServletComponentScan
 @EnableScheduling
 @ImportResource(locations = "spring-app.xml")
-public class MainApplication {
+public class ConsoleMainApplication {
 
-    private static Logger logger = LoggerFactory.getLogger(MainApplication.class);
+    private static Logger logger = LoggerFactory.getLogger(ConsoleMainApplication.class);
 
     public static void main(String[] args) {
         long start = System.currentTimeMillis();
         logger.info("开始启动平台任务调度系统控制台 ^_^");
-        SpringApplication.run(MainApplication.class, args);
+        SpringApplication.run(ConsoleMainApplication.class, args);
         logger.info("结束启动平台任务调度系统控制台,耗时:" + (System.currentTimeMillis() - start) + "ms");
     }
 
